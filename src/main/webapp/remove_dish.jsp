@@ -1,26 +1,17 @@
-<%@page import="java.util.ArrayList"%>
 <%@page import="in.fssa.srcatering.model.Dish"%>
-<%@page import="java.util.Arrays"%>
-<%@page import="in.fssa.srcatering.model.QuantityUnit"%>
 <%@page import="in.fssa.srcatering.model.Category"%>
 <%@page import="in.fssa.srcatering.model.Menu"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+    pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Update Dish</title>
-<style>
-.delete{
-	color:red;
-}
-</style>
+<title>Remove Dish</title>
 </head>
 <body>
 
-	
 	<%
 	List<Menu> menuList = (List<Menu>) request.getAttribute("menuList");
 	List<Category> categoryList = (List<Category>) request.getAttribute("categoryList");
@@ -30,7 +21,7 @@
 	<%if(menuList != null && categoryList != null) {  %>
 	
 	<form
-		action="edit?menuId=<%=request.getParameter("menuId")%>&categoryId=<%=request.getParameter("categoryId")%>"
+		action="remove?menuId=<%=request.getParameter("menuId")%>&categoryId=<%=request.getParameter("categoryId")%>"
 		method="get">
 		
 		
@@ -66,7 +57,7 @@
 		  Category category = (Category) request.getAttribute("category");
 		%>
 
-	<form action="update" method="post">
+	<form action="delete" method="post">
 	
 		<label>Select Menu</label> 
 		<select name="menuId" id="menuName"
@@ -104,10 +95,10 @@
 				<td><input type="text" name="dish_name_<%= dish.getId() %>"
 					value="<%=dish.getDishName()%>" readonly></td>
 				<td><input type="number" name="quantity_<%= dish.getId() %>"
-					value="<%=dish.getQuantity()%>" required></td>
+					value="<%=dish.getQuantity()%>" readonly></td>
 					
 				<td>
-				<select name="quantity_unit_<%= dish.getId() %>" required>
+				<select name="quantity_unit_<%= dish.getId() %>" readonly>
 					<%if(dish.getQuantityUnit().name().equals("NOS")){ %>
 						<option value="NOS">NOS</option>
 						<option value="GRAMS">GRAMS</option>
@@ -119,30 +110,23 @@
 				</td>
 				
 				<td><input type="number" name="price_<%= dish.getId() %>"
-					value="<%=dish.getDishPrice()%>" required>
+					value="<%=dish.getDishPrice()%>" readonly>
 				</td>
 				<td>
-				
-					<a href="dish/delete?dishId=<%=dish.getId()%>&<%=menu.getId()%>&<%=category.getId()%>">
-						<button class="delete" type="submit">Delete</button>
-					</a>
-					
+					<button class="delete" type="submit">Delete</button>
 				</td>
 			</tr>
 			<%
 			}
 			%>
 		</table>
-		<span>* Click the checkbox, change the details and press the Update button.*</span>
+		<span>* You can delete one dish at a time. click the checkbox and press Delete button.*</span>
 
-		<button type="submit" onchange=>Update</button>
 		<%
 		}
 		%>
 	</form>
 	<%} %> 
-	
-
 
 </body>
 </html>

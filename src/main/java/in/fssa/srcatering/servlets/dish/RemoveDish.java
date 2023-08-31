@@ -22,10 +22,10 @@ import in.fssa.srcatering.service.DishService;
 import in.fssa.srcatering.service.MenuService;
 
 /**
- * Servlet implementation class EditDish
+ * Servlet implementation class RemoveDish
  */
-@WebServlet("/dish/edit")
-public class EditDish extends HttpServlet {
+@WebServlet("/dish/remove")
+public class RemoveDish extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -33,7 +33,7 @@ public class EditDish extends HttpServlet {
 
 		String menuId = request.getParameter("menuId");
 		String categoryId = request.getParameter("categoryId");
-		
+
 		MenuService menuService = new MenuService();
 		List<Menu> menuList = new ArrayList<Menu>();
 
@@ -48,8 +48,8 @@ public class EditDish extends HttpServlet {
 
 				request.setAttribute("menuList", menuList);
 				request.setAttribute("categoryList", categoryList);
-				
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/update_dish.jsp");
+
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/remove_dish.jsp");
 				dispatcher.forward(request, response);
 
 			} catch (ServiceException e) {
@@ -58,21 +58,21 @@ public class EditDish extends HttpServlet {
 
 		} else {
 			PrintWriter out = response.getWriter();
-			
+
 			int menuId1 = Integer.parseInt(menuId);
 			int categoryId1 = Integer.parseInt(categoryId);
-			
+
 			DishService dishService = new DishService();
 			try {
 				List<Dish> dishList = dishService.findAllDishesByMenuIdAndCategoryId(menuId1, categoryId1);
-				
+
 				Menu menu = menuService.findByMenuId(menuId1);
 				Category category = categoryService.findByIdCategoryId(categoryId1);
-				
+
 				request.setAttribute("menu", menu);
 				request.setAttribute("category", category);
 				request.setAttribute("dishList", dishList);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/update_dish.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/remove_dish.jsp");
 				dispatcher.forward(request, response);
 			} catch (ValidationException e) {
 				e.printStackTrace();
@@ -82,10 +82,7 @@ public class EditDish extends HttpServlet {
 				out.println(e.getMessage());
 			}
 		}
+
 	}
 
-	
-
-	
-	
 }

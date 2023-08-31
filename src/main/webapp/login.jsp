@@ -27,15 +27,18 @@
 
 
 
-		<label for="email">Email ID: </label> <input type="email" name="email"
-			required> <label for="password">Password: </label> <input
+		<label for="email">Email ID: </label> 
+		<input type="email" name="email"
+			required> 
+		<label for="password">Password: </label> 
+		<input
 			type="password" name="password" required>
 
 
 		<button class="btn_login" type="submit">Log in</button>
 
 		<p>
-			New to Website? <a href="add_user.jsp">Create an account</a>
+			New to Website? <a href="user/new">Create an account</a>
 		</p>
 	</form>
 

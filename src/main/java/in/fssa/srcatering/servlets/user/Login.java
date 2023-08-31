@@ -1,4 +1,4 @@
-package in.fssa.srcatering.servlets;
+package in.fssa.srcatering.servlets.user;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,20 +22,14 @@ import in.fssa.srcatering.service.UserService;
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
 		dispatcher.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -53,25 +47,24 @@ public class Login extends HttpServlet {
 			out.println("Invalid Email");
 			response.sendRedirect("login.jsp?errorMessage=Invalid Email");
 
-			// response.sendRedirect("login.html");
 		} else if (password == null || "".equals(password) || password.length() != 8) {
+			
 			response.sendRedirect("login.jsp?errorMessage=Invalid Password");
 
-			// response.sendRedirect("login.html");
 		} else {
 			try {
 				userService.loginUser(email, password);
 				
-				session.setAttribute("LoggedEmail", email);
-				RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
-				dispatcher.forward(request, response);
+				session.setAttribute("loggedEmail", email);
+				response.sendRedirect(request.getContextPath()+"index");
+				
 			} catch (ValidationException e) {
 				e.printStackTrace();
 				response.sendRedirect("login.jsp?errorMessage="+e.getMessage());
 			}
 		}
 		
-		System.out.println(session.getAttribute("LoggedEmail"));
+		//System.out.println(session.getAttribute("loggedEmail"));
 
 	}
 

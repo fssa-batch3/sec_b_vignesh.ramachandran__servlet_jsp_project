@@ -45,8 +45,10 @@ public class UpdateUser extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/users");
 		} catch (ValidationException e) {
 			e.printStackTrace();
+			out.println(e.getMessage());
 		} catch (ServiceException e) {
 			e.printStackTrace();
+			out.println(e.getMessage());
 		}
 		
 	}
