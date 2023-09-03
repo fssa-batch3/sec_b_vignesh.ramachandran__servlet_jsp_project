@@ -18,42 +18,60 @@ import in.fssa.srcatering.service.UserService;
 /**
  * Servlet implementation class ListUserDetails
  */
-@WebServlet("/users/details")
+@WebServlet("/user/details")
 public class ListUserDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int id = Integer.parseInt(request.getParameter("userId"));
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		String loggedUser = (String) request.getSession().getAttribute("loggedUser");
+
 		PrintWriter out = response.getWriter();
 		UserService userService = new UserService();
 		User user = null;
-		
-		try {
-			user = userService.findByUserId(id);
 
-			request.setAttribute("userDetails", user);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/user_details.jsp");
-			dispatcher.forward(request, response);
+		if (loggedUser != null) {
+
+			try {
+				user = (User) userService.findByEmail(loggedUser);
+
+				request.setAttribute("userDetails", user);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/user_details.jsp");
+				dispatcher.forward(request, response);
+			} catch (ValidationException e) {
+				e.printStackTrace();
+				out.println(e.getMessage());
+			} catch (ServiceException e) {
+				e.printStackTrace();
+				out.println(e.getMessage());
+			}
+
+		} else {
 			
-		} catch (ValidationException e) {
-			e.printStackTrace();
-			out.println(e.getMessage());
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			out.println(e.getMessage());
+			int id = Integer.parseInt(request.getParameter("userId"));
+
+			try {
+				user = userService.findByUserId(id);
+
+				request.setAttribute("userDetails", user);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/user_details.jsp");
+				dispatcher.forward(request, response);
+
+			} catch (ValidationException e) {
+				e.printStackTrace();
+				out.println(e.getMessage());
+			} catch (ServiceException e) {
+				e.printStackTrace();
+				out.println(e.getMessage());
+			}
+
 		}
-		
-		
-		
+
 	}
-
-
 
 }

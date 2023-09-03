@@ -2,8 +2,8 @@ package in.fssa.srcatering.servlets.dish;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -35,15 +35,15 @@ public class RemoveDish extends HttpServlet {
 		String categoryId = request.getParameter("categoryId");
 
 		MenuService menuService = new MenuService();
-		List<Menu> menuList = new ArrayList<Menu>();
+		Set<Menu> menuList = new HashSet<Menu>();
 
 		CategoryService categoryService = new CategoryService();
-		List<Category> categoryList = new ArrayList<Category>();
+		Set<Category> categoryList = new HashSet<Category>();
 
 		if (menuId == null && categoryId == null) {
 
 			try {
-				menuList = menuService.getAllMenus();
+				menuList = menuService.getAllActiveMenus();
 				categoryList = categoryService.getAllCategories();
 
 				request.setAttribute("menuList", menuList);
@@ -64,10 +64,10 @@ public class RemoveDish extends HttpServlet {
 
 			DishService dishService = new DishService();
 			try {
-				List<Dish> dishList = dishService.findAllDishesByMenuIdAndCategoryId(menuId1, categoryId1);
+				Set<Dish> dishList = dishService.getAllDishesByMenuIdAndCategoryId(menuId1, categoryId1);
 
 				Menu menu = menuService.findByMenuId(menuId1);
-				Category category = categoryService.findByIdCategoryId(categoryId1);
+				Category category = categoryService.getCategoryByMenuIdAndCategoryId(menuId1, categoryId1);
 
 				request.setAttribute("menu", menu);
 				request.setAttribute("category", category);

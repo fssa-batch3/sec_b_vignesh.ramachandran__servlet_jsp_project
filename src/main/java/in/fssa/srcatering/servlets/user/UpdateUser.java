@@ -42,7 +42,7 @@ public class UpdateUser extends HttpServlet {
 		
 		try {
 			userService.updateUser(id, user);
-			response.sendRedirect(request.getContextPath()+"/users");
+			response.sendRedirect("details?userId="+id);
 		} catch (ValidationException e) {
 			e.printStackTrace();
 			out.println(e.getMessage());

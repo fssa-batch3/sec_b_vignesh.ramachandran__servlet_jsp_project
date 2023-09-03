@@ -2,8 +2,8 @@ package in.fssa.srcatering.servlets.category;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,33 +15,42 @@ import javax.servlet.http.HttpServletResponse;
 import in.fssa.srcatering.exception.ServiceException;
 import in.fssa.srcatering.exception.ValidationException;
 import in.fssa.srcatering.model.Category;
+import in.fssa.srcatering.model.Menu;
 import in.fssa.srcatering.service.CategoryService;
+import in.fssa.srcatering.service.MenuService;
 
 /**
  * Servlet implementation class ListCategories
  */
-@WebServlet("/dish/categories")
+@WebServlet("/categories")
 public class ListCategories extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		System.out.println("varuthu  ");
-		
 		PrintWriter out = response.getWriter();
 		
 		int menuId = Integer.parseInt(request.getParameter("menuId"));
 		
 		CategoryService categoryService = new CategoryService();
-		Set<Category> categoryList = new HashSet<Category>();
-		try {
-			categoryList = categoryService.findCategoryByMenuId(menuId);
-			System.out.println(categoryList);
+		Set<Category> categoryList = new TreeSet<Category>();
+		
+		MenuService menuService = new MenuService();
+		Set<Menu> menuList = new TreeSet<>();
+		Menu menu = null;
 			
+		try {
+			menu = new Menu();
+			menu = menuService.findByMenuId(menuId);
+			categoryList = categoryService.getCategoriesByMenuId(menuId);
+			menuList = menuService.getAllMenus();
+			
+			request.setAttribute("menu", menu);
+			request.setAttribute("menuList", menuList);
 			request.setAttribute("categoryList", categoryList);
 			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/add_dish.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/category_list.jsp");
 			dispatcher.forward(request, response);
 			
 		} catch (ValidationException e) {

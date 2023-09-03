@@ -1,3 +1,4 @@
+<%@page import="java.util.Set"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="in.fssa.srcatering.model.Dish"%>
 <%@page import="java.util.Arrays"%>
@@ -20,10 +21,97 @@
 </head>
 <body>
 
+
+	<%Menu menu = (Menu) request.getAttribute("menu");
+	Category category = (Category) request.getAttribute("category");
+	%>
 	
-	<%
-	List<Menu> menuList = (List<Menu>) request.getAttribute("menuList");
-	List<Category> categoryList = (List<Category>) request.getAttribute("categoryList");
+	<h2>Dish Update</h2>
+	
+	<form action="update?menuId=<%=menu.getId() %>&categoryId=<%=category.getId() %>" method="post">
+	
+		<label>Menu Name</label>
+		<input type="text" name="menu_name" value="<%=menu.getMenuName()%>">
+		
+		<label>Category Name</label>
+		<input type="text" name="category_name" value="<%=category.getCategoryName() %>">
+		
+		<table border="1">
+		
+			<tr>
+				<th>Checkbox</th>
+				<th>Dish name</th>
+				<th>Quantity</th>
+				<th>Quantity Unit</th>
+				<th>Price</th>
+				<th>Status</th>
+			</tr>
+			
+			<%
+			Set<Dish> dishList = (Set<Dish>) request.getAttribute("dishList");
+
+			if (dishList != null) {
+				for (Dish dish : dishList) {
+			%>
+
+			<tr>
+				<td>
+					<input type="checkbox" name="selectedDishes" value="<%=dish.getId()%>">
+				</td>
+				
+				<td><input type="text" name="dish_name_<%= dish.getId() %>"
+					value="<%=dish.getDishName()%>" readonly></td>
+				<td><input type="number" name="quantity_<%= dish.getId() %>"
+					value="<%=dish.getQuantity()%>" required></td>
+					
+				<td>
+				<select name="quantity_unit_<%= dish.getId() %>" required>
+					<%if(dish.getQuantityUnit().name().equals("NOS")){ %>
+						<option value="NOS">NOS</option>
+						<option value="GRAMS">GRAMS</option>
+					<%} else { %>
+						<option value="GRAMS">GRAMS</option>
+						<option value="NOS">NOS</option>
+					<%} %>
+				</select>
+				</td>
+				
+				<td><input type="number" name="price_<%= dish.getId() %>"
+					value="<%=dish.getDishPrice()%>" required>
+				</td>
+				<td>
+					<select name="status_<%=dish.getId() %>" required>
+						
+						<% if(dish.getStatus() == 1){%>
+							<option value="1">True</option>
+							<option value="0">False</option>
+						<% } else {%>
+							<option value="0">False</option>
+							<option value="1">True</option>
+						<% } %>
+					</select>
+					
+				</td>
+			</tr>
+			<%
+			}
+			%>
+		</table>
+		<span>* Click the checkbox, change the details and press the Update button.*</span>
+
+		<button type="submit" >Update</button>
+		<%
+		}
+		%>
+		
+		
+	</form>
+	
+
+	
+<%-- 	<%
+	Set<Menu> menuList = (Set<Menu>) request.getAttribute("menuList");
+	Set<Category> categoryList = (Set<Category>) request.getAttribute("categoryList");
 	%>
 	<h2>Dish Update</h2>
 	
@@ -140,7 +228,7 @@
 		}
 		%>
 	</form>
-	<%} %> 
+	<%} %>  --%>
 	
 
 

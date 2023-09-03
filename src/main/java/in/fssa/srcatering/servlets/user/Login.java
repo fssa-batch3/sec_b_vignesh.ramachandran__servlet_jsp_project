@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import in.fssa.srcatering.exception.ServiceException;
 import in.fssa.srcatering.exception.ValidationException;
 import in.fssa.srcatering.service.UserService;
 
@@ -55,8 +54,8 @@ public class Login extends HttpServlet {
 			try {
 				userService.loginUser(email, password);
 				
-				session.setAttribute("loggedEmail", email);
-				response.sendRedirect(request.getContextPath()+"index");
+				session.setAttribute("loggedUser", email);
+				response.sendRedirect(request.getContextPath()+"/index");
 				
 			} catch (ValidationException e) {
 				e.printStackTrace();

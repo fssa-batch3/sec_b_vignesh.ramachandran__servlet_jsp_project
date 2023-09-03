@@ -1,3 +1,4 @@
+<%@page import="java.util.Set"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="in.fssa.srcatering.model.QuantityUnit"%>
 <%@page import="in.fssa.srcatering.model.Category"%>
@@ -14,8 +15,8 @@
 <body>
 
 	<%
-	List<Menu> menuList = (List<Menu>) request.getAttribute("menuList");
-	List<Category> categoryList = (List<Category>) request.getAttribute("categoryList");
+	Set<Menu> menuList = (Set<Menu>) request.getAttribute("menuList");
+	Set<Category> categoryList = (Set<Category>) request.getAttribute("categoryList");
 	QuantityUnit[] quantityUnitArray = (QuantityUnit[]) request.getAttribute("quantityUnit");
 	List<QuantityUnit> quantityUnitList = Arrays.asList(quantityUnitArray);
 	%>

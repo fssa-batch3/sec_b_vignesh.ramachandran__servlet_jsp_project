@@ -1,4 +1,5 @@
-<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.TreeSet"%>
+<%@page import="java.util.Set"%>
 <%@page import="in.fssa.srcatering.model.Menu"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -53,13 +54,12 @@ button {
 <body>
 
 	<%
-	List<Menu> menuList = new ArrayList<Menu>();
+	Set<Menu> menuList = new TreeSet<Menu>();
 	%>
 	<%
-	menuList = (List<Menu>) request.getAttribute("menuList");
+	menuList = (Set<Menu>) request.getAttribute("menuList");
 	%>
 
-	
 
 	<div class="menu-container">
 		<%
@@ -74,9 +74,9 @@ button {
 				<button type="submit">Update</button>
 			</a>
 			
-			<!-- <a href="category">
+			<a href="categories?menuId=<%=menu.getId()%>">
 				<button type="submit">View Category</button>
-			</a> -->
+			</a>
 			
 		</div>
 		<%

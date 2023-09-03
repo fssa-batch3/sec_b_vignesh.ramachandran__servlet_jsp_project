@@ -1,9 +1,9 @@
-package in.fssa.srcatering.servlets.dish;
+package in.fssa.srcatering.servlets.category;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,17 +13,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import in.fssa.srcatering.exception.ServiceException;
-import in.fssa.srcatering.model.Category;
 import in.fssa.srcatering.model.Menu;
-import in.fssa.srcatering.model.QuantityUnit;
-import in.fssa.srcatering.service.CategoryService;
 import in.fssa.srcatering.service.MenuService;
 
 /**
- * Servlet implementation class NewDish
+ * Servlet implementation class NewCategory
  */
-@WebServlet("/dish/new")
-public class NewDish extends HttpServlet {
+@WebServlet("/category/new")
+public class NewCategory extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
@@ -32,30 +29,18 @@ public class NewDish extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		
 		MenuService menuService = new MenuService();
-		Set<Menu> menuList = new TreeSet<Menu>();
-		
-		CategoryService categoryService = new CategoryService();
-		Set<Category> categoryList = new TreeSet<Category>();
-		
-		QuantityUnit[] quantityUnit = QuantityUnit.values();
-		System.out.println(quantityUnit);
+		Set<Menu> menuList = new HashSet<Menu>();
 		
 		try {
-			menuList =  menuService.getAllMenus();
-			categoryList = categoryService.getAllCategories();
+			menuList = menuService.getAllMenus();
 			
 			request.setAttribute("menuList", menuList);
-			request.setAttribute("categoryList", categoryList);
-			request.setAttribute("quantityUnit", quantityUnit);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/add_dish.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/add_category.jsp");
 			dispatcher.forward(request, response);
-			
 		} catch (ServiceException e) {
 			e.printStackTrace();
 			out.println(e.getMessage());
 		}
-	
-		
 	}
 
 

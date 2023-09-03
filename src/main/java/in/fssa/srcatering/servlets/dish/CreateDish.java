@@ -47,6 +47,7 @@ public class CreateDish extends HttpServlet {
 		try {
 			dishService.createDish(dish);
 			out.println("Dish created sucessfully");
+			response.sendRedirect(request.getContextPath()+"/dish/new");
 		} catch (ValidationException e) {
 			e.printStackTrace();
 			out.println(e.getMessage());

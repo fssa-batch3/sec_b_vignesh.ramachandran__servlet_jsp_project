@@ -94,7 +94,7 @@ tr:hover {
 			<td><%=user1.getPhoneNumber()%></td>
 			<td><%=user1.getPassword()%></td>
 			<td>
-				<a href="users/details?userId=<%= user1.getId()%>">
+				<a href="user/details?userId=<%= user1.getId()%>">
 					<button class="view" type="submit">View</button>
 				</a>
 				

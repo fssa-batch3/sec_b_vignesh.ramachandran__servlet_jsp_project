@@ -44,9 +44,11 @@ public class UpdateMenu extends HttpServlet {
 			menuService.updateMenu(menu);
 			response.sendRedirect(request.getContextPath()+"/menus");
 		} catch (ValidationException e) {
-
+			e.printStackTrace();
+			out.println(e.getMessage());
 		} catch (ServiceException e) {
-
+			e.printStackTrace();
+			out.println(e.getMessage());
 		}
 		
 		

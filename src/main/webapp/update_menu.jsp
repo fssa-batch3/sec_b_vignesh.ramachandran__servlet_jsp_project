@@ -13,6 +13,25 @@
 	<%Menu menu = null;
 	  menu = (Menu) request.getAttribute("menuDetails");
 	  %>
+	  
+<%-- 	<h2>Update Menu</h2>  
+	<form>
+		<label>Select Menu</label> <select name="menuId" id="menuName"
+			required>
+			<option value="">Select</option>
+			<%
+			for (Menu obj : menuList) {
+			%>
+			<option value="<%=obj.getId()%>">
+				<%=obj.getMenuName()%>
+			</option>
+			<%
+			}
+			%>
+		</select>
+		<br>
+		<button>Get Details</button>
+	</form> --%>
 
 	<form action="update?menuId=<%=menu.getId()%>" method="post">
 		<h2>MENU-Update</h2>
