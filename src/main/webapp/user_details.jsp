@@ -24,168 +24,7 @@
 	href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 
 <title>User Details</title>
-<style>
-* {
-    padding: 0;
-    margin: 0;
-    text-decoration: none;
-    list-style: none;
-}
-:root {
-    --bg-color: #ffffff;
-    --second-color: #f54300;
-    --thickgreen-color:#4b814b;
-    --text-color:#130849;
-    --other-color:#ebeef7;
-    --p-font:1.2rem;
-    --h2-font:1.5rem;
-    --big-font:2rem;  
-    --name-font:3rem;
-    --heading-fontfamily:'Kurale', serif;
-    --parah-fontfamily:'Josefin Sans', sans-serif;
-}
-span {
-    color: var(--second-color);
-}
-
-
-.profile {
-    display: flex;
-    justify-content: center;
-}
-.form {
-    padding: 1rem 2rem;
-    margin:2% 0;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-
-.form h2 {
-    text-align: center;
-    font-family: var(--heading-fontfamily);
-    font-size: var(--big-font);
-    color: var(--text-color);
-}
-.top {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-    justify-items: center;
-    align-items: center;
-    padding: 1rem 0 1.5rem 0;
-}
-.delete {
-    color: var(--text-color);
-    background-color: var(--second-color);
-    justify-content: flex-end;
-}
-.profile_form {
-    display: grid;
-    gap: 2rem;
-}
-.profile_form div {
-    display: grid;
-    grid-template-columns: auto auto;
-}
-.profile_form div label {
-    font-family: var(--heading-fontfamily);
-    font-size: var(--h2-font);
-    color: var(--text-color);
-    font-weight: bold;
-}
-.profile_form div input {
-    color: var(--text-color);
-    border: none;
-    border-bottom: 1px solid black;
-    background-color: var(--bg-color);
-    padding-bottom: .2rem;
-    padding-left: 1rem;
-    font-size: var(--h2-font);
-}
-.profile_form div textarea {
-    color: var(--text-color);
-    padding: .2rem .2rem;
-    font-family: var(--parah-fontfamily);
-    font-size: var(--p-font);
-}
-#pattern{
-    display: none;
-    padding: .4rem 0;
-    font-size: .9rem;
-    font-weight: bold;
-    font-family: var(--parah-fontfamily);
-    text-align: center;
-}
-.show_password {
-    font-family: var(--parah-fontfamily);
-    font-size: var(--p-font);
-    color: var(--second-color);
-    text-align: center;
-    padding: 1rem;
-}
-.btn_content {
-    display: grid;
-    grid-template-columns: auto auto;
-    align-items: center;
-    justify-items: center;
-}
-.btn {
-    font-family: var(--parah-fontfamily);
-    font-size: 1rem;
-    padding: .625rem 1.25rem;
-    border: transparent;
-    font-weight: bold;
-}
-.btn:hover {
-    transition: .5s;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
-}
-
-.edit {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    color: var(--text-color);
-    background-color: var(--other-color);
-    border-radius: 1.25rem;
-}
-.edit img {
-    width: 1.25rem;
-    height: 1.25rem;
-}
-
-.save {
-    color: var(--bg-color);
-    background-color: var(--thickgreen-color);
-    border-radius: 1.25rem;
-}
-
-.back  {
-    color: var(--text-color);
-    background-color: var(--other-color);
-    border-radius: 1.25rem;
-}
-.logout_button{
-    display: grid;
-    justify-items: center;
-    padding: 1rem;
-}
-.logout {
-    color: var(--bg-color);
-    background-color: var(--second-color);
-    padding: .5rem 1rem;
-    border-radius: 1.25rem;
-}
-#div_AddBtn {
-    display: flex;
-    justify-content: center;
-}
-.addbtn {
-    color: var(--bg-color);
-    background-color: var(--thickgreen-color);
-    border-radius: .4rem;
-}
-
-</style>
+<link rel="stylesheet" href="../styles/profile.css">
 </head>
 <body>
 
@@ -217,7 +56,7 @@ span {
 					<div>
 						<label for="name">Name :</label> <input type="text" name="name"
 							id="name" value="<%=user1.getName()%>" pattern="^[a-zA-Z\s]+$"
-							title="Enter alphabets only" readonly>
+							title="Enter alphabets only" disabled>
 					</div>
 					<div>
 						<label for="email">Email :</label> <input type="email"
@@ -234,22 +73,21 @@ span {
 							pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
 							value="<%=user1.getPassword()%>"
 							title="Must contain at least one number, one uppercase, lowercase and one symbol, and at least 8 or more characters"
-							readonly>
+							disabled>
 					</div>
 					
 
 				</div>
 
 				<div class="btn_content">
-					<a href="edit?userId=<%=user1.getId()%>">
-						<button type="button" class="edit btn">
+					<a href="edit">
+						<button type="submit" class="edit btn">
 							<img src="https://iili.io/J9FzxWX.png" alt="edit button">
 							<p>Edit profile</p>
 						</button>
 					</a>
-					
-
 				</div>
+				
 				<div class="logout_button">
 					<a href="logout?userId=<%=user1.getId()%>">
 						<button class="logout btn" type="submit" id="logout">Log

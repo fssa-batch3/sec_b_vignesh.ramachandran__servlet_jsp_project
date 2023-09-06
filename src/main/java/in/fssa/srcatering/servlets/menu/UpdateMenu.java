@@ -42,14 +42,18 @@ public class UpdateMenu extends HttpServlet {
 		
 		try {
 			menuService.updateMenu(menu);
-			response.sendRedirect(request.getContextPath()+"/menus");
-		} catch (ValidationException e) {
+			
+			String redirectURL = request.getContextPath() + "/menu/edit";
+	        String alertMessage = "Menu updated successfully!";
+	        
+	        // Using JavaScript to display an alert
+	        out.println("<script>alert('" + alertMessage + "');window.location.href='" + redirectURL + "';</script>");
+
+		} catch (ValidationException | ServiceException e) {
 			e.printStackTrace();
-			out.println(e.getMessage());
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			out.println(e.getMessage());
-		}
+			String redirectURL = request.getContextPath() + "/menu/edit";
+			out.println("<script>alert('"+ e.getMessage() +"');window.location.href='" + redirectURL +"';</script>");
+		} 
 		
 		
 		

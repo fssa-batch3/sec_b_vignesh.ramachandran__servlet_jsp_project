@@ -37,14 +37,19 @@ public class CreateMenu extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		try {
 			menuService.createMenu(menu);
-			response.sendRedirect(request.getContextPath()+"/menus");
-		} catch (ValidationException e) {
+			
+			String redirectURL = request.getContextPath() + "/menu/new";
+	        String alertMessage = "Menu created successfully!";
+	        
+	        // Using JavaScript to display an alert
+	        out.println("<script>alert('" + alertMessage + "');window.location.href='" + redirectURL + "';</script>");
+			
+//			response.sendRedirect(request.getContextPath()+"/menu/new");
+		} catch (ValidationException | ServiceException e) {
 			e.printStackTrace();
-			out.println(e.getMessage());
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			out.println(e.getMessage());
-		}
+			String redirectURL = request.getContextPath() + "/menu/new";
+			out.println("<script>alert('"+ e.getMessage() +"');window.location.href='" + redirectURL +"';</script>");
+		} 
 	}
 
 }

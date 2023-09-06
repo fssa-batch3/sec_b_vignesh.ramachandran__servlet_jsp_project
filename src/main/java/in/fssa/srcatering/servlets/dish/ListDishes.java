@@ -46,7 +46,7 @@ public class ListDishes extends HttpServlet {
 			menuList = menuService.getAllMenus();
 			Category category = categoryService.getCategoryByMenuIdAndCategoryId(menuId, categoryId);
 			
-			dishList = dishService.getAllDishesByMenuIdAndCategoryId(menuId, categoryId);
+			dishList = dishService.getAllActiveDishesByMenuIdAndCategoryId(menuId, categoryId);
 			
 			request.setAttribute("dishList", dishList);
 			request.setAttribute("menu", menu);

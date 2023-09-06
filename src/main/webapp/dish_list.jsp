@@ -157,9 +157,9 @@ span {
 					<%} %>
 					
 				</ul>
-				<a href="dish/edit?menuId=<%=menu.getId()%>&categoryId=<%=category.getId()%>">
+				<%-- <a href="dish/edit?menuId=<%=menu.getId()%>&categoryId=<%=category.getId()%>">
 					<button type="submit">Edit Dish</button>
-				</a>
+				</a> --%>
 			</div>
 		</section>
 	

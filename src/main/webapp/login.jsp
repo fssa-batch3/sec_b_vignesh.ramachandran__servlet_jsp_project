@@ -255,14 +255,6 @@ footer {
 
 	<%@ include file="/header.jsp"%>
 
-	<%
-	String errorMessage = request.getParameter("errorMessage");
-	if (errorMessage != null) {
-		out.println("<span>" + errorMessage + "</span>");
-	}
-	%>
-
-
 	<!-- main starts -->
 	<main>
 		<!-- login form starts -->
@@ -277,10 +269,9 @@ footer {
 					for="email" placeholder="Enter your email" class="input_box"
 					id="email"
 					pattern="^([a-z]+[a-z0-9_+\-\. ]*[a-z0-9]+)@(gmail|fssa|yahoo|hotmail|outlook)\.(freshworks.com|com|net|org|edu|in)$"
-					required> <label>Password: </label> <input
-					type="password" name="password" placeholder="Enter your password"
-					class="input_box" id="password"
-					pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+					required> <label>Password: </label> <input type="password"
+					name="password" placeholder="Enter your password" class="input_box"
+					id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
 					title="Must contain at least one number, one uppercase, lowercase and one symbol, and must have 8 characters"
 					required="true">
 				<div id="pattern">
@@ -297,14 +288,27 @@ footer {
 				<div class="for_button">
 					<button class="btn_login" type="submit">Log in</button>
 				</div>
-				<!-- <a href="./forget_password.html" class="forget_pass">Forget Password?</a> -->
 				<p>
-					New to Website? <a href="user/new">Create an account</a>
+					New to Website? <a href="new">Create an account</a>
 				</p>
 			</form>
 		</section>
 		<!-- login form ends -->
 	</main>
+
+	<%-- Check for the presence of the errorMessage attribute --%>
+	<%
+	String errorMessage = (String) request.getAttribute("errorMessage");
+	if (errorMessage != null) {
+	%>
+	<script type="text/javascript">
+    	alert('<%=errorMessage%>');
+	</script>
+	<%
+	}
+	%>
+	<!-- Your login page content here -->
+
 
 	<script type="text/javascript">
      // show password

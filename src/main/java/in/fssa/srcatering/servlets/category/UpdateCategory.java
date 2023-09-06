@@ -33,6 +33,8 @@ public class UpdateCategory extends HttpServlet {
 		String category_name = request.getParameter("category_name");
 		String image = request.getParameter("category_image");
 		
+		System.out.println("fghj"+category_name);
+		
 		Category category = new Category();
 		category.setMenu_id(menuId);
 		category.setId(categoryId);
@@ -41,17 +43,19 @@ public class UpdateCategory extends HttpServlet {
 		
 		try {
 			categoryService.updateCategory(category);
-			response.sendRedirect(request.getContextPath()+"/categories?menuId="+menuId);
-		} catch (ValidationException e) {
+			
+			String redirectURL = request.getContextPath() + "/category/edit";
+	        String alertMessage = "Category updated successfully!";
+	        
+	        // Using JavaScript to display an alert
+	        out.println("<script>alert('" + alertMessage + "');window.location.href='" + redirectURL + "';</script>");
+
+		} catch (ValidationException | ServiceException e) {
 			e.printStackTrace();
-			out.println(e.getMessage());
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			out.println(e.getMessage());
-		}
-		
-		
-		
+			String redirectURL = request.getContextPath() + "/category/edit";
+			out.println("<script>alert('"+ e.getMessage() +"');window.location.href='" + redirectURL +"';</script>");
+		} 
+
 	}
 
 }

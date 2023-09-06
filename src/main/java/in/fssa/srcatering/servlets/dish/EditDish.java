@@ -34,88 +34,90 @@ public class EditDish extends HttpServlet {
 		
 		PrintWriter out = response.getWriter();
 		
-		int menuId = Integer.parseInt(request.getParameter("menuId"));
-		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
-		
-		MenuService menuService = new MenuService();
-		Menu menu = new Menu();
-
-		CategoryService categoryService = new CategoryService();
-		Category category = new Category();
-		
-		DishService dishService = new DishService();
-		Set<Dish> dishList = new HashSet<>();
-		
-		try {
-			menu = menuService.findByMenuId(menuId);
-			category = categoryService.getCategoryByMenuIdAndCategoryId(menuId, categoryId);
-			dishList = dishService.getAllDishesByMenuIdAndCategoryId(menuId, categoryId);
-			
-			request.setAttribute("menu", menu);
-			request.setAttribute("category", category);
-			request.setAttribute("dishList", dishList);
-			
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/update_dish.jsp");
-			dispatcher.forward(request, response);
-			
-		} catch (ValidationException | ServiceException e) {
-			e.printStackTrace();
-			out.println(e.getMessage());
-		}
-		
-		
-
-//		String menuId = request.getParameter("menuId");
-//		String categoryId = request.getParameter("categoryId");
+//		int menuId = Integer.parseInt(request.getParameter("menuId"));
+//		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 //		
 //		MenuService menuService = new MenuService();
-//		Set<Menu> menuList = new HashSet<Menu>();
+//		Menu menu = new Menu();
 //
 //		CategoryService categoryService = new CategoryService();
-//		Set<Category> categoryList = new HashSet<Category>();
-//
-//		if (menuId == null && categoryId == null) {
-//
-//			try {
-//				menuList = menuService.getAllActiveMenus();
-//				categoryList = categoryService.getAllCategories();
-//
-//				request.setAttribute("menuList", menuList);
-//				request.setAttribute("categoryList", categoryList);
-//				
-//				RequestDispatcher dispatcher = request.getRequestDispatcher("/update_dish.jsp");
-//				dispatcher.forward(request, response);
-//
-//			} catch (ServiceException e) {
-//				e.printStackTrace();
-//			}
-//
-//		} else {
-//			PrintWriter out = response.getWriter();
+//		Category category = new Category();
+//		
+//		DishService dishService = new DishService();
+//		Set<Dish> dishList = new HashSet<>();
+//		
+//		try {
+//			menu = menuService.findByMenuId(menuId);
+//			category = categoryService.getCategoryByMenuIdAndCategoryId(menuId, categoryId);
+//			dishList = dishService.getAllDishesByMenuIdAndCategoryId(menuId, categoryId);
 //			
-//			int menuId1 = Integer.parseInt(menuId);
-//			int categoryId1 = Integer.parseInt(categoryId);
+//			request.setAttribute("menu", menu);
+//			request.setAttribute("category", category);
+//			request.setAttribute("dishList", dishList);
 //			
-//			DishService dishService = new DishService();
-//			try {
-//				List<Dish> dishList = dishService.findAllDishesByMenuIdAndCategoryId(menuId1, categoryId1);
-//				
-//				Menu menu = menuService.findByMenuId(menuId1);
-//				Category category = categoryService.getCategoryByMenuIdAndCategoryId(menuId1, categoryId1);
-//				
-//				request.setAttribute("menu", menu);
-//				request.setAttribute("category", category);
-//				request.setAttribute("dishList", dishList);
-//				RequestDispatcher dispatcher = request.getRequestDispatcher("/update_dish.jsp");
-//				dispatcher.forward(request, response);
-//			} catch (ValidationException e) {
-//				e.printStackTrace();
-//				out.println(e.getMessage());
-//			} catch (ServiceException e) {
-//				e.printStackTrace();
-//				out.println(e.getMessage());
-//			}
+//			RequestDispatcher dispatcher = request.getRequestDispatcher("/update_dish.jsp");
+//			dispatcher.forward(request, response);
+//			
+//		} catch (ValidationException | ServiceException e) {
+//			e.printStackTrace();
+//			out.println(e.getMessage());
 //		}
+		
+		
+
+		String menuId = request.getParameter("menuId");
+		String categoryId = request.getParameter("categoryId");
+		
+		MenuService menuService = new MenuService();
+		Set<Menu> menuList = new HashSet<Menu>();
+
+		CategoryService categoryService = new CategoryService();
+		Set<Category> categoryList = new HashSet<Category>();
+
+		if (menuId == null && categoryId == null) {
+
+			try {
+				menuList = menuService.getAllMenus();
+				categoryList = categoryService.getAllCategories();
+
+				request.setAttribute("menuList", menuList);
+				request.setAttribute("categoryList", categoryList);
+				
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/update_dish.jsp");
+				dispatcher.forward(request, response);
+
+			} catch (ServiceException e) {
+				e.printStackTrace();
+			}
+
+		} else {
+			
+			int menuId1 = Integer.parseInt(menuId);
+			int categoryId1 = Integer.parseInt(categoryId);
+			
+			DishService dishService = new DishService();
+			try {
+				System.out.println(menuId1+" "+categoryId1);
+				
+				Set<Dish> dishList = dishService.getAllDishesByMenuIdAndCategoryId(menuId1, categoryId1);
+				
+				Menu menu = menuService.findByMenuId(menuId1);
+				Category category = categoryService.getCategoryByMenuIdAndCategoryId(menuId1, categoryId1);
+				
+				request.setAttribute("menu", menu);
+				request.setAttribute("category", category);
+				request.setAttribute("dishList", dishList);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/update_dish.jsp");
+				dispatcher.forward(request, response);
+				
+			} catch (ValidationException e) {
+				e.printStackTrace();
+				out.println(e.getMessage());
+			} catch (ServiceException e) {
+				e.printStackTrace();
+				out.println(e.getMessage());
+			}
+		}
 	}
 
 	

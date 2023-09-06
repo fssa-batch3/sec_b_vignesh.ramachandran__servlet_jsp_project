@@ -1,0 +1,101 @@
+@charset "ISO-8859-1";
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+}
+:root {
+    --bg-color: #ffffff;
+    --second-color: #f54300;
+    --thickgreen-color:#4b814b;
+    --text-color:#130849;
+    --other-color:#ebeef7;
+    --p-font:1.2rem;
+    --h2-font:1.5rem;
+    --big-font:2rem;  
+    --name-font:3rem;
+    --heading-fontfamily:'Kurale', serif;
+    --parah-fontfamily:'Josefin Sans', sans-serif;
+}
+span {
+    color: var(--second-color);
+}
+
+/* content starts */
+.form_id {
+    margin: 0 30%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid var(--text-color);
+}
+.form_id h2 {
+    font-family: var(--heading-fontfamily);
+    font-size: var(--h2-font);
+    color: var(--second-color);
+    text-align: center;
+    padding: 1.25rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--text-color);
+}
+
+.select_menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    align-items: center;
+    justify-items: center;
+}
+.select_menu h3 {
+    font-family: var(--heading-fontfamily);
+    font-size: var(--h2-font);
+    color: var(--second-color);
+}
+.menulist {
+    border: 2px solid var(--text-color);
+    border-radius: 1rem;
+    font-size: var(--p-font);
+    padding: .3rem;
+    font-family: var(--heading-fontfamily);
+    color: var(--text-color);
+
+}
+.menulist option{
+    font-family: var(--heading-fontfamily);
+    font-size: var(--p-font);
+    color: var(--text-color);
+}
+
+.input_group {
+    padding: 2rem 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)) ;
+    align-items: center;
+    gap: 1.5rem;
+    /* padding-bottom: 1rem; */
+}
+
+.input_group input {
+    width: 100%;
+    padding: 15px 5px;
+    font-family: var(--parah-fontfamily);
+    font-size: 1rem;
+    background-color: var(--other-color);
+    border: transparent;
+    outline: none;
+    border-radius: 10px;
+}
+.input_group input:focus {
+    border: 2px solid var(--text-color);
+}
+
+.btn_submit {
+    width: 6.25rem;
+    padding: .625rem 1.25rem ;
+    font-family: var(--parah-fontfamily);
+    font-size: var(--p-font);
+    color: var(--bg-color);
+    background-color: var(--text-color);
+    border-radius: .625rem;
+}
+

@@ -68,14 +68,18 @@ public class UpdateDish extends HttpServlet {
 					dish = null;
 				} catch (ValidationException | ServiceException e) {
 					e.printStackTrace();
-					out.println(e.getMessage());
+					String redirectURL = request.getContextPath() + "/dish/edit";
+					out.println("<script>alert('"+ e.getMessage() +"');window.location.href='" + redirectURL +"';</script>");
 				}
 			}
-			int menuId = Integer.parseInt(request.getParameter("menuId"));
-			int categoryId = Integer.parseInt(request.getParameter("categoryId"));
-
-			response.sendRedirect(
-					request.getContextPath() + "/dish/edit?menuId=" + menuId + "&categoryId=" + categoryId);
+//			int menuId = Integer.parseInt(request.getParameter("menuId"));
+//			int categoryId = Integer.parseInt(request.getParameter("categoryId"));
+			
+			String redirectURL = request.getContextPath() + "/dish/edit";
+	        String alertMessage = "Dish updated successfully!";
+	        
+	        // Using JavaScript to display an alert
+	        out.println("<script>alert('" + alertMessage + "');window.location.href='" + redirectURL + "';</script>");
 		}
 
 	}

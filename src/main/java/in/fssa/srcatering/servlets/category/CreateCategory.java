@@ -3,6 +3,7 @@ package in.fssa.srcatering.servlets.category;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,13 +39,17 @@ public class CreateCategory extends HttpServlet {
 		
 		try {
 			categoryService.createCategory(category);
-			response.sendRedirect(request.getContextPath()+"/category/new");
-		} catch (ValidationException e) {
+			
+			String redirectURL = request.getContextPath() + "/category/new";
+	        String alertMessage = "Category created successfully!";
+	        
+	        // Using JavaScript to display an alert
+	        out.println("<script>alert('" + alertMessage + "');window.location.href='" + redirectURL + "';</script>");
+			
+		} catch (ValidationException | ServiceException e) {
 			e.printStackTrace();
-			out.println(e.getMessage());
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			out.println(e.getMessage());
+			String redirectURL = request.getContextPath() + "/category/new";
+			out.println("<script>alert('"+ e.getMessage() +"');window.location.href='" + redirectURL +"';</script>");
 		}
 		
 	}

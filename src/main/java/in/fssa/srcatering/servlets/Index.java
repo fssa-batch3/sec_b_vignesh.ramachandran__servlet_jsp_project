@@ -42,12 +42,11 @@ public class Index extends HttpServlet {
 		if (loggedUser != null) {
 			try {
 				User user = (User) userService.findByEmail(loggedUser);
-				menuList = menuService.getAllMenus();
+				
+				menuList = menuService.getAllActiveMenus();
 
 				request.setAttribute("user", user);
 				request.setAttribute("menuList", menuList);
-
-				System.out.println(loggedUser);
 
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
 				dispatcher.forward(request, response);
@@ -62,11 +61,9 @@ public class Index extends HttpServlet {
 		} else {
 			try {
 				
-				menuList = menuService.getAllMenus();
+				menuList = menuService.getAllActiveMenus();
 				
 				request.setAttribute("menuList", menuList);
-
-				System.out.println(loggedUser);
 
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
 				dispatcher.forward(request, response);

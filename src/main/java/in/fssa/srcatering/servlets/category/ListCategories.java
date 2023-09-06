@@ -43,7 +43,7 @@ public class ListCategories extends HttpServlet {
 		try {
 			menu = new Menu();
 			menu = menuService.findByMenuId(menuId);
-			categoryList = categoryService.getCategoriesByMenuId(menuId);
+			categoryList = categoryService.getAllActiveCategoriesByMenuId(menuId);
 			menuList = menuService.getAllMenus();
 			
 			request.setAttribute("menu", menu);

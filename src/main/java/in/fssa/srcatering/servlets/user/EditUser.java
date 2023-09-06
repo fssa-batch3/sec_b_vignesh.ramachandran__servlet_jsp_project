@@ -25,14 +25,19 @@ public class EditUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		PrintWriter out = response.getWriter();
-		int id = Integer.parseInt(request.getParameter("userId"));
+		
+		String email = (String) request.getSession().getAttribute("loggedUser");
+		
+		
+//		int id = Integer.parseInt(request.getParameter("userId"));
 		
 		UserService userService = new UserService();
 		
 		User user = null;
 		
 		try {
-			user = userService.findByUserId(id);
+//			user = userService.findByUserId(id);
+			user = userService.findByEmail(email);
 			
 			request.setAttribute("userDetails", user);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/update_user.jsp");

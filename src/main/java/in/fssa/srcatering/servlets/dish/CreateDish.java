@@ -46,15 +46,18 @@ public class CreateDish extends HttpServlet {
 		
 		try {
 			dishService.createDish(dish);
-			out.println("Dish created sucessfully");
-			response.sendRedirect(request.getContextPath()+"/dish/new");
-		} catch (ValidationException e) {
+			
+			String redirectURL = request.getContextPath() + "/dish/new";
+	        String alertMessage = "Dish created successfully!";
+	        
+	        // Using JavaScript to display an alert
+	        out.println("<script>alert('" + alertMessage + "');window.location.href='" + redirectURL + "';</script>");
+
+		} catch (ValidationException | ServiceException e) {
 			e.printStackTrace();
-			out.println(e.getMessage());
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			out.println(e.getMessage());
-		}
+			String redirectURL = request.getContextPath() + "/dish/new";
+			out.println("<script>alert('"+ e.getMessage() +"');window.location.href='" + redirectURL +"';</script>");
+		} 
 		
 	}
 

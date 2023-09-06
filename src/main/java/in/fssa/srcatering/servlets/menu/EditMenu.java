@@ -2,6 +2,9 @@ package in.fssa.srcatering.servlets.menu;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Set;
+import java.util.TreeSet;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,24 +29,42 @@ public class EditMenu extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 
-		int id = Integer.parseInt(request.getParameter("menuId"));
-
 		MenuService menuService = new MenuService();
 
-		Menu menu = null;
+		Set<Menu> menuList = new TreeSet<>();
 
-		try {
-			menu = menuService.findByMenuId(id);
-			request.setAttribute("menuDetails", menu);
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/update_menu.jsp");
-			dispatcher.forward(request, response);
+		String menuId = request.getParameter("menuId");
 
-		} catch (ValidationException e) {
-			e.printStackTrace();
-			out.println(e.getMessage());
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			out.println(e.getMessage());
+		if (menuId == null) {
+
+			try {
+				menuList = menuService.getAllMenus();
+				request.setAttribute("menuList", menuList);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/update_menu.jsp");
+				dispatcher.forward(request, response);
+			} catch (ServiceException e) {
+				e.printStackTrace();
+				out.println(e.getMessage());
+			}
+		} else {
+
+			int id = Integer.parseInt(request.getParameter("menuId"));
+
+			Menu menu = null;
+
+			try {
+				menu = menuService.findByMenuId(id);
+				request.setAttribute("menuDetails", menu);
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/update_menu.jsp");
+				dispatcher.forward(request, response);
+
+			} catch (ValidationException e) {
+				e.printStackTrace();
+				out.println(e.getMessage());
+			} catch (ServiceException e) {
+				e.printStackTrace();
+				out.println(e.getMessage());
+			}
 		}
 
 	}

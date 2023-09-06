@@ -234,9 +234,9 @@ footer {
 					<div>
 		                <h2><%=category.getCategoryName() %></h2>
 		                <!-- <p>Rs.150/plate</p> -->
-		                <a href="category/edit?menuId=<%=category.getMenu_id()%>&categoryId=<%=category.getId()%>">
+		                <%-- <a href="category/edit?menuId=<%=category.getMenu_id()%>&categoryId=<%=category.getId()%>">
 							<button class="view-button" type="submit">Update</button>
-						</a>
+						</a> --%>
 		                <a href="dishes?menuId=<%=menu.getId()%>&categoryId=<%=category.getId()%>">
 		                	<button class="view-button">View</button>
 		                </a>

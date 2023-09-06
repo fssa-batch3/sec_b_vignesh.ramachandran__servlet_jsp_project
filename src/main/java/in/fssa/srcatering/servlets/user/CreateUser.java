@@ -49,12 +49,9 @@ public class CreateUser extends HttpServlet {
 
 			try {
 				userService.createUser(user);
-				response.sendRedirect(request.getContextPath()+"/users");
+				response.sendRedirect(request.getContextPath()+"/user/login");
 
-			} catch (ValidationException e) {
-				e.printStackTrace();
-				out.println(e.getMessage());
-			} catch (ServiceException e) {
+			} catch (ValidationException | ServiceException e) {
 				e.printStackTrace();
 				out.println(e.getMessage());
 			}

@@ -11,23 +11,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import in.fssa.srcatering.exception.ServiceException;
 import in.fssa.srcatering.exception.ValidationException;
 import in.fssa.srcatering.service.UserService;
 
 /**
  * Servlet implementation class Login
  */
-@WebServlet("/login")
+@WebServlet("/user/login")
 public class Login extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("login.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/login.jsp");
 		dispatcher.forward(request, response);
 	}
-
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -38,32 +37,30 @@ public class Login extends HttpServlet {
 		String password = request.getParameter("password");
 
 		PrintWriter out = response.getWriter();
-		
+
 		HttpSession session = request.getSession();
 
-		if (email == null || "".equals(email)) {
-
-			out.println("Invalid Email");
-			response.sendRedirect("login.jsp?errorMessage=Invalid Email");
-
-		} else if (password == null || "".equals(password) || password.length() != 8) {
+		try {
+			userService.loginUser(email, password);
 			
-			response.sendRedirect("login.jsp?errorMessage=Invalid Password");
+			out.println("<script type=\"text/javascript\">");
+			out.println("alert('You have sucessfully logged in!')");
+			out.println("</script>");
 
-		} else {
-			try {
-				userService.loginUser(email, password);
-				
-				session.setAttribute("loggedUser", email);
-				response.sendRedirect(request.getContextPath()+"/index");
-				
-			} catch (ValidationException e) {
-				e.printStackTrace();
-				response.sendRedirect("login.jsp?errorMessage="+e.getMessage());
-			}
+			session.setAttribute("loggedUser", email);
+			response.sendRedirect(request.getContextPath() + "/index");
+
+		} catch (ValidationException | ServiceException e) {
+			e.printStackTrace();
+			
+			request.setAttribute("errorMessage", e.getMessage());
+			
+			request.getRequestDispatcher("/login.jsp").forward(request, response);
+			
+			out.println("<script type=\"text/javascript\">");
+			out.println("alert('" + e.getMessage() + "');");
+			out.println("</script>");
 		}
-		
-		//System.out.println(session.getAttribute("loggedEmail"));
 
 	}
 

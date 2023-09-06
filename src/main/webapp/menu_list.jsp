@@ -53,6 +53,7 @@ button {
 </head>
 <body>
 
+
 	<%
 	Set<Menu> menuList = new TreeSet<Menu>();
 	%>
@@ -70,9 +71,9 @@ button {
 			<img alt="" src="<%=menu.getImage()%>">
 			<p><%=menu.getDescription()%></p>
 			
-			<a href="menu/edit?menuId=<%=menu.getId() %>">
+			<%-- <a href="menu/edit?menuId=<%=menu.getId() %>">
 				<button type="submit">Update</button>
-			</a>
+			</a> --%>
 			
 			<a href="categories?menuId=<%=menu.getId()%>">
 				<button type="submit">View Category</button>

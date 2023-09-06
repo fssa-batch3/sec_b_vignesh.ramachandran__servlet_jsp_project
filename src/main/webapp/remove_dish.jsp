@@ -12,6 +12,8 @@
 </head>
 <body>
 
+	<%@include file="/header.jsp" %>
+
 	<%
 	List<Menu> menuList = (List<Menu>) request.getAttribute("menuList");
 	List<Category> categoryList = (List<Category>) request.getAttribute("categoryList");
