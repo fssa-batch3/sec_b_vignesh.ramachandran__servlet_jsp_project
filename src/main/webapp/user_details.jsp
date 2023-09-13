@@ -75,7 +75,20 @@
 							title="Must contain at least one number, one uppercase, lowercase and one symbol, and at least 8 or more characters"
 							disabled>
 					</div>
-					
+
+					<div>
+						<label for="address">Address :</label>
+						<textarea type="text" name="address" id="address" rows="3"
+							cols="27" required="true" readonly></textarea>
+					</div>
+
+					<div id="div_AddBtn">
+						<a href="addresses">
+							<button class="btn addbtn">Address Book</button>
+						</a>
+						
+					</div>
+
 
 				</div>
 
@@ -87,7 +100,7 @@
 						</button>
 					</a>
 				</div>
-				
+
 				<div class="logout_button">
 					<a href="logout?userId=<%=user1.getId()%>">
 						<button class="logout btn" type="submit" id="logout">Log

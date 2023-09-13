@@ -1,3 +1,5 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@page import="in.fssa.srcatering.model.Menu"%>
 <%@page import="java.util.TreeSet"%>
 <%@page import="in.fssa.srcatering.model.Category"%>
@@ -217,6 +219,7 @@ footer {
 	Set<Category> categoryList = new TreeSet<>();
 	Menu menu = (Menu) request.getAttribute("menu");
 	categoryList = (Set<Category>) request.getAttribute("categoryList");
+	List<Integer> categoryPrice = (List<Integer>) request.getAttribute("categoryPrice");
 	%>
 	
 		
@@ -228,12 +231,19 @@ footer {
         </div>
         <section class="menu-list">
 			<div class="menu-list_types">
-				<%for (Category category : categoryList) {%>
+			
+				<%-- <%for (Category category : categoryList) {%> --%>
+				
+				<% List<Category> categoryListAsList = new ArrayList<>(categoryList);
+				for (int i = 0; i < categoryListAsList.size(); i++) {
+                Category category = categoryListAsList.get(i);
+                int price = categoryPrice.get(i);%>
+                
 				<div class="menu-list_1">
 					<img class="dish" src="<%=category.getImage() %>" alt="<%=category.getCategoryName()%>" />
 					<div>
 		                <h2><%=category.getCategoryName() %></h2>
-		                <!-- <p>Rs.150/plate</p> -->
+		               <p>Rs.<%=price %>/plate</p> 
 		                <%-- <a href="category/edit?menuId=<%=category.getMenu_id()%>&categoryId=<%=category.getId()%>">
 							<button class="view-button" type="submit">Update</button>
 						</a> --%>
@@ -247,6 +257,8 @@ footer {
 		</section>
 	
 	</main>
+	
+	
 
 
 </body>

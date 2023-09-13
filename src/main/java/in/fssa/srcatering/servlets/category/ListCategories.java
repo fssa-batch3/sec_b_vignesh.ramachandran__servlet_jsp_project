@@ -2,6 +2,8 @@ package in.fssa.srcatering.servlets.category;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -39,6 +41,7 @@ public class ListCategories extends HttpServlet {
 		MenuService menuService = new MenuService();
 		Set<Menu> menuList = new TreeSet<>();
 		Menu menu = null;
+		List<Integer> categoryPrice = new ArrayList<Integer>();
 			
 		try {
 			menu = new Menu();
@@ -46,9 +49,15 @@ public class ListCategories extends HttpServlet {
 			categoryList = categoryService.getAllActiveCategoriesByMenuId(menuId);
 			menuList = menuService.getAllMenus();
 			
+			for(Category category : categoryList) {
+				int price = categoryService.getTotalPriceOfTheCategoryByMenuIdAndCategoryId(menuId, category.getId());
+				categoryPrice.add(price);
+			}
+			
 			request.setAttribute("menu", menu);
 			request.setAttribute("menuList", menuList);
 			request.setAttribute("categoryList", categoryList);
+			request.setAttribute("categoryPrice", categoryPrice);
 			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/category_list.jsp");
 			dispatcher.forward(request, response);

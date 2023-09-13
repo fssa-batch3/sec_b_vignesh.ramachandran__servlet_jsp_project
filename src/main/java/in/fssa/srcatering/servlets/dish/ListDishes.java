@@ -2,8 +2,11 @@ package in.fssa.srcatering.servlets.dish;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,35 +29,39 @@ import in.fssa.srcatering.service.MenuService;
 @WebServlet("/dishes")
 public class ListDishes extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
 
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
 		PrintWriter out = response.getWriter();
 		DishService dishService = new DishService();
 		MenuService menuService = new MenuService();
 		CategoryService categoryService = new CategoryService();
-		
+
 		int menuId = Integer.parseInt(request.getParameter("menuId"));
 		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
-		
+
 		Set<Dish> dishList = new HashSet<>();
 		Set<Menu> menuList = new HashSet<>();
-		
+	
+
 		try {
 			Menu menu = menuService.findByMenuId(menuId);
 			menuList = menuService.getAllMenus();
 			Category category = categoryService.getCategoryByMenuIdAndCategoryId(menuId, categoryId);
-			
+
 			dishList = dishService.getAllActiveDishesByMenuIdAndCategoryId(menuId, categoryId);
-			
+
+			int totalPrice = categoryService.getTotalPriceOfTheCategoryByMenuIdAndCategoryId(menuId, categoryId);
+
 			request.setAttribute("dishList", dishList);
 			request.setAttribute("menu", menu);
 			request.setAttribute("menuList", menuList);
 			request.setAttribute("category", category);
+			request.setAttribute("totalPrice", totalPrice);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/dish_list.jsp");
 			dispatcher.forward(request, response);
-			
+
 		} catch (ValidationException e) {
 			e.printStackTrace();
 			out.println(e.getMessage());
@@ -62,10 +69,7 @@ public class ListDishes extends HttpServlet {
 			e.printStackTrace();
 			out.println(e.getMessage());
 		}
-		
-		
+
 	}
-
-
 
 }
