@@ -1,0 +1,508 @@
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    
+}
+:root {
+    --bg-color: #ffffff;
+    --second-color: #f54300;
+    --thickgreen-color:#4b814b;
+    --text-color:#130849;
+    --other-color:#ebeef7;
+    --p-font:1.2rem;
+    --h2-font:1.5rem;
+    --big-font:2rem;  
+    --name-font:3rem;
+    --heading-fontfamily:'Kurale', serif;
+    --parah-fontfamily:'Josefin Sans', sans-serif;
+}
+span {
+    color: var(--second-color);
+}
+.image_slider {
+    /* max-width: 1400px; */
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+.slide_image {
+    display: none;
+    padding: 1rem 0;
+}
+.slide_image img{
+    height:80vh;
+    width: 93vw;
+}
+/* Next & previous buttons */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    /* width: auto; */
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+  }
+  /* Position the "next and prev button" to the right */
+.prev {
+    left: 6%;
+    border-radius: 3px 0 0 3px;
+}
+.next {
+    right: 6%;
+    border-radius: 3px 0 0 3px;
+  }
+
+
+  /* On hover, add a black background color with a little bit see-through */
+.prev:hover, .next:hover {
+    background-color: rgba(0,0,0,0.8);
+  }
+
+.spin_roller {
+    padding: 0 0 1rem 0;
+}
+
+  /* The dots/bullets/indicators */
+.dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+  }
+  
+  .active, .dot:hover {
+    background-color: #717171;
+  }
+/* Fading animation */
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
+
+.food-image{
+    background-image: url("../img/MadeDifferent_v2.gif");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.food-image p {
+    color: var(--bg-color);
+    font-size: var(--name-font);
+    font-weight: bold;
+    font-family: var(--parah-fontfamily);
+}
+.food-image a button {
+    padding: .9375rem 1.25rem;
+    margin-top: 1.875rem;
+    color: var(--text-color);
+    font-size: var(--h2-font);
+    font-weight: bold;
+    background-color:var(--bg-color) ;
+    border: transparent;
+    font-family: var(--parah-fontfamily); 
+}
+.food-image a button:hover {
+    color: var(--second-color);
+    border-right: 5px solid var(--second-color);
+    border-left:5px solid var(--second-color);
+    
+}
+
+.allmenu-list {
+    padding: 3.125rem 0;
+    height: auto;
+}
+.name {
+    text-align: center;
+}
+.name h1 {
+    font-size: var(--name-font);
+    color: var(--text-color);
+    font-family: var(--heading-fontfamily);
+}
+.mainmenu-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 2rem;
+    padding: 1.25rem;
+}
+.lists {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+.lists img {
+    object-fit: fill;
+    min-width: 9.375rem;
+    width: 9.375rem;
+    height: 12.5rem;
+    padding: .625rem;
+    border: 2px solid var(--text-color);
+    transition: all .3s ease;
+}
+.lists img:hover {
+    transform: scale(1.1);
+}
+.lists-text {
+    display: grid;
+    align-content: space-evenly;
+    padding: 0 1.25rem;
+}
+.lists-text h2{
+    font-size: var(--h2-font);
+    color: var(--text-color);
+    font-family: var(--heading-fontfamily);
+}
+.lists-text p {
+    padding: 1.25rem 0 0 0;
+    font-size: var(--p-font);
+    font-family: var(--parah-fontfamily);
+    text-align: justify;
+    text-indent: 2rem;
+}
+.lists-text a {
+    font-size: var(--p-font);
+    color: blue;
+    font-family: var(--parah-fontfamily);
+}
+.lists-text a:hover {
+    transition: .2s;
+    color: var(--second-color);
+}
+.why-choose-us {
+    background-color: var(--other-color);
+    padding: 4.375rem;
+
+}
+.why-choose-us-text {
+    text-align: center;
+    padding: 0 1.875rem;
+}
+.why-choose-us-text h2 {
+    padding-bottom: 1rem;
+    font-size: var(--big-font);
+    color: var(--text-color);
+    font-family: var(--heading-fontfamily);
+}
+.why-choose-us-text p {
+    font-size:var(--p-font);
+    line-height: 1.875rem;
+    font-family: var(--parah-fontfamily);
+}
+.why-we {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    justify-items: center;
+    gap: 5rem;
+    padding: 1.875rem;
+}
+.why-we-option {
+    display: grid;
+    justify-items: center;
+    align-content: center;
+    padding: .625rem;
+    min-width: 12.5rem;
+    max-width: 25rem;
+    height: 18.75rem;
+    background-color: var(--bg-color);
+}
+
+.why-we-option img {
+    width: 4.375rem;
+    
+}
+.why-we-option-text{
+    display: grid;
+    justify-items: center;
+    padding: 1rem;
+    height: 10rem;
+    align-items: center;
+}
+.why-we-option-text h3 {
+    font-size: var(--h2-font);
+    color: var(--text-color);
+    font-family: var(--heading-fontfamily);
+}
+.why-we-option-text p {
+
+    color: var(--text-color);
+    font-size: var(--p-font);
+    font-family: var(--parah-fontfamily);
+    text-align: justify;
+}
+
+.our-service-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 2rem;
+    padding:5% 5%;
+}
+.our-service-text {
+    width: 90%;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    padding: .625rem;
+}
+.our-service-text h2 {
+    color: var(--text-color);
+    font-size: var(--big-font);
+    border-bottom: 1px solid var(--text-color);
+    padding-bottom: 1.25rem;
+    font-family: var(--heading-fontfamily);
+}
+.our-service-text p {
+    color: var(--text-color);
+    font-size: var(--p-font);
+    line-height: 2.5rem;
+    font-family: var(--parah-fontfamily);
+    text-align: justify;
+}
+.our-service-img {
+    width: 90%;
+    height: 22.875rem;
+    padding: .625rem;
+    border: 1px solid var(--text-color);
+    border-radius: 3.125rem;
+}
+
+        /* How it Works */
+
+.how-it-works {
+    padding: 1rem;
+}
+.how-it-works h2 {
+    font-family: var(--heading-fontfamily);
+    font-size: var(--big-font);
+    color: var(--text-color);
+    text-align: center;
+}
+.how-it-works_content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    justify-items: center;
+    gap: 10rem;
+    padding:2% 2%;
+}
+.how-it-works_text {
+    max-width: 350px;
+    overflow: hidden;
+    border: none;
+    transition: .2s;
+    border-radius: 3rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0 .5rem 1.5rem;
+    position: relative;
+    text-align: center;
+}
+
+.how-it-works_text:hover .disappear {
+    top: 0;
+}
+.how-it-works_text img { 
+    object-fit: fill;
+    width: 100%;
+    height: 90%;
+    border-radius: 3rem;
+}
+.how-it-works_text h3 {
+    font-family: var(--heading-fontfamily);
+    font-size: var(--h2-font);
+    text-transform: uppercase;
+    padding: 1rem 0;
+    
+}
+.disappear {
+    position: absolute;
+    top:-100%;
+    height: 80%;
+    text-align: justify;
+    line-height: 4rem;
+    padding: 2rem;
+    background-color: var(--other-color);
+    border-radius: 3rem;
+    z-index: 1;
+    transition: .5s;
+}
+.disappear p {
+    font-family: var(--parah-fontfamily);
+    font-size: var(--p-font);
+    font-weight: bold;
+}
+.gif{
+    position: relative;
+    animation-duration: 10s;
+    animation-name: running_chef;
+    animation-iteration-count: infinite;
+}
+
+
+        /* Footer starts */
+
+footer {
+    background-color: var(--other-color);
+}
+.footer-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    justify-items: center;
+    gap: 2rem;
+    padding:2rem 0;
+    margin: 0 2rem;
+    border-bottom: 2px solid var(--text-color);
+}  
+.footer-content {
+    padding: 1rem;
+}
+.footer-content img {
+    width: 12.5rem;
+}
+.footer-content p {
+    font-size: var(--p-font);
+    line-height: 1.875rem;
+    color: var(--text-color);
+    margin-left: 1.25rem;
+    font-family: var(--parah-fontfamily);
+    
+}
+.footer-content h3 {
+    font-size: var(--h2-font);
+    color: var(--text-color);
+    padding: 1.25rem 0 0 .625rem;
+    font-family: var(--heading-fontfamily);
+    
+}
+.footer-content ul {
+    line-height: 3.125rem;
+    font-size: var(--p-font);
+    padding-left: 1.25rem;
+}
+.footer-navigation{
+    color: var(--text-color);
+    font-family: var(--parah-fontfamily);
+    font-weight: bold; 
+}
+
+.footer-navigation:hover {
+    color: var(--second-color);
+    transition: .2s;
+    border-bottom: 1px dashed var(--text-color);
+}
+.footer-details {
+    height: 16%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding:1.25rem 3.125rem;
+    font-size: var(--p-font);
+}
+.footer-links {
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 12.5rem;
+}
+.footer-links a {
+    padding: .5rem;
+}
+.footer-details p {
+    padding: 1rem;
+    font-size: var(--p-font);
+    font-family: var(--parah-fontfamily);
+}
+.footer-links a img {
+    width: 3.125rem;
+}
+
+@keyframes running_chef{
+    0% {
+        left: calc(0% - 100px);
+    }
+    100% {
+        left: calc(73%);
+    }
+}
+
+@media screen and (max-width:800px) {
+    html {
+        font-size: 12px;
+    }
+    .footer-details {
+        flex-direction: column;
+    }
+}
+@media screen and (max-width:460px){
+    html {
+        font-size: 10px;
+    }
+}
+@media screen and (max-width:1150px){
+    .bx-menu {
+        display: block;
+    }
+    .closebtn{
+        display: block;
+    }
+    .navigation{
+        display: block;
+        height: 100%;
+        width: 0;
+        position: fixed;
+        z-index: 1;
+        top: 0;
+        left: -30px;
+        background-color: var(--other-color);
+        overflow-x: hidden;
+        transition: 0.5s;
+        padding-top: 60px;
+    }
+
+      .navigation-link {
+        padding: 8px 8px 8px 32px;
+        text-decoration: none;
+        font-size: var(--p-font);
+        color:var(--text-color);
+        display: block;
+        transition: 0.3s;
+      }
+      
+      .navigation li a:hover {
+        color: var(--text-color);
+      }
+      
+      .navigation .closebtn {
+        position: absolute;
+        top: 0;
+        right: 25px;
+        font-size: 36px;
+        margin-left: 50px;
+      }
+    
+}
+
+
+
+
+
+
+

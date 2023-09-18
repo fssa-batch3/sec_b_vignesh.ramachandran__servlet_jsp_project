@@ -12,7 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import in.fssa.srcatering.exception.ServiceException;
 import in.fssa.srcatering.exception.ValidationException;
+import in.fssa.srcatering.model.AddressBook;
 import in.fssa.srcatering.model.User;
+import in.fssa.srcatering.service.AddressBookService;
 import in.fssa.srcatering.service.UserService;
 
 /**
@@ -33,14 +35,19 @@ public class ListUserDetails extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 		UserService userService = new UserService();
+		AddressBookService addressBookService = new AddressBookService();
 		User user = null;
+		AddressBook addressBook = new AddressBook();
 
 		if (loggedUser != null) {
 
 			try {
 				user = (User) userService.findByEmail(loggedUser);
 
+				addressBook = addressBookService.getDefaultAddressByUserId(user.getId());
+
 				request.setAttribute("userDetails", user);
+				request.setAttribute("addressBook", addressBook);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/user_details.jsp");
 				dispatcher.forward(request, response);
 			} catch (ValidationException e) {

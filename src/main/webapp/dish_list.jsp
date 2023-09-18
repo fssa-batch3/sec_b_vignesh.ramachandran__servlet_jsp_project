@@ -1,3 +1,4 @@
+<%@page import="java.io.PrintWriter"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.HashSet"%>
 <%@page import="in.fssa.srcatering.model.Category"%>
@@ -29,7 +30,8 @@
 	href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 
 <title>Dishes</title>
-<link rel="stylesheet" href="./styles/dish_list.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/assets/css/dishes/dishes.css">
 </head>
 <body>
 
@@ -70,18 +72,52 @@
 				</ul>
 
 				<div class="nxt_page">
-					<p>Rs.<%=totalPrice %>/plate</p>
-					<a href="mycart?menuId=<%=menu.getId() %>&categoryId=<%=category.getId() %>" class="add_to_cart">
-						Add to Cart <img class="plus-image"
-							src="https://iili.io/J9rMPBs.png" alt="plus image">
-					</a>
-					<a href=""><button class="buy_now">Buy Now</button></a> 
+					<p>
+						Rs.<%=totalPrice%>/plate
+					</p>
+					
+					<%if(loggedUser != null){ %>
+					
+						<form action="cart/create" method="post" >
+	
+							<input type="hidden" name="menuId" value="<%=menu.getId()%>">
+							<input type="hidden" name="categoryId" value="<%=category.getId()%>"> 
+							
+								<button class="add_to_cart" type="submit">Add to Cart
+									<a> <img class="plus-image" src="https://iili.io/J9rMPBs.png" alt="plus image">
+									</a>
+								</button>
+						</form>
+						
+						<a href="order/create?menuId=<%=menu.getId() %>&categoryId=<%=category.getId() %>">
+							<button type="submit" class="buy_now" >Buy Now</button>
+						</a>
+					
+					<%} else { %>
+						
+						<button class="add_to_cart" type="submit" onclick="showLoginAlert()">Add to Cart
+								<a> <img class="plus-image" src="https://iili.io/J9rMPBs.png" alt="plus image">
+								</a>
+						</button>
+						
+						<button class="buy_now" onclick="showLoginAlert()">Buy Now</button>
+						
+					<%} %>
+
 				</div>
 
 			</div>
 		</section>
 
 	</main>
+	
+	<script>
+	    function showLoginAlert() {
+	        alert("Please login to add items to your cart.");
+	        
+	    }
+	</script>
+	
 
 
 </body>

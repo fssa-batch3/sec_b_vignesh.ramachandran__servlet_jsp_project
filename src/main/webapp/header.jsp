@@ -1,3 +1,5 @@
+<%@page import="in.fssa.srcatering.service.UserService"%>
+<%@page import="in.fssa.srcatering.service.CartService"%>
 <%@page import="in.fssa.srcatering.service.MenuService"%>
 <%@page import="in.fssa.srcatering.model.User"%>
 <%@page import="java.util.HashSet"%>
@@ -5,389 +7,108 @@
 <%@page import="java.util.Set"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Header</title>
-<style type="text/css">
-* {
-	padding: 0;
-	margin: 0;
-	text-decoration: none;
+
+<%
+HttpSession sessionHeader = request.getSession();
+String loggedUser = (String) sessionHeader.getAttribute("loggedUser");
+
+UserService userService1 = new UserService();
+
+int cartCount = 0;
+
+if(loggedUser != null){
+	User user = userService1.findByEmail(loggedUser);
+	
+	CartService cartService1 = new CartService();
+	cartCount = cartService1.getCartCountByUserId(user.getId());
 }
 
-:root {
-	--bg-color: #ffffff;
-	--second-color: #f54300;
-	--thickgreen-color: #4b814b;
-	--text-color: #130849;
-	--other-color: #ebeef7;
-	--p-font: 1.2rem;
-	--h2-font: 1.5rem;
-	--big-font: 2rem;
-	--name-font: 3rem;
-	--heading-fontfamily: 'Kurale', serif;
-	--parah-fontfamily: 'Josefin Sans', sans-serif;
-}
+Set<Menu> menuList1 = new HashSet<>();
+MenuService menuService1 = new MenuService();
+menuList1 = menuService1.getAllActiveMenus();
 
-span {
-	color: var(--second-color);
-}
+%>
 
-header {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	align-items: center;
-	padding: 0 1rem;
-	justify-content: space-between;
-	position: sticky;
-	top: 0px;
-	z-index: 10;
-	background-color: var(--bg-color);
-	border-bottom: 1px solid black;
-}
+<link rel="stylesheet" href="<%=request.getContextPath() %>/assets/css/header.css">
 
-.icon-left {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	align-items: center;
-}
-
-.icon-left div p {
-	color: var(--thickgreen-color);
-	font-family: var(--heading-fontfamily);
-	font-size: var(--h2-font);
-	font-size: 2.5rem;
-	font-weight: bold;
-}
-
-.icon-left h1 {
-	font-family: var(--heading-fontfamily);
-	color: var(--second-color);
-	font-size: var(--name-font);
-	font-weight: bold;
-	margin: 0;
-}
-
-.logo {
-	width: 6.5rem;
-}
-
-.menu-bar {
-	font-size: 1.875rem;
-	color: var(--text-color);
-	cursor: pointer;
-}
-
-.navigation {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	align-items: center;
-	padding: 1.25rem;
-	list-style: none;
-}
-
-.cartu {
-	position: relative;
-}
-
-.navigation-link {
-	margin: 0 1.25rem;
-	color: var(--text-color);
-	font-size: var(--p-font);
-	font-weight: 700;
-	font-family: var(--heading-fontfamily);
-	transition: all .3s ease;
-	border-bottom: 2px solid transparent;
-}
-
-.navigation-link:hover {
-	border-bottom: 2px solid var(--second-color);
-	color: var(--second-color);
-	transition: all .2s ease;
-}
-
-.dropdown {
-	position: relative;
-}
-
-.dropdown-content {
-	display: none;
-	position: absolute;
-	background-color: var(--other-color);
-	padding: .625rem .625rem;
-	z-index: 1;
-	width: 11.25rem;
-	border-radius: 1.25rem;
-}
-
-.dropdown-content div {
-	display: flex;
-	flex-direction: column;
-	align-content: space-around;
-}
-
-.dropdown:hover .dropdown-content {
-	display: block;
-}
-
-.dropdown-content a {
-	padding: .625rem;
-	color: var(--text-color);
-	font-size: var(--p-font);
-	font-weight: 700;
-	font-family: var(--heading-fontfamily);
-	border-bottom: 1px solid var(--text-color);
-}
-
-.dropdown-content a:hover {
-	color: var(--second-color);
-}
-
-.cart_qty {
-	background-color: var(--second-color);
-	color: var(--bg-color);
-	position: absolute;
-	right: 1px;
-	bottom: 15px;
-	width: 20px;
-	height: 20px;
-	text-align: center;
-	font-weight: bolder;
-	border-radius: 50%;
-}
-
-.dropdown_profile {
-	position: relative;
-}
-
-.dropdown_profile img {
-	width: 3.125rem;
-}
-
-.dropdown_profile-content {
-	display: none;
-	position: absolute;
-	background-color: var(--other-color);
-	padding: .625rem .625rem;
-	z-index: 1;
-	right: 10%;
-	border-radius: 1.25rem;
-	width: 6.875rem;
-	transition: all .3s ease;
-}
-
-.dropdown_profile-content div {
-	display: flex;
-	flex-direction: column;
-	align-content: space-around;
-}
-
-.dropdown_profile:hover .dropdown_profile-content {
-	display: block;
-}
-
-.dropdown_profile-content a {
-	padding: .625rem;
-	color: var(--text-color);
-	font-size: var(--p-font);
-	font-weight: 700;
-	font-family: var(--heading-fontfamily);
-	border-bottom: 1px solid var(--text-color);
-}
-
-.dropdown_profile-content a:hover {
-	color: var(--second-color);
-}
-
-.btn {
-	padding: .5rem 1rem;
-	border-radius: 1rem;
-	font-weight: bold;
-	border: transparent;
-}
-/* .login {
-    font-family: var(--parah-fontfamily);
-    font-size: var(--p-font);
-    color: var(--bg-color);
-    background-color: var(--second-color);
-}
-.btn:hover{
-    transform: scale(1.1);
-    box-shadow: .5rem .5rem .5rem black;
-} */
-.closebtn {
-	display: none;
-	font-size: 3rem;
-	color: var(--text-color);
-	cursor: pointer;
-	font-weight: bold;
-}
-
-.bx-menu {
-	display: none;
-	font-size: 3rem;
-	color: var(--text-color);
-	cursor: pointer;
-}
-
-.login {
-	font-family: var(--parah-fontfamily);
-	font-size: var(--p-font);
-	/* position: relative; */
-	border: none;
-	background: var(--second-color);
-	color: var(--bg-color);
-	padding: .5rem 1rem;
-	font-weight: bold;
-	transition: 0.2s;
-	border-radius: 1rem;
-	opacity: 0.8;
-	letter-spacing: 1px;
-	box-shadow: #c0392b 0px 7px 2px, #000 0px 8px 5px;
-}
-
-button:hover {
-	opacity: 1;
-}
-
-button:active {
-	top: 4px;
-	box-shadow: #c0392b 0px 3px 2px, #000 0px 3px 5px;
-}
-
-@media screen and (max-width:1150px) {
-	.bx-menu {
-		display: block;
-	}
-	.closebtn {
-		display: block;
-	}
-	.navigation {
-		display: block;
-		height: 100%;
-		width: 0;
-		position: fixed;
-		z-index: 1;
-		top: 0;
-		left: -30px;
-		background-color: var(--other-color);
-		overflow-x: hidden;
-		transition: 0.5s;
-		padding-top: 60px;
-	}
-	.navigation-link {
-		padding: 8px 8px 8px 32px;
-		text-decoration: none;
-		font-size: var(--p-font);
-		color: var(--text-color);
-		display: block;
-		transition: 0.3s;
-	}
-	.navigation li a:hover {
-		color: var(--text-color);
-	}
-	.navigation .closebtn {
-		position: absolute;
-		top: 0;
-		right: 25px;
-		font-size: 36px;
-		margin-left: 50px;
-	}
-	.cart_qty {
-		height: 15px;
-		width: 15px;
-		right: 64px;
-	}
-}
-
-@media screen and (max-width: 400px) {
-	html {
-		font-size: 8px;
-	}
-}
-</style>
-
-</head>
-<body>
-
-	<%String loggedUser = (String) request.getSession().getAttribute("loggedUser");
-		User user = (User) request.getAttribute("user"); 
-	  Set<Menu> menuList1 = new HashSet<>();
-	  MenuService menuService = new MenuService();
-	  menuList1 = menuService.getAllActiveMenus();
-	  %>
-
-	<header>
-		<div class="icon-left">
-			<img src="https://iili.io/J93qiue.png" alt="Company Logo"
-				class="logo" />
-			<h1>SR</h1>
-			<div>
-				<p>Catering</p>
-			</div>
+<header>
+	<div class="icon-left">
+		<img src="https://iili.io/J93qiue.png" alt="Company Logo" class="logo" />
+		<h1>SR</h1>
+		<div>
+			<p>Catering</p>
 		</div>
+	</div>
 
-		<ul class="navigation" id="sidenav">
+	<ul class="navigation" id="sidenav">
 
-			<li><a href="<%=request.getContextPath()%>/index" class="navigation-link">HOME</a></li>
-			<li class="dropdown"><span class="navigation-link">MENU</span>
-				<div class="dropdown-content">
-					<div>
-						<%for(Menu menu:menuList1){ %>
-						<a href="/srcateringweb/categories?menuId=<%=menu.getId()%>"><%=menu.getMenuName() %></a>
-						<%} %>
-					</div>
+		<li><a href="<%=request.getContextPath()%>/index"
+			class="navigation-link">HOME</a></li>
+		<li class="dropdown"><span class="navigation-link">MENU</span>
+			<div class="dropdown-content">
+				<div>
+					<%
+					for (Menu menu : menuList1) {
+					%>
+					<a href="<%=request.getContextPath()%>/categories?menuId=<%=menu.getId()%>"><%=menu.getMenuName()%></a>
+					<%
+					}
+					%>
+				</div>
 
-				</div></li>
-			<li><a href="" class="navigation-link">EVENTS</a></li>
-			<li><a href="" class="navigation-link">ABOUT US</a></li>
-			<li><a href="" class="navigation-link">CONTACT US</a></li>
+			</div></li>
+		<li><a href="<%=request.getContextPath()%>/events" class="navigation-link">EVENTS</a></li>
+		<li><a href="<%=request.getContextPath()%>/about_us" class="navigation-link">ABOUT US</a></li>
+		<li><a href="<%=request.getContextPath()%>/contact_us" class="navigation-link">CONTACT US</a></li>
+		
+		<% if (loggedUser != null) {%>
 			<div class="cartu">
-				<li><a href="" class="navigation-link">MY CART</a></li> <span
-					class="cart_qty">7</span>
+				<li><a href="<%=request.getContextPath()%>/mycart" class="navigation-link">MY CART</a></li> 
+				
+				<%if(cartCount > 0){ %>
+					<span class="cart_qty"><%=cartCount %></span>
+				<%} %>
 			</div>
-		</ul>
+		<%} %>
+		
+	</ul>
 
-		<%if(loggedUser == null){ %>
-			<div class="dropdown_profile">
-				<a href="/srcateringweb/user/login">
-					<button class="btn login" type="submit" id="login">Login</button>
-				</a>
-			</div>
-		<%} else if(loggedUser.equals("vignesh@gmail.com")) {%>
-		<div class="dropdown_profile">
-			<img src="https://iili.io/J93Coqx.png" alt="profile image" />
-			<div class="dropdown_profile-content">
-				<div>
-					<a href="/srcateringweb/user/details">My Profile</a> 
-					<a href="">Catering
-						Orders</a> 
-						<a href="/srcateringweb/admin_forms.jsp">Admin Forms</a>
-				</div>
-			</div>
-		</div>
-		<%} else if(loggedUser.equals("vignesh@gmail.com") == false) { %>
-		<div class="dropdown_profile">
-			<img src="https://iili.io/J93Coqx.png" alt="profile image" />
-			<div class="dropdown_profile-content">
-				<div>
-					<a href="/srcateringweb/user/details">My Profile</a> <a href="">My Orders</a>
-					<%System.out.println(request.getContextPath()); %>
-				</div>
+	<%
+	if (loggedUser == null) {
+	%>
+	<div class="dropdown_profile">
+		<a href="<%=request.getContextPath()%>/user/login">
+			<button class="btn login" type="submit" id="login">Login</button>
+		</a>
+	</div>
+	<%
+	} else if (loggedUser.equals("vignesh@gmail.com")) {
+	%>
+	<div class="dropdown_profile">
+		<img src="https://iili.io/J93Coqx.png" alt="profile image" />
+		<div class="dropdown_profile-content">
+			<div>
+				<a href="<%=request.getContextPath()%>/user/details">My Profile</a> <a href="">Catering
+					Orders</a> <a href="<%=request.getContextPath()%>/admin_forms.jsp">Admin Forms</a>
 			</div>
 		</div>
+	</div>
+	<%
+	} else if (loggedUser.equals("vignesh@gmail.com") == false) {
+	%>
+	<div class="dropdown_profile">
+		<img src="https://iili.io/J93Coqx.png" alt="profile image" />
+		<div class="dropdown_profile-content">
+			<div>
+				<a href="<%=request.getContextPath()%>/user/details">My Profile</a> 
+				<a href="<%=request.getContextPath()%>/orders">MyOrders</a>
+			</div>
+		</div>
+	</div>
 
-		<%}%>
+	<%
+	}
+	%>
 
+</header>
 
-
-	</header>
-
-
-</body>
-</html>

@@ -1,0 +1,204 @@
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    
+}
+:root {
+    --bg-color: #ffffff;
+    --second-color: #f54300;
+    --thickgreen-color:#4b814b;
+    --text-color:#130849;
+    --other-color:#ebeef7;
+    --p-font:1.2rem;
+    --h2-font:1.5rem;
+    --big-font:2rem;  
+    --name-font:3rem;
+    --heading-fontfamily:'Kurale', serif;
+    --parah-fontfamily:'Josefin Sans', sans-serif;
+}
+span {
+    color: var(--second-color);
+}
+
+.ingredient-image {
+    background-image: url(../../img/ingredient.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 18.75rem;
+    padding: .625rem 0;
+}
+.ingredient-image h2 {
+    color: var(--bg-color);
+    font-size: var(--big-font);
+    font-family: var(--heading-fontfamily);
+    text-align: center;
+}
+
+.variety {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 3rem;
+    padding: 5rem;
+}
+.variety_types {
+    display: grid;
+    justify-items: center;
+}
+
+.variety_types_img {
+    min-width: 20rem;
+    max-width: 21rem;
+    height: 16.875rem;
+    border-radius: 1.25rem;
+    border: none;
+    box-shadow: 0 .5rem 1.25rem black;
+}
+.variety_types div {
+    padding-top: 2rem;
+    display: grid;
+    justify-items: center;
+}
+.variety_types div h2 {
+    color: var(--second-color);
+    font-family: var(--heading-fontfamily);
+    font-size: var(--h2-font);
+    padding:0 1.25rem;
+    border-left: 2px solid var(--text-color);
+    border-right: 2px solid var(--text-color);
+}
+.variety_types div ul {
+    padding: 2rem;
+}
+.variety_types div ul li {
+    color: var(--text-color);
+    font-family: var(--parah-fontfamily);
+    font-size: var(--p-font);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: .625rem 0;
+}
+ul li p {
+    padding-left: 1.25rem;
+}
+
+.add_to_cart {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 10rem;
+    padding: .625rem ;
+    background-color: var(--other-color);
+    border: 2px solid var(--text-color);
+    color: var(--second-color);
+    font-size: var(--p-font);
+    font-weight: bold;
+    font-family: var(--parah-fontfamily);
+    border-radius: .625rem;
+}
+.add_to_cart:hover {
+    transform: scale(1.1);
+}
+
+.plus-image {
+    width: 1.25rem;
+}
+
+/* footer */
+footer {
+    background-color: var(--other-color);
+}
+.footer-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    justify-items: center;
+    gap: 2rem;
+    padding:2rem 0;
+    margin: 0 2rem;
+    border-bottom: 2px solid var(--text-color);
+}  
+.footer-content {
+    padding: 1rem;
+}
+.footer-content img {
+    width: 12.5rem;
+}
+.footer-content p {
+    font-size: var(--p-font);
+    line-height: 1.875rem;
+    color: var(--text-color);
+    margin-left: 1.25rem;
+    font-family: var(--parah-fontfamily);
+    
+}
+.footer-content h3 {
+    font-size: var(--h2-font);
+    color: var(--text-color);
+    padding: 1.25rem 0 0 .625rem;
+    font-family: var(--heading-fontfamily);
+    
+}
+.footer-content ul {
+    line-height: 3.125rem;
+    font-size: var(--p-font);
+    padding-left: 1.25rem;
+}
+.footer-navigation{
+    color: var(--text-color);
+    font-family: var(--parah-fontfamily);
+    font-weight: bold; 
+}
+
+.footer-navigation:hover {
+    color: var(--second-color);
+    transition: .2s;
+    border-bottom: 1px dashed var(--text-color);
+}
+.footer-details {
+    height: 16%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding:1.25rem 3.125rem;
+    font-size: var(--p-font);
+}
+.footer-links {
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 12.5rem;
+}
+.footer-links a {
+    padding: .5rem;
+}
+.footer-details p {
+    padding: 1rem;
+    font-size: var(--p-font);
+    font-family: var(--parah-fontfamily);
+}
+.footer-links a img {
+    width: 3.125rem;
+}
+@media screen and (max-width:850px){
+    .variety{
+        padding: 2rem;
+    }
+}
+@media screen and (max-width:800px) {
+    html {
+        font-size: 12px;
+    }
+    .footer-details {
+        flex-direction: column;
+    }
+}
+@media screen and (max-width:460px){
+    html {
+        font-size: 10px;
+    }
+}

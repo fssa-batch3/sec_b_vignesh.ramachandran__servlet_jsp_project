@@ -26,7 +26,7 @@
 <link rel="stylesheet"
 	href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 
-<link rel="stylesheet" href="../styles/dish_add.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/admin/dishes_add.css">
 
 <title>Dish add</title>
 

@@ -1,0 +1,153 @@
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    
+}
+:root {
+    --bg-color: #ffffff;
+    --second-color: #f54300;
+    --thickgreen-color:#4b814b;
+    --text-color:#130849;
+    --other-color:#ebeef7;
+    --p-font:1.2rem;
+    --h2-font:1.5rem;
+    --big-font:2rem;  
+    --name-font:3rem;
+    --heading-fontfamily:'Kurale', serif;
+    --parah-fontfamily:'Josefin Sans', sans-serif;
+}
+span {
+    color: var(--second-color);
+}
+
+
+/* Main Page */
+
+section {
+    height: 90vh;
+    background-image: url(../../img/cook-with-comali-chef-damo.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
+.thanks{
+    padding: 1.25rem;
+    
+
+}
+.thanks p {
+    padding: 1.25rem;
+    font-family: var(--heading-fontfamily);
+    font-size: var(--big-font);
+    color: var(--text-color);
+    font-weight: bold;
+}
+.btn_home {
+    margin: 1.25rem;
+    font-size: var(--h2-font);
+    font-family: var(--parah-fontfamily);
+    color: var(--text-color);
+    font-weight: bold;
+    padding: .625rem .9375rem  ;
+    border-radius: .625rem;
+    border: transparent;
+    
+}
+.btn_home:hover {
+    transform: scale(1.1);
+    color: var(--second-color);
+    background-color: var(--text-color);
+    transition: .2s;
+}
+
+
+
+
+footer {
+    height: 10vh;
+}
+.footer-details {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding:1.25rem 3.125rem;
+    font-size: var(--p-font);
+    border-top: 2px solid var(--text-color);
+}
+.footer-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 12.5rem;
+}
+.footer-details p {
+    font-size: var(--p-font);
+    font-family: var(--parah-fontfamily);
+    
+}
+.footer-links a img {
+    width: 3.125rem;
+}
+
+
+@media screen and (max-width:400px){
+    html{
+        font-size: 8px;
+    }
+
+    .bx-menu {
+        display: block;
+    }
+    .navigation {
+        display: none;
+    }
+    .responsive-navigation {
+        display:none;
+        overflow: hidden;
+        position: absolute;
+        top: 9%;
+        right: -100px;
+        width: 80px;
+        z-index: 10001;
+        padding: 0;
+        background-color: var(--other-color);
+        transition: all .3s ;
+        border-radius: 1rem;
+    }
+    .responsive-navigation li {
+        padding: .5rem 0;
+        border-bottom: .5px solid var(--bg-color);
+
+    }
+    .bx-menu:hover .responsive-navigation {
+        display: block;
+        right: 0;
+    }
+    section {
+        height: 32vh;
+    }
+    .thanks p {
+        font-size: var(--h2-font);
+    }
+    .btn_home {
+        display: block;
+    }
+
+
+    .footer-details {
+        flex-wrap: wrap;
+    }
+
+}
+@media screen and (max-width:300px){
+    html {
+        font-size: 7px;
+    }
+    section {
+        height: 26vh;
+    }
+    
+}

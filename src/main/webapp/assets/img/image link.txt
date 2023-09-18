@@ -1,0 +1,32 @@
+for morning menu = <a href="https://freeimage.host/i/HWhcQZx"><img src="https://iili.io/HWhcQZx.md.jpg" alt="HWhcQZx.md.jpg" border="0"></a>
+for lunch menu = https://freeimage.host/i/HWcAk0P
+for hightea menu = https://freeimage.host/i/HWcA6zv
+for dinner menu = https://freeimage.host/i/HWcRJLl
+for custom menu = https://freeimage.host/i/HWcRCmb
+
+
+for ordinary tiffin = https://freeimage.host/i/HWcRuEB
+for special tiffin = https://freeimage.host/i/HWcR0hv
+for vip tiffin = https://freeimage.host/i/HWcRMEN
+
+for ordinary lunch = https://freeimage.host/i/HWcRhYX
+for special lunch = https://freeimage.host/i/HWcRwps
+for vip lunch = https://freeimage.host/i/HWcROTG
+
+for ordinary hightea = https://freeimage.host/i/HWcRSG2
+for special hightea = https://freeimage.host/i/HWcR6ve
+for vip hightea = https://freeimage.host/i/HWcRQZx
+
+for ordinary dinner = https://freeimage.host/i/HWcRp3P
+for special dinner = https://freeimage.host/i/HWc5KnR
+for vip dinner = https://freeimage.host/i/HWc5CFI
+
+for soup menu = https://freeimage.host/i/HWc5XMQ
+for biriyani menu = https://freeimage.host/i/HWc5utf
+for desert = https://freeimage.host/i/HWc55Ml
+for dosa varities = https://freeimage.host/i/HWc5aFS
+for non-veg = https://freeimage.host/i/HWc519e
+for parotta menu = https://freeimage.host/i/HWc5Gwb
+for roti menu = https://freeimage.host/i/HWc5Mtj
+for starters = https://freeimage.host/i/HWc5wKB
+for welcome drinks = https://freeimage.host/i/HWc5OS1

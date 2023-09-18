@@ -1,0 +1,188 @@
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+}
+:root {
+    --bg-color: #ffffff;
+    --second-color: #f54300;
+    --thickgreen-color:#4b814b;
+    --text-color:#130849;
+    --other-color:#ebeef7;
+    --p-font:1.2rem;
+    --h2-font:1.5rem;
+    --big-font:2rem;  
+    --name-font:3rem;
+    --heading-fontfamily:'Kurale', serif;
+    --parah-fontfamily:'Josefin Sans', sans-serif;
+}
+span {
+    color: var(--second-color);
+}
+
+
+.ingredient-image {
+    background-image: url(../../img/ingredient.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 18.75rem;
+    padding: .625rem 0;
+    
+}
+.ingredient-image h2 {
+    color: var(--bg-color);
+    font-size: var(--big-font);
+    font-family: var(--heading-fontfamily);
+    text-align: center;
+}
+
+.events h2 {
+    font-family: var(--heading-fontfamily);
+    font-size: var(--big-font);
+    color: var(--second-color);
+    text-align: center;
+    padding: 3.125rem 0;
+}
+.events_lists {
+    margin: 0 6.25rem 1rem 6.25rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    column-gap: 2rem;
+    row-gap: 3rem;
+    justify-items: center;
+
+}
+.event-1 {
+    width: 15.625rem;
+    display: grid;
+    justify-items: center;
+    padding: 1.25rem;
+    justify-content: space-around;
+}
+.event-1:hover {
+    transform: scale(1.05);
+    transition: width .2s ease .2s;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+    border-radius: 1.5rem;
+}
+
+.event-1 img {
+    width: 15.625rem;
+    height: 15.625rem;
+    border-radius: 1rem;
+   
+}
+.event-1 h3 {
+    padding: 2rem;
+    font-family: var(--parah-fontfamily);
+    font-size: var(--h2-font);
+    color: var(--text-color);
+    text-align: center;
+}
+.event-1 a button {
+    padding: .9375rem 1.25rem ;
+    font-family: var(--parah-fontfamily);
+    font-size: var(--p-font);
+    color: var(--bg-color);
+    background-color: var(--text-color);
+    border-radius: .5rem;
+    font-weight: bold;
+    border: transparent;
+}
+.event-1 a button:hover {
+    background-color: var(--second-color);
+    color: var(--text-color);
+    
+}
+
+
+footer {
+    background-color: var(--other-color);
+}
+.footer-box {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+    justify-items: center;
+    gap: 2rem;
+    padding:2rem 0;
+    margin: 0 2rem;
+    border-bottom: 2px solid var(--text-color);
+}  
+.footer-content {
+    padding: 1rem;
+}
+.footer-content img {
+    width: 12.5rem;
+}
+.footer-content p {
+    font-size: var(--p-font);
+    line-height: 1.875rem;
+    color: var(--text-color);
+    margin-left: 1.25rem;
+    font-family: var(--parah-fontfamily);
+    
+}
+.footer-content h3 {
+    font-size: var(--h2-font);
+    color: var(--text-color);
+    padding: 1.25rem 0 0 .625rem;
+    font-family: var(--heading-fontfamily);
+    
+}
+.footer-content ul {
+    line-height: 3.125rem;
+    font-size: var(--p-font);
+    padding-left: 1.25rem;
+}
+.footer-navigation{
+    color: var(--text-color);
+    font-family: var(--parah-fontfamily);
+    font-weight: bold; 
+}
+
+.footer-navigation:hover {
+    color: var(--second-color);
+    transition: .2s;
+    border-bottom: 1px dashed var(--text-color);
+}
+.footer-details {
+    height: 16%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding:1.25rem 3.125rem;
+    font-size: var(--p-font);
+}
+.footer-links {
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 12.5rem;
+}
+.footer-links a {
+    padding: .5rem;
+}
+.footer-details p {
+    padding: 1rem;
+    font-size: var(--p-font);
+    font-family: var(--parah-fontfamily);
+}
+.footer-links a img {
+    width: 3.125rem;
+}
+
+@media screen and (max-width:800px) {
+    html {
+        font-size: 12px;
+    }
+    .footer-details {
+        flex-direction: column;
+    }
+}
+@media screen and (max-width:460px){
+    html {
+        font-size: 10px;
+    }
+}

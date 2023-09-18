@@ -1,0 +1,411 @@
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+
+}
+
+:root {
+    --bg-color: #ffffff;
+    --second-color: #f54300;
+    --thickgreen-color: #4b814b;
+    --text-color: #130849;
+    --other-color: #ebeef7;
+    --p-font: 1.2rem;
+    --h2-font: 1.5rem;
+    --big-font: 2rem;
+    --name-font: 3rem;
+    --heading-fontfamily: 'Kurale', serif;
+    --parah-fontfamily: 'Josefin Sans', sans-serif;
+}
+
+span {
+    color: var(--second-color);
+}
+
+
+/* Content Start*/
+
+.ingredient-image {
+    background-image: url(../../img/ingredient.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 18.75rem;
+    padding: .625rem 0;
+}
+
+.ingredient-image h2 {
+    color: var(--bg-color);
+    font-size: var(--big-font);
+    font-family: var(--heading-fontfamily);
+    text-align: center;
+}
+
+/* .status {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid var(--text-color);
+}
+.status button {
+    padding: 1rem 0;
+    font-family: var(--heading-fontfamily);
+    font-size: var(--h2-font);
+    font-weight: bold;
+    border-radius: 1rem;
+} */
+.not_deli{
+    color: var(--text-color);
+}
+.deli {
+    color: var(--thickgreen-color);
+}
+.cancelled {
+    color: var(--second-color);
+}
+
+.radio-input {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    /* border-bottom: 1px solid var(--text-color); */
+  }
+  
+  .radio-input input[type="radio"] {
+    display: none;
+  }
+  
+  .radio-input label {
+    padding: 1rem 0;
+    font-family: var(--heading-fontfamily);
+    font-size: var(--h2-font);
+    font-weight: bold;
+    border-radius: 1rem;
+    text-align: center;
+    border: 1px solid #ccc;
+    background-color: var(--bg-color);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .radio-input label:before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translate(-50%, -50%);
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .radio-input input[type="radio"]:checked + label:before {
+    background-color: green;
+    top: 0;
+  }
+  
+  .radio-input input[type="radio"]:checked + label {
+    background-color: royalblue;
+    color: #fff;
+    border-color: rgb(129, 235, 129);
+    animation: radio-translate 0.5s ease-in-out;
+  }
+  
+  @keyframes radio-translate {
+    0% {
+      transform: translateX(0);
+    }
+  
+    50% {
+      transform: translateY(-10px);
+    }
+  
+    100% {
+      transform: translateX(0);
+    }
+  }
+
+body {
+    background-color: var(--other-color);
+}
+
+.orders {
+    display: grid;
+    gap: 1rem;
+}
+.address_div {
+    padding: 1rem;
+    margin: 2% 10%;
+    border: 2px solid greenyellow;
+    background-color: var(--bg-color);
+    border-radius: 1rem;
+}
+.address_div h2 {
+    font-family: var(--heading-fontfamily);
+    font-size: var(--h2-font);
+    padding-bottom: 1rem;
+    text-align: center;
+    color: var(--second-color);
+}
+.address_div p {
+    font-family: var(--heading-fontfamily);
+    font-size: var(--p-font);
+    line-height: 2rem;
+}
+
+.my-orders_list {
+    border-radius: 1rem;
+    margin: 2% 10%;
+    background-color: var(--bg-color);
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+.head_order{
+    padding: 1rem 2rem;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    gap: .7rem;
+}
+.order_id, .userId{
+    font-family: var(--parah-fontfamily);
+    font-size: 1.2rem;
+    padding-bottom: .5rem;
+}
+#order_status{
+    background-color: transparent;
+    color: var(--text-color);
+    font-family: var(--heading-fontfamily);
+    font-size: var(--h2-font);
+    border: transparent;
+    font-weight: bolder;
+}
+.my_order_text {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    justify-items: center;
+    gap: 1rem;
+    align-items: center;
+    padding: 1rem 0;
+}
+.menuImage img {
+    width: 15rem;
+    height: 14rem;
+    border-radius: 1rem;
+}
+.subject {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+.my_order_text div h2 {
+    font-family: var(--heading-fontfamily);
+    font-size: var(--big-font);
+    color: var(--second-color);
+    text-align: center;
+    padding: 1rem 0;
+}
+.btn {
+    padding: .5rem;
+    border-radius: 1rem;
+    border: transparent;
+    font-family: var(--parah-fontfamily);
+    font-size: var(--p-font);
+    font-weight: bold;
+}
+.view {
+    color: var(--text-color);
+    background-color: var(--other-color);
+}
+.cancel {
+    background-color: var(--second-color);
+    color: var(--bg-color);
+}
+.btn:hover {
+    transform: scale(1.1);
+    /* box-shadow: .5rem .5rem .625rem black; */
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.reason {
+    display: none;
+    font-family: var(--parah-fontfamily);
+    font-size: var(--p-font);
+    color: var(--text-color);
+    text-align: center;
+}
+.reason span{
+    font-family: var(--heading-fontfamily);
+    font-size: var(--p-font);
+    font-weight: bold;
+}
+.arr_status{
+    font-family: var(--heading-fontfamily);
+    font-size: var(--h2-font);
+    color: var(--thickgreen-color);
+    font-weight: bolder;
+}
+.btnReview{
+    padding: .5rem 1rem;
+    font-family: var(--parah-fontfamily);
+    font-size: var(--p-font);
+    color: var(--text-color);
+    border-radius: .5rem;
+}
+.rev_thanks {
+    font-family: var(--heading-fontfamily);
+    font-size: var(--h2-font);
+    color: var(--text-color);
+    font-weight: bold;
+    text-shadow: 2px 2px 10px yellow;
+}
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.field div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: .5rem;
+}
+.field div label {
+    font-family: var(--heading-fontfamily);
+    font-size: var(--h2-font);
+    color: var(--text-color);
+    font-weight: bold;
+    padding: .5rem 0;
+}
+.field div input {
+    font-family: var(--parah-fontfamily);
+    font-size: var(--p-font);
+    color: var(--text-color);
+    padding: .5rem 0;
+    text-align: center;
+}
+
+.dropdown_menu-type-content {
+    display: none;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+    background: rgb(189, 226, 132);
+    padding: .625rem;
+    z-index: 1;
+    border-radius: 1.25rem;
+}
+
+.dropdown_menu-type:hover .dropdown_menu-type-content {
+    display: block;
+}
+
+.bx-x-circle {
+    display: flex;
+    justify-content: flex-end;
+    font-size: 1.5rem;
+    color: var(--text-color);
+    cursor: pointer;
+    font-weight: bold;
+    z-index: 2;
+}
+
+.dishes {
+    padding: 1rem;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 1rem;
+}
+
+.dishes li {
+    padding: .625rem;
+    border: transparent;
+    font-family: var(--parah-fontfamily);
+    font-size: var(--normal-font);
+    color: var(--bg-color);
+    background-color: var(--text-color);
+    font-weight: bolder;
+    border-radius: .625rem;
+}
+footer {
+    height: 10vh;
+}
+
+.footer-details {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 1.25rem 3.125rem;
+    font-size: var(--p-font);
+    border-top: 2px solid var(--text-color);
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 12.5rem;
+}
+
+.footer-details p {
+    font-size: var(--p-font);
+    font-family: var(--parah-fontfamily);
+
+}
+
+.footer-links a img {
+    width: 3.125rem;
+
+}
+
+/* for showing the customer rating in the myorders page */
+.star-widget label{
+    font-size: 2.5rem;
+    color: #444;
+    padding: 5px;
+    transition: all 0.2s ease;
+    text-shadow: 0 0 20px #952;
+  }
+  .star-widget input{
+    display: none;
+  }
+
+  .revFeedback{
+    font-family: var(--heading-fontfamily);
+    font-size: var(--p-font);
+    color: var(--text-color);
+    text-align: center;
+  }
+
+@media screen and (max-width:800px) {
+    html {
+        font-size: 12px;
+    }
+    .footer-details {
+        flex-direction: column;
+    }
+}
+@media screen and (max-width:460px){
+    html {
+        font-size: 10px;
+    }
+    
+}

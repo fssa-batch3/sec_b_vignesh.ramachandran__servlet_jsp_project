@@ -29,50 +29,71 @@ public class Index extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
 
 		PrintWriter out = response.getWriter();
 		MenuService menuService = new MenuService();
 		Set<Menu> menuList = new HashSet<>();
+		
+		
+		try {
 
-		UserService userService = new UserService();
+			menuList = menuService.getAllActiveMenus();
 
-		HttpSession session = request.getSession();
-		String loggedUser = (String) session.getAttribute("loggedUser");
+			request.setAttribute("menuList", menuList);
 
-		if (loggedUser != null) {
-			try {
-				User user = (User) userService.findByEmail(loggedUser);
-				
-				menuList = menuService.getAllActiveMenus();
+			RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+			dispatcher.forward(request, response);
 
-				request.setAttribute("user", user);
-				request.setAttribute("menuList", menuList);
-
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-				dispatcher.forward(request, response);
-
-			} catch (ValidationException e) {
-				e.printStackTrace();
-				out.println(e.getMessage());
-			} catch (ServiceException e) {
-				e.printStackTrace();
-				out.println(e.getMessage());
-			}
-		} else {
-			try {
-				
-				menuList = menuService.getAllActiveMenus();
-				
-				request.setAttribute("menuList", menuList);
-
-				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-				dispatcher.forward(request, response);
-
-			} catch (ServiceException e) {
-				e.printStackTrace();
-				out.println(e.getMessage());
-			}
+		} catch (ServiceException e) {
+			e.printStackTrace();
+			out.println(e.getMessage());
 		}
+		
+		request.setAttribute("menuList", menuList);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+		dispatcher.forward(request, response);
+
+//		UserService userService = new UserService();
+//
+//		HttpSession session = request.getSession();
+//		String loggedUser = (String) session.getAttribute("loggedUser");
+//
+//		if (loggedUser != null) {
+//			try {
+//				User user = (User) userService.findByEmail(loggedUser);
+//				
+//				menuList = menuService.getAllActiveMenus();
+//
+//				request.setAttribute("user", user);
+//				request.setAttribute("menuList", menuList);
+//
+//				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+//				dispatcher.forward(request, response);
+//
+//			} catch (ValidationException e) {
+//				e.printStackTrace();
+//				out.println(e.getMessage());
+//			} catch (ServiceException e) {
+//				e.printStackTrace();
+//				out.println(e.getMessage());
+//			}
+//		} else {
+//			try {
+//				
+//				menuList = menuService.getAllActiveMenus();
+//				
+//				request.setAttribute("menuList", menuList);
+//
+//				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+//				dispatcher.forward(request, response);
+//
+//			} catch (ServiceException e) {
+//				e.printStackTrace();
+//				out.println(e.getMessage());
+//			}
+//		}
 
 	}
 
