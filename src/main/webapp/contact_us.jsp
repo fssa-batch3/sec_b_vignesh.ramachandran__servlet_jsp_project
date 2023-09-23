@@ -50,8 +50,7 @@
 					</div>
 					<div class="dummy">
 						<h3>PHONE</h3>
-						<p>6379370482</p>
-						<p>8608664596</p>
+						<p>9876543210</p>
 					</div>
 					<div class="dummy">
 						<a href="">
@@ -88,6 +87,7 @@
 		<!-- contact us ends -->
 	</main>
 
+	<%@include file="/footer.jsp" %>
 
 
 </body>

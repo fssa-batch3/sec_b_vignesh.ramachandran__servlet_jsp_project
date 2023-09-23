@@ -157,25 +157,32 @@
 					<div>
 						<label for="address">Address :</label>
 						
-						<%if(addressBook != null){ %>
-							<textarea type="text" name="address" id="address" rows="3" cols="27" readonly>
-								<%=(addressBook.getDoorNo() + ", " + addressBook.getStreetName() + ", " + addressBook.getSubLocality() 
-								+ ", " + addressBook.getCity()+ ", " + addressBook.getDistrict()+ ", " + addressBook.getPincode()).trim() %>
-							 </textarea>
-						 <%} else { %>
-						 	<textarea type="text" name="address" id="address" rows="3" cols="27" readonly>
-								
-							 </textarea>
-						 <%} %>
-					</div>
-					
-
-					<div id="div_AddBtn">
-						<a href="address" class="btn addbtn">
-							Address Book
-						</a>
 						
 					</div>
+					
+					<%if(addressBook != null){ %>
+							<div id="address">
+								<%=(addressBook.getDoorNo() + ", " + addressBook.getStreetName() + ", " + addressBook.getSubLocality() 
+								+ ", " + addressBook.getCity()+ ", " + addressBook.getDistrict()+ ", " + addressBook.getPincode()).trim() %>
+							</div>
+							 
+							<div id="div_AddBtn">
+								<a href="address" class="btn addbtn">
+									Address Book
+								</a>
+							</div>
+							 
+							 
+						 <%} else { %>
+						 	<div id="createAdd">
+						 		<a href="address" class="btn addbtn">
+									Create Address
+								</a>
+							</div>
+						 <%} %>
+					
+
+					
 
 				</div>
 				<div class="show_password">
@@ -206,6 +213,8 @@
 		<!-- profile ends -->
 	</main>
 	<!-- main ends -->
+	
+	<%@include file="/footer2.jsp" %>
 
 	<script>
 	 // show password
@@ -215,12 +224,28 @@
 
     Checkbox.addEventListener("click", () => {
       const type =
-Password.getAttribute("type") === "password" ? "text" : "password";
-      Password.setAttribute("type", type);
+		Password.getAttribute("type") === "password" ? "text" : "password";
+      	Password.setAttribute("type", type);
 
       const cnfType = CnfPassword.getAttribute("type") === "password" ? "text" : "password";
-CnfPassword.setAttribute("type", cnfType);
+		CnfPassword.setAttribute("type", cnfType);
     });
+    
+    
+    const logoutBtn = document.getElementById("logout");
+    
+    logoutBtn.addEventListener("click", function(event){
+    	
+    	const confirmation = confirm("Are you sure you want to logout?");
+    	
+    	if (!confirmation) {
+	        event.preventDefault();
+	    }
+    	
+    });
+    
+    
+    
 	</script>
 
 

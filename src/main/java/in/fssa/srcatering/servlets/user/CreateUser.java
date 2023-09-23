@@ -51,12 +51,19 @@ public class CreateUser extends HttpServlet {
 				userService.createUser(user);
 				response.sendRedirect(request.getContextPath()+"/user/login");
 
-			} catch (ValidationException | ServiceException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
-				out.println(e.getMessage());
+				
+				out.println("<script>alert('"+ e.getMessage() +"');</script>");
+				out.println("<script>window.history.back();</script>");
+				
+//				request.setAttribute("errorMessage", e.getMessage());
+//				request.getRequestDispatcher(request.getContextPath()+"/register.jsp").forward(request, response);
 			}
 		} else {
-			out.println("Check confirm password");
+			
+			out.println("<script>alert('Check confirm password');</script>");
+			out.println("<script>window.history.back();</script>");
 		}
 
 	}

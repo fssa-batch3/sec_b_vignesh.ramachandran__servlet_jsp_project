@@ -78,11 +78,11 @@
 							required>
 					</div>
 
-					<div>
+					<!-- <div>
 						<label for="address">Address :</label>
 						<textarea type="text" name="address" id="address" rows="3"
 							cols="27" required="true" readonly></textarea>
-					</div>
+					</div> -->
 
 					<div id="pattern" style="display: flex">
 						<span class="number_pass">Must contain at least one number,</span>
@@ -94,9 +94,8 @@
 
 					<div id="div_AddBtn">
 						<button type="submit" class="edit btn">Save</button>
-						<button class="btn addbtn">Address Book</button>
+						<!-- <button class="btn addbtn">Address Book</button> -->
 					</div>
-
 
 
 				</form>
@@ -104,7 +103,88 @@
 		</section>
 		<!-- profile ends -->
 	</main>
+	
 	<!-- main ends -->
+	
+	
+	<script>
+	
+		const formClass = document.querySelector(".profile_form");
+		
+		formClass.addEventListener("submit", function(event){
+			
+			const name = document.getElementById("name").value;
+			const password = document.getElementById("password").value;
+			
+			if(name.trim() == ""){
+				alert("Name Cannot be empty");
+				event.preventDefault();
+			}
+			
+			if(password.trim() == ""){
+				alert("Password Cannot be empty");
+				event.preventDefault();
+			}
+			
+			
+		});
+		
+		
+		// password pattern recognization
+        const password = document.getElementById("password");
+
+        const number_pass = document.querySelector(".number_pass");
+        const upper_pass = document.querySelector(".upper_pass");
+        const lower_pass = document.querySelector(".lower_pass");
+        const symbol_pass = document.querySelector(".symbol_pass");
+        const char_pass = document.querySelector(".char_pass");
+
+        password.addEventListener("input", () => {
+          const password_value = password.value;
+
+          // check upper case
+          const has_upper = /[A-Z]/.test(password_value);
+          if (has_upper == true) {
+            upper_pass.style.color = "green";
+          } else {
+            upper_pass.style.color = "var(--second-color)";
+          }
+
+          // check lower case
+          const has_lower = /[a-z]/.test(password_value);
+          if (has_lower == true) {
+            lower_pass.style.color = "green";
+          } else {
+            lower_pass.style.color = "var(--second-color)";
+          }
+
+          // check number
+          const has_symbol = /[!@#$%^&*_=+-]/.test(password_value);
+          if (has_symbol == true) {
+            symbol_pass.style.color = "green";
+          } else {
+            symbol_pass.style.color = "var(--second-color)";
+          }
+
+          // check char
+          const has_number = /\d/.test(password_value);
+          if (has_number == true) {
+            number_pass.style.color = "green";
+          } else {
+            number_pass.style.color = "var(--second-color)";
+          }
+
+          // check length
+          const char_length = password_value.length == 8;
+          if (char_length == true) {
+            char_pass.style.color = "green";
+          } else {
+            char_pass.style.color = "var(--second-color)";
+          }
+        });
+		
+	
+	</script>
 
 
 </body>

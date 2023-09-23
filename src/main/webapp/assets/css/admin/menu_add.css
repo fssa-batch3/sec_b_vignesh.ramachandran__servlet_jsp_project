@@ -81,6 +81,21 @@ form h2 {
     padding: 1rem;
 }
 
+.buttons_div{
+	padding: 1rem 0 1rem 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.back{
+	padding: .625rem 1.25rem;
+	font-size: var(--p-font);
+	border-radius: .625rem;
+	color: var(--text-color);
+}
+
 .btn_submit {
     width: 6.25rem;
     padding: .625rem 1.25rem ;

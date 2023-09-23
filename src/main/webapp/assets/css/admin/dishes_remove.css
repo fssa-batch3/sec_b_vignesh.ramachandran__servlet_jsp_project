@@ -89,6 +89,7 @@ span {
     color: var(--bg-color);
 }
 .buttons_div{
+	padding: 1rem 0 1rem 0;
     display: flex;
     flex-direction: row;
     justify-content: space-around;

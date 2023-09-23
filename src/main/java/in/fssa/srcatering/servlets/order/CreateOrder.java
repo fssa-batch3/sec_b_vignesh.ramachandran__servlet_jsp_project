@@ -39,6 +39,8 @@ public class CreateOrder extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		PrintWriter out = response.getWriter();
 
 		HttpSession session = request.getSession();
 		String loggedUser = (String) session.getAttribute("loggedUser");
@@ -49,43 +51,58 @@ public class CreateOrder extends HttpServlet {
 		if (loggedUser != null) {
 			try {
 				user = userService.findByEmail(loggedUser);
-			} catch (ValidationException | ServiceException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		
+
+		AddressBookService addressBookService = new AddressBookService();
+		AddressBook addressBook = null;
+
+		if (user != null) {
+
+			try {
+				addressBook = addressBookService.getDefaultAddressByUserId(user.getId());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+
 		String cart_id = request.getParameter("cartId");
 		int menuId;
 		int categoryId;
 		Cart cart = null;
-		
-		if(cart_id != null) {
-			
+
+		if (cart_id != null) {
+
 			int cartId = Integer.parseInt(cart_id);
-			
+
 			CartService cartService = new CartService();
 			cart = new Cart();
-			
+
 			try {
 				cart = cartService.getCartByCartId(cartId);
-			} catch (ValidationException | ServiceException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
+				
+				out.println("<script>alert('"+ e.getMessage() +"');</script>");
+				out.println("<script>window.history.back();</script>");
 			}
-			
+
 			menuId = cart.getMenuId();
 			categoryId = cart.getCategoryId();
-			
+
 		} else {
-			
+
 			menuId = Integer.parseInt(request.getParameter("menuId"));
 			categoryId = Integer.parseInt(request.getParameter("categoryId"));
-			
-		}
 
+		}
 
 		MenuService menuService = new MenuService();
 		CategoryService categoryService = new CategoryService();
-		AddressBookService addressBookService = new AddressBookService();
+//			AddressBookService addressBookService = new AddressBookService();
 
 		int price = -1;
 
@@ -96,14 +113,14 @@ public class CreateOrder extends HttpServlet {
 			price = categoryService.getTotalPriceOfTheCategoryByMenuIdAndCategoryId(menuId, categoryId);
 			AddressBook address = addressBookService.getDefaultAddressByUserId(user.getId());
 
-			if(cart != null) {
-				
-				request.setAttribute("noOfGuestCart", cart.getNoOfGuest()+"");
+			if (cart != null) {
+
+				request.setAttribute("noOfGuestCart", cart.getNoOfGuest() + "");
 				request.setAttribute("deliveryDate", cart.getDeliveryDate());
 				request.setAttribute("cartId", cart_id);
-				
+
 			} else {
-				
+
 				LocalDate deliveryDate = LocalDate.now().plusDays(7);
 				request.setAttribute("deliveryDate", deliveryDate);
 			}
@@ -116,20 +133,18 @@ public class CreateOrder extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/order_form.jsp");
 			dispatcher.forward(request, response);
 
-		} catch (ValidationException | ServiceException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			
+			out.println("<script>alert('"+ e.getMessage() +"');</script>");
+			out.println("<script>window.history.back();</script>");
 		}
 
 	}
-	
-	
-	
-	
-	
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		PrintWriter out = response.getWriter();
 
 		HttpSession session = request.getSession();
@@ -145,8 +160,11 @@ public class CreateOrder extends HttpServlet {
 			try {
 				user = userService.findByEmail(loggedUser);
 				addressBook = addressBookService.getDefaultAddressByUserId(user.getId());
-			} catch (ValidationException | ServiceException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
+				
+				out.println("<script>alert('"+ e.getMessage() +"');</script>");
+				out.println("<script>window.history.back();</script>");
 			}
 
 			int menuId = Integer.parseInt(request.getParameter("menuId"));
@@ -164,38 +182,38 @@ public class CreateOrder extends HttpServlet {
 			order.setAddressId(addressBook.getId());
 			order.setEventName(eventName);
 			order.setTotalCost(totalCost);
-			
+
 			OrderProduct orderProduct = new OrderProduct();
 			orderProduct.setMenuId(menuId);
 			orderProduct.setCategoryId(categoryId);
 			orderProduct.setNoOfGuest(noOfGuest);
 			orderProduct.setDeliveryDate(deliveryDate);
-			
 
 			OrderService orderService = new OrderService();
 			OrderProductService orderProductService = new OrderProductService();
 
 			try {
-				
-				OrderProductValidator.validateOrderProduct(orderProduct);
-				
+
 				int orderId = orderService.createOrder(order);
-				
+
 				orderProductService.createOrderProduct(orderId, orderProduct);
-				
+
 				String cartId = request.getParameter("cartId");
-				
-				if(cartId != null) {
+
+				if (cartId != null) {
 					new CartService().deleteCart(Integer.parseInt(cartId));
 				}
-				
-				out.println("<script type=\"text/javascript\">");
-			    out.println("alert(\"Order placed Successfully\");");
-			    out.println("window.location.href='" + request.getContextPath() + "/orders';");
-			    out.println("</script>");
 
-			} catch (ValidationException | ServiceException e) {
+				out.println("<script type=\"text/javascript\">");
+				out.println("alert(\"Order placed Successfully\");");
+				out.println("window.location.href='" + request.getContextPath() + "/orders';");
+				out.println("</script>");
+
+			} catch (Exception e) {
 				e.printStackTrace();
+				
+				out.println("<script>alert('"+ e.getMessage() +"');</script>");
+				out.println("<script>window.history.back();</script>");
 			}
 
 		}

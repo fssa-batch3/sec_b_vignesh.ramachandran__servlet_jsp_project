@@ -20,9 +20,11 @@ import in.fssa.srcatering.model.AddressBook;
 import in.fssa.srcatering.model.Order;
 import in.fssa.srcatering.model.OrderProduct;
 import in.fssa.srcatering.model.OrderStatus;
+import in.fssa.srcatering.model.Review;
 import in.fssa.srcatering.service.AddressBookService;
 import in.fssa.srcatering.service.OrderProductService;
 import in.fssa.srcatering.service.OrderService;
+import in.fssa.srcatering.service.ReviewService;
 
 /**
  * Servlet implementation class OrderDetails
@@ -33,6 +35,8 @@ public class OrderDetails extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		PrintWriter out = response.getWriter();
 
 		int orderId = Integer.parseInt(request.getParameter("orderId"));
 
@@ -41,8 +45,11 @@ public class OrderDetails extends HttpServlet {
 
 		try {
 			order = orderService.getOrderByOrderId(orderId);
-		} catch (ValidationException | ServiceException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			
+			out.println("<script>alert('"+ e.getMessage() +"');</script>");
+			out.println("<script>window.history.back();</script>");
 		}
 
 		AddressBookService addressBookService = new AddressBookService();
@@ -50,8 +57,11 @@ public class OrderDetails extends HttpServlet {
 
 		try {
 			address = addressBookService.getAddressByAddressId(order.getAddressId());
-		} catch (ValidationException | ServiceException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			
+			out.println("<script>alert('"+ e.getMessage() +"');</script>");
+			out.println("<script>window.history.back();</script>");
 		}
 
 		OrderProductService orderProductService = new OrderProductService();
@@ -76,6 +86,7 @@ public class OrderDetails extends HttpServlet {
 			categoryIdList.add(Integer.parseInt(element.trim()));
 		}
 		
+		List<Review> reviewList = new ArrayList<>();
 				
 
 		try {
@@ -91,15 +102,21 @@ public class OrderDetails extends HttpServlet {
 				
 				orderProductList.add(orderProduct);
 				
+				Review review = null;
+				review = new ReviewService().getReviewByOrderIdAndMenuIdAndCategoryId(order.getId(), menuId, categoryId);
+				reviewList.add(review);
 			}
-			
-//			orderProductList = orderProductService.getAllOrderProductsByOrderId(order.getId());
-		} catch (ValidationException | ServiceException e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
+			
+			out.println("<script>alert('"+ e.getMessage() +"');</script>");
+			out.println("<script>window.history.back();</script>");
 		}
 
 		request.setAttribute("address", address);
 		request.setAttribute("orderProductList", orderProductList);
+		request.setAttribute("reviewList", reviewList);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/order_details.jsp");
 		dispatcher.forward(request, response);
 
@@ -109,8 +126,6 @@ public class OrderDetails extends HttpServlet {
 			throws ServletException, IOException {
 
 		PrintWriter out = response.getWriter();
-
-		String formName = request.getParameter("formName");
 
 		int orderId = Integer.parseInt(request.getParameter("orderId"));
 		int menuId = Integer.parseInt(request.getParameter("menuId"));
@@ -130,8 +145,11 @@ public class OrderDetails extends HttpServlet {
 
 			response.sendRedirect(request.getContextPath() + "/orders");
 
-		} catch (ValidationException | ServiceException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			
+			out.println("<script>alert('"+ e.getMessage() +"');</script>");
+			out.println("<script>window.history.back();</script>");
 		}
 
 	}

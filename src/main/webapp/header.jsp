@@ -32,6 +32,9 @@ menuList1 = menuService1.getAllActiveMenus();
 <link rel="stylesheet" href="<%=request.getContextPath() %>/assets/css/header.css">
 
 <header>
+	<!-- responsive navbar open -->
+	<div class="bx bx-menu" id="toggle" onclick="openNav()"></div>
+	
 	<div class="icon-left">
 		<img src="https://iili.io/J93qiue.png" alt="Company Logo" class="logo" />
 		<h1>SR</h1>
@@ -41,7 +44,10 @@ menuList1 = menuService1.getAllActiveMenus();
 	</div>
 
 	<ul class="navigation" id="sidenav">
-
+	
+		<!-- responsive navbar close -->
+		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+		
 		<li><a href="<%=request.getContextPath()%>/index"
 			class="navigation-link">HOME</a></li>
 		<li class="dropdown"><span class="navigation-link">MENU</span>
@@ -88,8 +94,9 @@ menuList1 = menuService1.getAllActiveMenus();
 		<img src="https://iili.io/J93Coqx.png" alt="profile image" />
 		<div class="dropdown_profile-content">
 			<div>
-				<a href="<%=request.getContextPath()%>/user/details">My Profile</a> <a href="">Catering
-					Orders</a> <a href="<%=request.getContextPath()%>/admin_forms.jsp">Admin Forms</a>
+				<a href="<%=request.getContextPath()%>/user/details">My Profile</a> 
+				<a href="<%=request.getContextPath()%>/cateringorders">Catering Orders</a> 
+					<a href="<%=request.getContextPath()%>/admin_forms.jsp">Admin Forms</a>
 			</div>
 		</div>
 	</div>
@@ -111,4 +118,20 @@ menuList1 = menuService1.getAllActiveMenus();
 	%>
 
 </header>
+
+<script>
+
+	function openNav() {
+	  document.getElementById("sidenav").style.width = "190px";
+	  // document.body.style.backgroundColor = "var(--other-color)";
+	}
+	// openNav();
+
+	function closeNav() {
+	  document.getElementById("sidenav").style.width = "0";
+	  // document.body.style.backgroundColor = "white";
+	}
+
+</script>
+
 

@@ -41,6 +41,8 @@ public class OrderAll extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		PrintWriter out = response.getWriter();
 
 		HttpSession session = request.getSession();
 		String loggedUser = (String) session.getAttribute("loggedUser");
@@ -51,8 +53,11 @@ public class OrderAll extends HttpServlet {
 		if (loggedUser != null) {
 			try {
 				user = userService.findByEmail(loggedUser);
-			} catch (ValidationException | ServiceException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
+				
+				out.println("<script>alert('"+ e.getMessage() +"');</script>");
+				out.println("<script>window.history.back();</script>");
 			}
 		}
 
@@ -60,8 +65,11 @@ public class OrderAll extends HttpServlet {
 
 		try {
 			address = new AddressBookService().getDefaultAddressByUserId(user.getId());
-		} catch (ValidationException | ServiceException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			
+			out.println("<script>alert('"+ e.getMessage() +"');</script>");
+			out.println("<script>window.history.back();</script>");
 		}
 
 		CartService cartService = new CartService();
@@ -69,8 +77,11 @@ public class OrderAll extends HttpServlet {
 
 		try {
 			cartList = cartService.getAllCartsByUserId(user.getId());
-		} catch (ValidationException | ServiceException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			
+			out.println("<script>alert('"+ e.getMessage() +"');</script>");
+			out.println("<script>window.history.back();</script>");
 		}
 
 		List<Menu> menuList = new ArrayList<>();
@@ -105,8 +116,11 @@ public class OrderAll extends HttpServlet {
 				request.setAttribute(loggedUser, noOfGuestList);
 				request.setAttribute("address", address);
 
-			} catch (ValidationException | ServiceException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
+				
+				out.println("<script>alert('"+ e.getMessage() +"');</script>");
+				out.println("<script>window.history.back();</script>");
 			}
 		}
 
@@ -134,8 +148,11 @@ public class OrderAll extends HttpServlet {
 			try {
 				user = userService.findByEmail(loggedUser);
 				addressBook = addressBookService.getDefaultAddressByUserId(user.getId());
-			} catch (ValidationException | ServiceException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
+				
+				out.println("<script>alert('"+ e.getMessage() +"');</script>");
+				out.println("<script>window.history.back();</script>");
 			}
 
 			List<Integer> menuIdList = new ArrayList<>();
@@ -177,8 +194,11 @@ public class OrderAll extends HttpServlet {
 
 			try {
 				orderId = orderService.createOrder(order);
-			} catch (ValidationException | ServiceException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
+				
+				out.println("<script>alert('"+ e.getMessage() +"');</script>");
+				out.println("<script>window.history.back();</script>");
 			}
 
 			for (int i = 0; i < cartCount; i++) {
@@ -198,11 +218,13 @@ public class OrderAll extends HttpServlet {
 
 				try {
 
-					OrderProductValidator.validateOrderProduct(orderProduct);
 					orderProductService.createOrderProduct(orderId, orderProduct);
 
-				} catch (ValidationException | ServiceException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
+					
+					out.println("<script>alert('"+ e.getMessage() +"');</script>");
+					out.println("<script>window.history.back();</script>");
 				}
 
 			}
@@ -216,8 +238,11 @@ public class OrderAll extends HttpServlet {
 				out.println("window.location.href='" + request.getContextPath() + "/orders';");
 				out.println("</script>");
 
-			} catch (ServiceException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
+				
+				out.println("<script>alert('"+ e.getMessage() +"');</script>");
+				out.println("<script>window.history.back();</script>");
 			}
 
 		}

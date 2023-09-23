@@ -72,17 +72,69 @@
 				<div class="input_group">
 					<input type="text" class="category_name" placeholder="Eg: Ordinary"
 						name="category_name" id="categoryName" pattern="^[a-zA-Z\s]+$"
-						title="Enter alphabets only" required> <input type="url"
+						title="Enter alphabets only" required> 
+					<input type="url"
 						class="category_image" name="category_image"
 						placeholder="Enter Image URL" id="categoryImage"
 						pattern="https?://.+" title="It should be URL.eg:http, https"
 						required>
 				</div>
-				<button type="submit" class="btn_submit">Create</button>
+				<div class="buttons_div">
+					<button type="submit" class="btn_submit">Create</button>
+					<button class="btn back" id="btn_back" type="button">Back</button>
+				</div>
 			</form>
 		</section>
+		
+		<%
+		String errorMessage = (String) request.getAttribute("errorMessage");
+		
+		if(errorMessage != null){ 
+		%>
+			<script>
+				alert(<%=errorMessage%>);
+			</script>
+		
+		<% }%>
+		
+		
+		
+		
 
 	</main>
+	
+	<script>
+	
+		const btnBack = document.getElementById("btn_back");
+		
+		btnBack.addEventListener("click", function(){
+			
+			window.history.back();
+			
+		});
+	
+		const formId = document.querySelector(".form_id");
+		
+		formId.addEventListener("submit", function(event){
+			
+			const name = document.getElementById("categoryName").value;
+			const image = document.getElementById("categoryImage").value;
+			
+			if(name.trim() == ""){
+				alert("Category Name cannot be empty");
+				event.preventDefault();
+			}
+			
+			if(image.trim() == ""){
+				alert("Category Image cannot be empty");
+				event.preventDefault();
+			}
+			
+		});
+		
+		
+	
+	</script>
 
 
 </body>

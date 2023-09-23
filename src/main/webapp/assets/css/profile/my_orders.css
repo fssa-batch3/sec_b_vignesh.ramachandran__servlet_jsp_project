@@ -48,6 +48,24 @@ span {
     text-align: center;
 }
 
+.order_empty {
+	margin-top:5%;
+	display:flex;
+	flex-direction:column;
+	align-items:center;
+	
+}
+.order_empty_img {
+	width: 30%;
+	height:30%;
+}
+
+.order_empty p{
+	font-family: var(--heading-fontfamily);
+	font-size: var(--big-font);
+	padding-bottom: 2rem;
+}
+
 .orders {
     margin: 2%;
     display: flex;
@@ -76,6 +94,12 @@ span {
     font-family: var(--parah-fontfamily);
     font-size: var(--p-font);
     padding-bottom: 1rem;
+}
+
+#event_name{
+	font-family: var(--parah-fontfamily);
+    font-size: var(--p-font);
+    color:var(--text-color);
 }
 
 .order_menu {
@@ -139,41 +163,6 @@ span {
 }
 
 
-
-
-/* footer */
-footer {
-    height: 10vh;
-}
-
-.footer-details {
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    padding: 1.25rem 3.125rem;
-    font-size: var(--p-font);
-    border-top: 2px solid var(--text-color);
-}
-
-.footer-links {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 12.5rem;
-}
-
-.footer-details p {
-    font-size: var(--p-font);
-    font-family: var(--parah-fontfamily);
-
-}
-
-.footer-links a img {
-    width: 3.125rem;
-
-}
 @media screen and (max-width:800px) {
     html {
         font-size: 12px;

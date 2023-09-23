@@ -43,10 +43,16 @@
 	Menu menu = (Menu) request.getAttribute("menu");
 	Category category = (Category) request.getAttribute("category");
 	int totalPrice = (Integer) request.getAttribute("totalPrice");
+	List<Integer> menuIds = (List<Integer>) request.getAttribute("menuIds");
+	List<Integer> categoryIds = (List<Integer>) request.getAttribute("categoryIds");
+	
+	request.setAttribute("dishList", dishList);
+	request.setAttribute("menu", menu);
+	request.setAttribute("category", category);
+	
 	%>
 
 	<main>
-
 		<div class="ingredient-image">
 			<h2><%=menu.getMenuName()%>
 				Menu
@@ -75,49 +81,199 @@
 					<p>
 						Rs.<%=totalPrice%>/plate
 					</p>
-					
-					<%if(loggedUser != null){ %>
-					
-						<form action="cart/create" method="post" >
+
+					<%
+					if (loggedUser != null) {
+					%>
+
+						<form action="cart/create" method="post">
 	
 							<input type="hidden" name="menuId" value="<%=menu.getId()%>">
-							<input type="hidden" name="categoryId" value="<%=category.getId()%>"> 
+							<input type="hidden" name="categoryId"
+								value="<%=category.getId()%>">
+							<input type="hidden" name="totalPrice"
+								value="<%=totalPrice%>">
+								
 							
-								<button class="add_to_cart" type="submit">Add to Cart
-									<a> <img class="plus-image" src="https://iili.io/J9rMPBs.png" alt="plus image">
+							
+							<%if(menuIds.contains(menu.getId()) && categoryIds.contains(category.getId())){ %>
+
+									<button class="go_to_cart">
+										Go to Cart
+										<i class='bx bxs-cart' style='color:#0f0f0f'  ></i>
+									</button>
+
+							<%} else { %>
+							
+								<button class="add_to_cart" type="submit">
+									Add to Cart <a> <img class="plus-image"
+										src="https://iili.io/J9rMPBs.png" alt="plus image">
 									</a>
 								</button>
+							
+							<%} %>
+							
 						</form>
-						
-						<a href="order/create?menuId=<%=menu.getId() %>&categoryId=<%=category.getId() %>">
-							<button type="submit" class="buy_now" >Buy Now</button>
+	
+						<a
+							href="order/create?menuId=<%=menu.getId()%>&categoryId=<%=category.getId()%>">
+							<button type="submit" class="buy_now">Buy Now</button>
 						</a>
-					
-					<%} else { %>
 						
-						<button class="add_to_cart" type="submit" onclick="showLoginAlert()">Add to Cart
-								<a> <img class="plus-image" src="https://iili.io/J9rMPBs.png" alt="plus image">
-								</a>
+
+					<%
+					} else {
+					%>
+
+						<button class="add_to_cart" type="submit"
+							onclick="showLoginAlert()">
+							Add to Cart <a> <img class="plus-image"
+								src="https://iili.io/J9rMPBs.png" alt="plus image">
+							</a>
 						</button>
-						
+	
 						<button class="buy_now" onclick="showLoginAlert()">Buy Now</button>
-						
-					<%} %>
+					
+					<%
+					}
+					%>
 
 				</div>
+				
+				<div class="about">
+				
+				<%if(menu.getId() == 1){ %>
+				
+					<div>
+					
+						<h2>Food brings us all together, nothing bonds us like it</h2>
+						<p>Morning Breakfast is the most energetic food in any event or function. It is our pleasure to
+                                serve the tasty food and our Ordinary Breakfast
+                                Service cost is moderate. Our menu includes traditional breakfast items like Idly, Ghee
+                                Pongal, Vada, Poori Masala, Idiyappam, Sambar,
+                                Dry Fruit Kesari, Coffee, Coconut Chutney and etc. We also aim to be
+                                environmentallyfriendly, recycling or composting our waste, using
+                                local suppliers and cleaning our kitchen with professional cleaning products.
+                        </p>
+					
+					</div>
+				<%} else if (menu.getId() == 2){ %>
+					
+					<div>
+					
+						<h2>There is no love sincerer than the love of food</h2>
+						<p>In any function everyone wants meals to be perfect and tasty. We have professional chef to cook variety of 
+                                dishes hygienically and tasty. We are quality conscious and only genuine provisions will be used. Our menu includes 
+                                variety of lunch menus like Rava Kesari, Boiled Rice, Sambar, Rasam, Moor Kuzhambu, kootu, Poriyal, Pappad, Pickle, 
+                                Buttermilk, Medu Vada, Payasam and etc. We provides best lunch catering service and different lunch menu as per clients taste.
+                        </p>
+					
+					</div>
+				
+				<%} else if (menu.getId() == 3){%>
+				
+					<div>
+					
+						<h2>Evening Tea and Snacks is the best refreshment</h2>
+						<p>Everyone want a break for few minutes after a long work and evening is the best time to feel relaxed and have a cup of hot drinks & snacks. We also aim 
+                                to be environmentally friendly, recycling or composting our waste, using local suppliers and cleaning our kitchen with professional cleaning products. 
+                                SR Catering issues different kinds of snacks, cool drinks, beverages and hot drinks and providing service in Kumbakonam and Tamil Nadu.
+                        </p>
+					
+					</div>
+				
+				<%} else if (menu.getId() == 4){ %>
+					
+					<div>
+					
+						<h2>Pull up a chair. Take a taste. Come join us. Life is so endlessly delicious</h2>
+						<p>We seek to impress your guests with our flavours and best culinary skills, our professionals can cater to your orders - be it vegetarian buffet, 
+                    			non-vegetarian. Our menu includes Mini Idly, Parotta with Chops, Biryani, Sweet, Idiyapam, Bonda, Coffee, Special Chutney, Sambar, Coconut Chutney,
+                    			Onion Raitha and etc. Our SR Catering make it as a best budgetary and tastiest dinner menu & a leading budget dinner service provider.
+						</p>
+					
+					</div>
+				
+				<%} %>
+				
+				</div>
+				
+				
+				
+				<% String errorMessage = (String) request.getAttribute("errorMessage");
+				   if (errorMessage != null && !errorMessage.isEmpty()) { %>
+				   <div id="error_message" style="color: red;"><%= errorMessage %></div>
+				<% } %>
+				
 
 			</div>
+		</section>
+		
+		
+		<%
+			Set<Category> categoryList = new CategoryService().getAllActiveCategoriesByMenuId(menu.getId());
+			if(categoryList.size() > 1){ 
+		%>
+		<section class="related-menu">
+			<h2 class="related-menu_heading">Related <span><%=menu.getMenuName() %> Menu </span></h2>
+			
+			<div class="related-menu_content">
+			
+			<%
+				for(Category categoryRelated : categoryList){
+					if(categoryRelated.getId() != category.getId()){
+			%>
+				<div class="related-menu1">	
+					<img src="<%=categoryRelated.getImage()%>">
+					<a href="<%=request.getContextPath()%>/dishes?menuId=<%=menu.getId() %>&categoryId=<%=categoryRelated.getId()%>">
+						<h2>
+							<span><%=categoryRelated.getCategoryName() %></span> <%=menu.getMenuName() %>
+						</h2>
+					</a>
+				
+				</div>
+				<%} %>
+			<%} %>
+		<%} %>
+			
+			</div>
+		
 		</section>
 
 	</main>
 	
+	<%@include file="/footer.jsp" %>
+
 	<script>
-	    function showLoginAlert() {
-	        alert("Please login to add items to your cart.");
-	        
-	    }
-	</script>
 	
+		function showLoginAlert() {
+			alert("Please login to add items to your cart.");
+		}
+		
+		/* if(document.getElementById("error_message")){
+			let value = document.getElementById("error_message").innerText;
+			alert(value);
+		}; */
+		
+		let errorMessage = localStorage.getItem("errorMessage");
+		
+		if(errorMessage != null){
+			alert(errorMessage);
+			localStorage.removeItem("errorMessage");
+		}
+		
+		
+		const gotoCartBtn = document.querySelector(".go_to_cart");
+		
+		gotoCartBtn.addEventListener("click", function(event){
+			
+			event.preventDefault();
+			window.location.href="<%=request.getContextPath()%>/mycart";
+			
+		});
+
+	</script>
+
 
 
 </body>

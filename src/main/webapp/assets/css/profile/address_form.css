@@ -69,8 +69,18 @@ section {
     justify-items: center;
 }
 .save {
+	padding: 8px;
+	border-radius: 10px;
     color: var(--bg-color);
     font-family: var(--parah-fontfamily);
     font-size: var(--p-font);
     background-color: rgb(170, 214, 104);
+    font-weight: bold;
+}
+.pincode_message {
+	display:flex;
+	flex-direction: column;
+	gap:1rem;
+	font-family: var(--parah-fontfamily);
+	font-size: 1rem;
 }

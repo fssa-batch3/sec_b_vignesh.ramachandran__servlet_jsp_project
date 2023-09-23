@@ -48,7 +48,7 @@ public class AddressBookList extends HttpServlet {
 				User user = userService.findByEmail(loggedUser);
 
 				addressList = addressBookService.getAllAddressesByUserId(user.getId());
-			} catch (ValidationException | ServiceException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -80,7 +80,7 @@ public class AddressBookList extends HttpServlet {
 				UserService userService = new UserService();
 				user = userService.findByEmail(loggedUser);
 
-			} catch (ValidationException | ServiceException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -116,7 +116,7 @@ public class AddressBookList extends HttpServlet {
 					response.sendRedirect(request.getContextPath() + "/user/address");
 				}					
 
-			} catch (ServiceException | ValidationException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
@@ -129,7 +129,7 @@ public class AddressBookList extends HttpServlet {
 
 				response.sendRedirect(request.getContextPath() + "/user/address");
 
-			} catch (ValidationException | ServiceException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 

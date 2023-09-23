@@ -29,13 +29,10 @@ public class DeleteUser extends HttpServlet {
 		try {
 			userService.deleteUser(id);
 			response.sendRedirect(request.getContextPath()+"/users");
-		} catch (ValidationException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			out.println(e.getMessage());
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			out.println(e.getMessage());
-		}
+		} 
 
 	}
 

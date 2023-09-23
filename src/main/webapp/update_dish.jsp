@@ -102,6 +102,9 @@
 					<h2>Dishes</h2>
 					<button class="btn show2" type="submit">Show Dishes</button>
 				</div>
+				<div class="buttons_div">
+					<button class="btn back" id="btn_back" type="button">Back</button>
+				</div>
 			</form>
 
 			<%
@@ -114,7 +117,7 @@
 			%>
 
 
-			<form class="content"
+			<form class="content" id="getData"
 				action="update?menuId=<%=menu.getId()%>&categoryId=<%=category.getId()%>"
 				method="post">
 
@@ -156,10 +159,10 @@
 					<input type="checkbox" name="selectedDishes"
 						value="<%=dish.getId()%>">
 
-					<input type="text" name="dish_name_<%=dish.getId()%>"
+					<input type="text" id="dishName" name="dish_name_<%=dish.getId()%>"
 							value="<%=dish.getDishName()%>" readonly>
 							
-					<input type="number" name="quantity_<%=dish.getId()%>"
+					<input type="number" id="dishQuantity" name="quantity_<%=dish.getId()%>"
 							value="<%=dish.getQuantity()%>" required>
 							
 					<select name="quantity_unit_<%=dish.getId()%>" required>
@@ -178,7 +181,7 @@
 								%>
 					</select>
 					
-					<input type="number" name="price_<%=dish.getId()%>"
+					<input type="number" id="dishPrice" name="price_<%=dish.getId()%>"
 							value="<%=dish.getDishPrice()%>" required>
 					
 					<select name="status_<%=dish.getId()%>" required>
@@ -280,6 +283,7 @@
 
 					<div class="buttons_div">
                         <button class="btn save" type="submit">Update</button>
+                        <button class="btn back" id="btn_back" type="button">Back</button>
                     </div>
 
 			</form>
@@ -292,6 +296,54 @@
 
 
 	</main>
+	
+	
+	<script>
+	
+		const btnBack = document.getElementById("btn_back");
+		
+		btnBack.addEventListener("click", function(){
+			
+			window.history.back();
+			
+		});
+	
+		const formId = document.getElementById("getData");
+		
+		formId.addEventListener("submit", function(event){
+			
+			const name = document.getElementById("dishName").value;
+			const quantity = document.getElementById("dishQuantity").value;
+			const price = document.getElementById("dishPrice").value;
+			
+			if(name.trim() == ""){
+				alert("Dish Name cannot be empty");
+				event.preventDefault();
+			}
+			
+			if(quantity.trim() == "" || quantity <= 0){
+				alert("Dish quantity cannot be less than or equal to zero");
+				event.preventDefault();
+			}
+			
+			if (quantity > 500) {
+				alert("Dish quantity cannot be greater than 500");
+				event.preventDefault();
+			}
+			
+			if(price.trim() == "" || price < 0){
+				alert("Dish price cannot be less than zero");
+				event.preventDefault();
+			}
+			
+			if (price > 100) {
+				alert("Dish price cannot be greater than 100");
+				event.preventDefault();
+			}
+			
+		});
+
+	</script>
 
 
 

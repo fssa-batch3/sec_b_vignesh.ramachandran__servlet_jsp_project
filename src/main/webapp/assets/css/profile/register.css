@@ -122,38 +122,6 @@ section {
     color: var(--text-color);
 }
 
-
-footer {
-    background-color: var(--other-color);
-}
-.footer-details {
-    height: 16%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    padding:1.25rem 3.125rem;
-    font-size: var(--p-font);
-}
-.footer-links {
-    padding: 1rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    width: 12.5rem;
-}
-.footer-links a {
-    padding: .5rem;
-}
-.footer-details p {
-    padding: 1rem;
-    font-size: var(--p-font);
-    font-family: var(--parah-fontfamily);
-}
-.footer-links a img {
-    width: 3.125rem;
-}
-
 @media screen and (max-width:800px) {
     html {
         font-size: 12px;

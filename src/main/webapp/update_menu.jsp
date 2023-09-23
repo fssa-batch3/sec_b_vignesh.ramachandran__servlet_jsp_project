@@ -53,7 +53,7 @@
 				<h2>UPDATE-MENU</h2>
 				<div class="select_menu">
 					<h3>Select Menu</h3>
-					<select name="menuId" id="menuName" class="menulist">
+					<select name="menuId" id="menuName" class="menulist" required>
 						<option value="">Select</option>
 						<%
 						for (Menu menu1 : menuList) {
@@ -66,13 +66,17 @@
 					</select>
 					<button class="btn show" type="submit">Show Details</button>
 				</div>
+				
+				<div class="buttons_div">
+					<button class="btn back" id="btn_back" type="button">Back</button>
+				</div>
 
 			</form>
 			<%
 			} else {
 			%>
 
-			<form class="remove_form" action="update?menuId=<%=menu.getId()%>" method="post">
+			<form class="remove_form" action="update?menuId=<%=menu.getId()%>" method="post" id ="form_id">
 			
 				<h2>UPDATE-MENU</h2>
 				<div class="select_menu">
@@ -92,10 +96,13 @@
 						title="It should be URL.eg:http, https" required> 
 					<input value="<%=menu.getDescription()%>"
 						type="text" name="description" name="description" class="menu_description" id="menuAboutGet"
-						pattern="^(?!\s)[a-zA-Z\s\W]+$" required>
+						pattern="^(?!\s)[a-zA-Z\s\W]+$" title="Enter alphabets only" required>
 				</div>
 
-				<button class="btn save" type="submit" >Save</button>
+				<div class="buttons_div">
+					<button class="btn save" type="submit" >Save</button>
+					<button class="btn back" id="btn_back" type="button">Back</button>
+				</div>
 			</form>
 			<%
 			}
@@ -103,6 +110,42 @@
 		</section>
 
 	</main>
+	
+	<script>
+	
+		const btnBack = document.getElementById("btn_back");
+		
+		btnBack.addEventListener("click", function(){
+			
+			window.history.back();
+			
+		});
+	
+		const formId = document.querySelector("#form_id");
+		
+		formId.addEventListener("submit", function(event){
+			
+			const name = document.getElementById("menuNameGet").value;
+			const image = document.getElementById("menuImageGet").value;
+			const description = document.getElementById("menuAboutGet").value;
+			
+			if(name.trim() == ""){
+				alert("Menu Name cannot be empty");
+				event.preventDefault();
+			}
+			
+			if(image.trim() == ""){
+				alert("Menu Image cannot be empty");
+				event.preventDefault();
+			}
+			
+			if(description.trim() == ""){
+				alert("Menu description cannot be empty");
+				event.preventDefault();
+			}
+		});
+	
+	</script>
 
 
 </body>

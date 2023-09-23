@@ -1,3 +1,5 @@
+<%@page import="in.fssa.srcatering.model.Review"%>
+<%@page import="in.fssa.srcatering.model.CaterApproval"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="in.fssa.srcatering.model.OrderStatus"%>
@@ -32,6 +34,7 @@
 
 <link rel="stylesheet"
 	href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/assets/css/normalize.css">
@@ -42,11 +45,14 @@
 <body>
 
 	<%@include file="/header.jsp"%>
+	
+	<main>
 
 	<% 
 	AddressBook address = (AddressBook) request.getAttribute("address");
 	Set<OrderProduct> orderProductList = new HashSet<>();
 	orderProductList = (Set<OrderProduct>) request.getAttribute("orderProductList");
+	List<Review> reviewList = (List<Review>) request.getAttribute("reviewList");
 	%>
 
 	<section class="my-orders">
@@ -83,31 +89,60 @@
 					<p class="order_id">
 						Order Id:
 						<%=orderProduct.getOrderId()%></p>
+						
+					<%if(orderProduct.getCaterApproval() == CaterApproval.PENDING 
+						&& orderProduct.getOrderStatus() != OrderStatus.CANCELLED){ %>
+					
+						<p id="order_status" style="color: var(--text-color)"> Cater Approval: <%=orderProduct.getCaterApproval()%>
+						</p>
+					
+					<%} %>
+						
+					<%if(orderProduct.getCaterApproval() == CaterApproval.APPROVED){ %>
 
-					<%
-					if (orderProduct.getOrderStatus() == OrderStatus.NOT_DELIVERED) {
-					%>
-					<p id="order_status" style="color: var(--text-color)"><%=orderProduct.getOrderStatus()%></p>
-					<%
-					}
-					%>
-
-					<%
-					if (orderProduct.getOrderStatus() == OrderStatus.DELIVERED) {
-					%>
-					<p id="order_status" style="color: var(--thickgreen-color)"><%=orderProduct.getOrderStatus()%></p>
-					<%
-					}
-					%>
-
-					<%
-					if (orderProduct.getOrderStatus() == OrderStatus.CANCELLED) {
-					%>
-					<p id="order_status" style="color: var(--second-color)"><%=orderProduct.getOrderStatus()%></p>
-					<%
-					}
-					%>
-
+						<%
+						if (orderProduct.getOrderStatus() == OrderStatus.NOT_DELIVERED) {
+						%>
+						<p id="order_status" style="color: var(--text-color)">Order Status : <%=orderProduct.getOrderStatus()%></p>
+						<%
+						}
+						%>
+	
+						<%
+						if (orderProduct.getOrderStatus() == OrderStatus.DELIVERED) {
+						%>
+						<p id="order_status" style="color: var(--thickgreen-color)">Order Status : <%=orderProduct.getOrderStatus()%></p>
+						<%
+						}
+						%>
+	
+						<%
+						if (orderProduct.getOrderStatus() == OrderStatus.CANCELLED) {
+						%>
+						<p id="order_status" style="color: var(--second-color)">Order Status : <%=orderProduct.getOrderStatus()%></p>
+						<%
+						}
+						%>
+						
+					<%} %>
+					
+					<%if(orderProduct.getCaterApproval() == CaterApproval.REJECTED){  %>
+					
+						<p id="order_status" style="color: var(--second-color)">Cater Approval: 
+							<%=orderProduct.getCaterApproval()%>
+						</p>
+					
+					<%} %>
+					
+					<%if(orderProduct.getOrderStatus() == OrderStatus.CANCELLED){  %>
+					
+						<p id="order_status" style="color: var(--second-color)">Order Status :
+							<%=orderProduct.getOrderStatus()%>
+						</p>
+					
+					<%} %>
+					
+					
 
 				</div>
 				<div class="my_order_text">
@@ -120,9 +155,15 @@
 						<h2><%=category.getCategoryName()%>
 							<%=menu.getMenuName()%></h2>
 						<button class="btn view">View Dishes</button>
-
+						
+						
 						<%
-						if (orderProduct.getOrderStatus() == OrderStatus.NOT_DELIVERED) {
+						if (orderProduct.getCaterApproval() == CaterApproval.APPROVED &&
+							orderProduct.getOrderStatus() == OrderStatus.NOT_DELIVERED ||
+							
+							orderProduct.getCaterApproval() == CaterApproval.PENDING &&
+							orderProduct.getOrderStatus() == OrderStatus.NOT_DELIVERED
+								) {
 
 							LocalDate oneDayBefore = LocalDate.now().minusDays(1);
 
@@ -147,7 +188,7 @@
 									id="cancelReason" value="<%=count %>">
 								<button type="submit" class="btn cancel" value="<%=orderProduct.getOrderId()%>">Cancel Order</button>
 							</form>
-	
+
 	
 							<%
 							}
@@ -172,15 +213,84 @@
 							<div class="reason">Cancel Reason :
 								<p><%=orderProduct.getCancelReason() %></p>
 							</div>
-							
-							
-							
-						<%} %>
 
-						<!-- cancel button -->
-						<%-- <%if(orderProduct.getOrderStatus() == OrderStatus.CANCELLED){ %>
-							<button class="btn cancel">Cancel Order</button>
-						<% }%> --%>
+						<%} %>
+						
+						<%if(orderProduct.getCaterApproval() == CaterApproval.REJECTED){ %>
+						
+							<div class="reason">Reject Reason :
+								<p><%=orderProduct.getRejectReason()%></p>
+							</div>
+						
+						<%} %>
+						
+						<% if(orderProduct.getOrderStatus() == OrderStatus.DELIVERED){ %>
+						
+							<%for(Review review : reviewList){ %>
+							
+							<%System.out.println(review.getOrderId() == orderProduct.getId()); %>
+							
+								<% if(review.getOrderId() == orderProduct.getOrderId() && review.getMenuId() == orderProduct.getMenuId() &&
+										review.getCategoryId() == orderProduct.getCategoryId()){%>
+							 
+							 		<div class="star-widget">
+							 		
+							 			<input type="radio" name="rate" id="rate-1" value="1"> 
+										<label for="rate-1" class="fa fa-star"></label>
+										
+										<input type="radio" name="rate" id="rate-2" value="2"> 
+										<label for="rate-2" class="fa fa-star"></label> 
+										
+										<input type="radio" name="rate" id="rate-3" value="3"> 
+										<label for="rate-3" class="fa fa-star"></label> 
+										
+										<input type="radio" name="rate" id="rate-4" value="4"> 
+										<label for="rate-4" class="fa fa-star"></label> 
+							 		
+								 		<input type="radio" name="rate" id="rate-5" value="5"> 
+										<label for="rate-5" class="fa fa-star"></label> 
+
+							 		</div>
+									<p class="revFeedback"><%=review.getFeedback() %></p>
+									
+									<script>
+									
+										// Assuming you have an element with class "star-widget" containing radio buttons
+										var starWidget = document.querySelector(".star-widget");
+	
+										// Set the star rating value (e.g., star = 3 for a rating of 3)
+										var star = <%=review.getStar()%>;
+	
+										// Get all radio buttons within the star-widget
+										var radioButtons = starWidget.querySelectorAll("input[type='radio']");
+	
+										// Iterate through the radio buttons and set "checked" property
+										for (var i = 0; i < star; i++) {
+										    radioButtons[i].checked = true;
+										}
+	
+										// Optionally, you can change the color of the labels for the selected stars
+										var labels = starWidget.querySelectorAll("label");
+										for (var i = 0; i < star; i++) {
+										    labels[i].style.color = "#fd4";
+										}
+										
+									</script>
+									
+									
+							
+								<%} else { %>
+								
+									<a href="<%=request.getContextPath()%>/review/create?orderId=<%=orderProduct.getOrderId()%>
+										&menuId=<%=orderProduct.getMenuId()%>&categoryId=<%=orderProduct.getCategoryId()%>">
+										<button type="submit" class="btnReview">Give Review</button>
+									</a>
+								
+								<%} %>
+							
+							<%} %>
+
+						<%} %>
 					</div>
 
 					<div class="field">
@@ -254,6 +364,8 @@
 		%>
 
 	</section>
+	
+	</main>
 
 	<script>
 	

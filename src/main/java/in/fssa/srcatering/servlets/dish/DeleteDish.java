@@ -46,9 +46,11 @@ public class DeleteDish extends HttpServlet {
 				
 				response.sendRedirect(request.getContextPath()+"/dish/remove?menuId="+menuId+"&categoryId="+categoryId);
 
-			} catch (ValidationException | ServiceException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
-				out.println(e.getMessage());
+//				out.println(e.getMessage());
+				out.println("<script>alert('"+e.getMessage()+"');</script>");
+				out.println("<script>window.history.back();</script>");
 			}
 			
 			

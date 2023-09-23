@@ -1,3 +1,4 @@
+<%@page import="in.fssa.srcatering.model.CaterApproval"%>
 <%@page import="java.util.Map"%>
 <%@page import="java.time.LocalDateTime"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
@@ -42,6 +43,12 @@
 
 	<%@include file="/header.jsp"%>
 
+	<main>
+	
+	<div id="preloader">
+
+	</div>
+
 	<%
 	String userEmail = (String) request.getAttribute("loggedUser");
 	List<Order> orderList = new ArrayList<>();
@@ -52,6 +59,15 @@
 	Menu menu = null;
 	Category category = null;
 	%>
+	
+	<%if(orderList.size() == 0){ %>
+		
+		<div class="order_empty">
+			<img src="<%=request.getContextPath() %>/assets/img/empty_order.gif" class="order_empty_img">
+			<p>No <span>Orders</span> found !</p>
+		</div>
+	
+	<%} else { %>
 
 
 	<%
@@ -74,6 +90,9 @@
 				<p>
 					Order Date :
 					<%=formattedDateTime %>
+				</p>
+				<p id="event_name">Event Name:
+				<span><%=order.getEventName() %></span>
 				</p>
 			</div>
 
@@ -111,59 +130,86 @@
 				<div class="order_menu">
 	
 					<p><%=category.getCategoryName()%> <%=menu.getMenuName()%></p>
+					
+					<%if(orderProducts.getCaterApproval() == CaterApproval.PENDING 
+							&& orderProducts.getOrderStatus() != OrderStatus.CANCELLED){ %>
+					
+						<span class="ordMenSta" style="color: var(--text-color);"> (<%=orderProducts.getCaterApproval()%>)
+						</span>
+					
+					<%} %>
+					
+					<%if(orderProducts.getCaterApproval() == CaterApproval.APPROVED){ %>
 	
-					<%
-					if (orderProducts.getOrderStatus() == OrderStatus.NOT_DELIVERED) {
-					%>
-					<span class="ordMenSta" style="color: var(--text-color);"> (<%=orderProducts.getOrderStatus()%>)
-					</span>
-					<%
-					}
-					%>
+						<%
+						if (orderProducts.getOrderStatus() == OrderStatus.NOT_DELIVERED) {
+						%>
+						<span class="ordMenSta" style="color: var(--text-color);"> (<%=orderProducts.getOrderStatus()%>)
+						</span>
+						<%
+						}
+						%>
+		
+						<%
+						if (orderProducts.getOrderStatus() == OrderStatus.DELIVERED) {
+						%>
+						<span class="ordMenSta" style="color: var(--thickgreen-color);">
+							<%=orderProducts.getOrderStatus()%>
+						</span>
+						<%
+						}
+						%>
 	
-					<%
-					if (orderProducts.getOrderStatus() == OrderStatus.DELIVERED) {
-					%>
-					<span class="ordMenSta" style="color: var(--thickgreen-color);">
-						<%=orderProducts.getOrderStatus()%>
-					</span>
-					<%
-					}
-					%>
-	
-					<%
-					if (orderProducts.getOrderStatus() == OrderStatus.CANCELLED) {
-					%>
-					<span class="ordMenSta" style="color: var(--second-color);">
-						<%=orderProducts.getOrderStatus()%>
-					</span>
-					<%
-					}
-					%>
+						<%
+						if (orderProducts.getOrderStatus() == OrderStatus.CANCELLED) {
+						%>
+						<span class="ordMenSta" style="color: var(--second-color);">
+							<%=orderProducts.getOrderStatus()%>
+						</span>
+						<%
+						}
+						%>
+						
+					<%} %>
+					
+					
+					<%if(orderProducts.getCaterApproval() == CaterApproval.REJECTED){  %>
+					
+						<span class="ordMenSta" style="color: var(--second-color);">
+							<%=orderProducts.getCaterApproval()%>
+						</span>
+					
+					<%} %>
+					
+					<%if(orderProducts.getOrderStatus() == OrderStatus.CANCELLED &&
+							orderProducts.getCaterApproval() != CaterApproval.APPROVED){ %>
+						
+						<span class="ordMenSta" style="color: var(--second-color);">
+							<%=orderProducts.getOrderStatus()%>
+						</span>
+					
+					<%} %>
 					
 					<%
 					for (Integer priceId : orderProducts.getDishIdPriceIdMap().values()) {
 						priceIds.add(priceId);
 					}
-					System.out.println(orderProducts);
 					%>
 					
 					<%int sum = 0;
 					sum = new DishPriceService().getTotalPriceByPriceId(priceIds); 
 						int noOfGuest = orderProducts.getNoOfGuest();%>
 					
-					<p><%=sum * noOfGuest %></p>
+					<p>Rs. <%=sum * noOfGuest %></p>
 	
 				</div>
 			<%
 			}
 			%>
-			
-			
 
 			<div class="order_price">
 				<h2>Total Price : </h2>
-				<p><%=order.getTotalCost()%></p>
+				<p>Rs. <%=order.getTotalCost()%></p>
 				
 			</div>
 			
@@ -193,6 +239,14 @@
 	<%
 	}
 	%>
+	
+	
+	
+	</main>
+	
+	<%@include file="/footer.jsp" %>
+	
+	<%} %>
 
 
 	<script>
@@ -205,6 +259,13 @@
 				
 			}
 		});
+		
+		const loader = document.getElementById("preloader");
+
+		window.addEventListener("load", () => {
+		  loader.style.display = "none";
+		});
+		
 	</script>
 
 </body>

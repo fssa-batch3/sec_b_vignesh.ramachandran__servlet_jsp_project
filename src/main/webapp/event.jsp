@@ -251,6 +251,8 @@
 		<!-- menu lists ends -->
 	</main>
 	<!-- main ends -->
+	
+	<%@include file="/footer.jsp" %>
 
 
 </body>

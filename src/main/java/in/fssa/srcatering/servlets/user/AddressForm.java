@@ -1,6 +1,7 @@
 package in.fssa.srcatering.servlets.user;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -36,17 +37,24 @@ public class AddressForm extends HttpServlet {
 		
 		HttpSession session = request.getSession();
 		
+		PrintWriter out = response.getWriter();
+		
 		String loggedUser = (String) session.getAttribute("loggedUser");
 		
 		UserService userService = new UserService();
 		AddressBookService addressBookService = new AddressBookService();
+		
+		String menuId = request.getParameter("menuId");
+		String categoryId = request.getParameter("categoryId");
+		String cartId = request.getParameter("cartId");
+		String orderAll = request.getParameter("orderAll");
 		
 		int userId = -1;
 		
 		try {
 			User user = userService.findByEmail(loggedUser);
 			userId = user.getId();
-		} catch (ValidationException | ServiceException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
@@ -80,10 +88,24 @@ public class AddressForm extends HttpServlet {
 		try {
 			addressBookService.createAddress(addressBook);
 			
-			response.sendRedirect(request.getContextPath() + "/user/address");
+			if (menuId != null && categoryId != null) {
+				response.sendRedirect(request.getContextPath() + "/user/address?menuId="+menuId+"&categoryId="+categoryId);
+			} else if (cartId != null) {
+				response.sendRedirect(request.getContextPath() + "/user/address?cartId="+cartId);
+			} else if (orderAll != null) {
+				response.sendRedirect(request.getContextPath() + "/user/address?orderAll=true");
+			} else {
+				response.sendRedirect(request.getContextPath() + "/user/address");
+			}
 			
-		} catch (ValidationException | ServiceException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			
+			String errorMessage = e.getMessage();
+			
+			request.setAttribute("errorMessage", errorMessage);
+			out.println("<script>location.href='" + request.getHeader("Referer") + "';</script>");
+			
 		}
 		
 		

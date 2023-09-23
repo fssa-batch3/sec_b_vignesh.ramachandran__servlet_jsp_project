@@ -53,10 +53,14 @@ public class CreateDish extends HttpServlet {
 	        // Using JavaScript to display an alert
 	        out.println("<script>alert('" + alertMessage + "');window.location.href='" + redirectURL + "';</script>");
 
-		} catch (ValidationException | ServiceException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			String redirectURL = request.getContextPath() + "/dish/new";
-			out.println("<script>alert('"+ e.getMessage() +"');window.location.href='" + redirectURL +"';</script>");
+			
+			out.println("<script>alert('"+ e.getMessage() +"');</script>");
+			out.println("<script>window.history.back();</script>");
+			
+//			String redirectURL = request.getContextPath() + "/dish/new";
+//			out.println("<script>alert('"+ e.getMessage() +"');window.location.href='" + redirectURL +"';</script>");
 		} 
 		
 	}

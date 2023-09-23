@@ -22,6 +22,8 @@
             
 <link rel="stylesheet" href="<%=request.getContextPath() %>/assets/css/header.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/assets/css/profile/register.css">
+
+
 <title>User Registration</title>
 
 </head>
@@ -33,7 +35,7 @@
         <main>
             <!-- register form starts -->
             <section class="register">
-                <form class="register_page" action="create" method="post">
+                <form class="register_page" action="create" method="post" id="form_id">
                     <img src="https://iili.io/J93qiue.png" alt="company logo">
                     <h2 class="name_register">
                         <span>Register</span> Here
@@ -43,9 +45,9 @@
                         title="Enter alphabets only" required>
                     <label>Email ID: </label>
                     <input type="email" name="email" for="email" placeholder="Enter your email" class="input_box" id="email"
-                        pattern="^([a-z]+[a-z0-9_+\-\. ]*[a-z0-9]+)@(gmail|fssa|yahoo|hotmail|outlook)\.(freshworks.com|com|net|org|edu|in)$" required>
+                        pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required>
                     <label>Phone Number: </label>
-                    <input type="text" name="phone_number" placeholder="Enter your Mobile number" class="input_box" id="phone_number"
+                    <input type="number" name="phone_number" placeholder="Enter your Mobile number" class="input_box" id="phone_number"
                         title="Enter 10 number only" required>
                     <div class="error">
 
@@ -53,7 +55,7 @@
                     <label>Create Password: </label>
                     <input type="password" name="password" placeholder="Enter your password" class="input_box" id="password"
                         pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                        title="Must contain at least one number, one uppercase, lowercase and one symbol, and at least 8 or more characters"
+                        title="Must contain at least one number, one uppercase, lowercase and one symbol, and must 8 characters"
                         required>
                     <div id="pattern">
                         <span class="number_pass">Must contain at least one number,</span>
@@ -196,6 +198,45 @@
             char_pass.style.color = "var(--second-color)";
           }
         });
+        
+       
+        
+		const formId = document.getElementById("form_id");
+		
+		
+		
+	 	formId.addEventListener("submit", function(event){
+			
+	 		console.log(formId);
+			
+			const name = document.getElementById("name").value;
+			const email = document.getElementById("email").value;
+			const number = document.getElementById("phone_number").value;
+			const password = document.getElementById("password").value;
+			
+			if(name.trim() == ""){
+				alert("Name Cannot be empty");
+				event.preventDefault();
+			}
+			
+			if(email.trim() == ""){
+				alert("Email Cannot be empty");
+				event.preventDefault();
+			}
+			
+			if(password.trim() == ""){
+				alert("Password Cannot be empty");
+				event.preventDefault();
+			}
+			
+			if(number < 6000000000 || number > 10000000000){
+				alert("Enter a valid phone number");
+				event.preventDefault();
+			}
+	
+
+		});
+
     </script>
 
 </body>

@@ -90,6 +90,10 @@
 					</select>
 					<button class="btn show2" type="submit">Show Details</button>
 				</div>
+				
+				<div class="buttons_div">
+						<button class="btn back" id="btn_back" type="button">Back</button>
+				</div>
 
 			</form>
 
@@ -99,7 +103,7 @@
 
 
 			<form
-				action="update?menuId=<%=menu.getId()%>&categoryId=<%=category.getId()%>"
+				action="update?menuId=<%=menu.getId()%>&categoryId=<%=category.getId()%>" class="form_id"
 				method="post">
 				<h2>Category Update</h2>
 				<div class="select_menu">
@@ -118,13 +122,17 @@
 				</div>
 
 				<div class="category_details">
+					<label>Category Image</label>
 					<input type="url" name="category_image" value="<%=category.getImage() %>"
 						class="category_image" id="categoryImageGet"
 						pattern="https?://.+" title="It should be URL.eg:http, https"
 						required>
 				</div>
 
-				<button type="submit" class="btn save">Save</button>
+				<div class="buttons_div">
+					<button type="submit" class="btn save">Save</button>
+					<button class="btn back" id="btn_back" type="button">Back</button>
+				</div>
 
 			</form>
 
@@ -135,21 +143,30 @@
 
 	</main>
 
-
-
-
-	<%-- <h1>Update Category</h1>
-	<form
-		action="update?menuId=<%=menu.getId()%>&categoryId=<%=category.getId()%>"
-		method="post">
-		<label>Menu Name</label> <input type="text" name="menu_name"
-			value="<%=menu.getMenuName()%>" readonly> <label>Category
-			Name</label> <input type="text" name="category_name"
-			value="<%=category.getCategoryName()%>" readonly> <label>Image</label>
-		<input type="text" name="category_image"
-			value="<%=category.getImage()%>" required>
-		<button type="submit">Save</button>
-	</form> --%>
+	<script>
+	
+		const btnBack = document.getElementById("btn_back");
+		
+		btnBack.addEventListener("click", function(){
+			
+			window.history.back();
+			
+		});
+	
+		const formId = document.querySelector(".form_id");
+		
+		formId.addEventListener("submit", function(event){
+			
+			const image = document.getElementById("categoryImageGet").value;
+			
+			if(image.trim() == ""){
+				alert("Category Image cannot be empty");
+				event.preventDefault();
+			}
+			
+		});
+	
+	</script>
 
 
 </body>

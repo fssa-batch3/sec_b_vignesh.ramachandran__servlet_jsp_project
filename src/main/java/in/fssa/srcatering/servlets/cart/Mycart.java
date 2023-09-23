@@ -38,6 +38,8 @@ public class Mycart extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		PrintWriter out = response.getWriter();
 
 		HttpSession session = request.getSession();
 		String loggedUser = (String) session.getAttribute("loggedUser");
@@ -51,7 +53,7 @@ public class Mycart extends HttpServlet {
 
 			try {
 				user = userService.findByEmail(loggedUser);
-			} catch (ValidationException | ServiceException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
@@ -59,7 +61,7 @@ public class Mycart extends HttpServlet {
 
 			try {
 				cartList = cartService.getAllCartsByUserId(userId);
-			} catch (ValidationException | ServiceException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
@@ -78,8 +80,14 @@ public class Mycart extends HttpServlet {
 				try {
 					menu = menuService.findByMenuId(cart.getMenuId());
 					category = categoryService.getCategoryByMenuIdAndCategoryId(cart.getMenuId(), cart.getCategoryId());
-				} catch (ValidationException | ServiceException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
+					
+					String errorMessage = e.getMessage();
+					if (errorMessage != null && !errorMessage.isEmpty()) {
+						out.println("<script>alert('" + errorMessage + "');</script>");
+						out.println("<script>window.history.back()</script>");
+					}
 				}
 
 				menuNames.add(menu.getMenuName());
@@ -115,10 +123,10 @@ public class Mycart extends HttpServlet {
 			try {
 				cartService.updateCart(noOfGuest, deliveryDate1, cartId);
 
-				out.println("<script>alert('Cart updated sucessfully');</script>");
+//				out.println("<script>alert('Cart updated sucessfully');</script>");
 				out.println("<script>window.location.href='" + request.getContextPath() + "/mycart';</script>");
 
-			} catch (ValidationException | ServiceException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
@@ -132,7 +140,7 @@ public class Mycart extends HttpServlet {
 				out.println("<script>alert('Menu removed from the cart');</script>");
 				out.println("<script>window.location.href='" + request.getContextPath() + "/mycart';</script>");
 
-			} catch (ValidationException | ServiceException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}

@@ -43,13 +43,11 @@ public class EditUser extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/update_user.jsp");
 			dispatcher.forward(request, response);
 			
-		} catch (ValidationException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			out.println(e.getMessage());
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			out.println(e.getMessage());
-		}
+			out.println("<script>alert('"+ e.getMessage() +"');</script>");
+			out.println("<script>window.history.back();</script>");
+		} 
 		
 		
 	}

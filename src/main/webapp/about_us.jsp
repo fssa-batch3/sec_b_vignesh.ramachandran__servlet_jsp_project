@@ -92,6 +92,8 @@
 		</section>
 		<!-- about us ends -->
 	</main>
+	
+	<%@include file="/footer.jsp" %>
 
 </body>
 </html>

@@ -30,7 +30,6 @@ public class Index extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-
 		PrintWriter out = response.getWriter();
 		MenuService menuService = new MenuService();
 		Set<Menu> menuList = new HashSet<>();
@@ -45,15 +44,15 @@ public class Index extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
 			dispatcher.forward(request, response);
 
-		} catch (ServiceException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 			out.println(e.getMessage());
 		}
 		
-		request.setAttribute("menuList", menuList);
-
-		RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-		dispatcher.forward(request, response);
+//		request.setAttribute("menuList", menuList);
+//
+//		RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
+//		dispatcher.forward(request, response);
 
 //		UserService userService = new UserService();
 //
@@ -72,13 +71,10 @@ public class Index extends HttpServlet {
 //				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
 //				dispatcher.forward(request, response);
 //
-//			} catch (ValidationException e) {
+//			} catch (Exception e) {
 //				e.printStackTrace();
 //				out.println(e.getMessage());
-//			} catch (ServiceException e) {
-//				e.printStackTrace();
-//				out.println(e.getMessage());
-//			}
+//			} 
 //		} else {
 //			try {
 //				
@@ -89,7 +85,7 @@ public class Index extends HttpServlet {
 //				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
 //				dispatcher.forward(request, response);
 //
-//			} catch (ServiceException e) {
+//			} catch (Exception e) {
 //				e.printStackTrace();
 //				out.println(e.getMessage());
 //			}

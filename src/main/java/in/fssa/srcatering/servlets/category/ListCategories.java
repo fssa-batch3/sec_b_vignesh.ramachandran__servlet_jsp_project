@@ -62,12 +62,11 @@ public class ListCategories extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/category_list.jsp");
 			dispatcher.forward(request, response);
 			
-		} catch (ValidationException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			out.println(e.getMessage());
-		} catch (ServiceException e) {
-			e.printStackTrace();
-			out.println(e.getMessage());
+			
+			out.println("<script>alert('"+e.getMessage()+"');</script>");
+			out.println("<script>window.history.back();</script>");
 		}
 		
 	}

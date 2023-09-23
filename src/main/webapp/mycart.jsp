@@ -35,6 +35,7 @@
 <body>
 
 	<%@include file="/header.jsp"%>
+	
 
 	<%
 	List<Cart> cartList = new ArrayList<>();
@@ -45,6 +46,15 @@
 	menuNames = (List<String>) request.getAttribute("menuNames");
 	categoryNames = (List<String>) request.getAttribute("categoryNames");
 	%>
+	
+	<%if(cartList.size() == 0){ %>
+		
+		<div class="cart_image">
+			<img src="<%=request.getContextPath() %>/assets/img/empty_cart.gif" class="cart_empty_img">
+			<p>Your <span>Cart</span> is empty !</p>
+		</div>
+
+	<%} else {%>
 
 	<main>
 		<div class="ingredient-image">
@@ -129,60 +139,68 @@
 
 			</div>
 			<div class="summary">
-				<div class="sum_content">
-					<h2>
-						<span> ORDER</span> SUMMARY
-					</h2>
-					<div class="sum_name">
-						<h3>
-							Menu Nam<span>e</span>
-						</h3>
-						<h3>
-							Dat<span>e</span>
-						</h3>
-						<h3>
-							Pric<span>e</span>
-						</h3>
+			
+				<div class="summary_div">
+					<div class="sum_content">
+						<h2>
+							<span> ORDER</span> SUMMARY
+						</h2>
+						<div class="sum_name">
+							<h3>
+								Menu Nam<span>e</span>
+							</h3>
+							<h3>
+								Dat<span>e</span>
+							</h3>
+							<h3>
+								Pric<span>e</span>
+							</h3>
+						</div>
+	
+						<%
+						for (int i = 0; i < cartList.size(); i++) {
+							Cart cart = cartList.get(i);
+							String menuName = menuNames.get(i);
+							String categoryName = categoryNames.get(i);
+						%>
+						<div class="sum_details">
+							<p><%=categoryName%>
+								<%=menuName%></p>
+							<p><%=cart.getDeliveryDate()%></p>
+							<p><%=cart.getNoOfGuest() * cart.getPrice()%></p>
+						</div>
+						<%
+						}
+						%>
+	
+						<%
+						int totalSum = 0;
+						for (Cart cart : cartList) {
+							totalSum += cart.getNoOfGuest() * cart.getPrice();
+						}
+						%>
+						<div class="sum_end">
+							<p>Total Price</p>
+							<p><%=totalSum%></p>
+						</div>
 					</div>
-
-					<%
-					for (int i = 0; i < cartList.size(); i++) {
-						Cart cart = cartList.get(i);
-						String menuName = menuNames.get(i);
-						String categoryName = categoryNames.get(i);
-					%>
-					<div class="sum_details">
-						<p><%=categoryName%>
-							<%=menuName%></p>
-						<p><%=cart.getDeliveryDate()%></p>
-						<p><%=cart.getNoOfGuest() * cart.getPrice()%></p>
+					
+					<div class="cart_orderall">
+						<a href="<%=request.getContextPath()%>/order/all">
+							<button type="submit" class="btn orderall">ORDER ALL (<%=cartList.size() %>)</button>
+						</a>
 					</div>
-					<%
-					}
-					%>
-
-					<%
-					int totalSum = 0;
-					for (Cart cart : cartList) {
-						totalSum += cart.getNoOfGuest() * cart.getPrice();
-					}
-					%>
-					<div class="sum_end">
-						<p>Total Price</p>
-						<p><%=totalSum%></p>
-					</div>
-				</div>
-
-				<div class="cart_orderall">
-					<a href="<%=request.getContextPath()%>/order/all">
-						<button type="submit" class="btn orderall">ORDER ALL (<%=cartList.size() %>)</button>
-					</a>
+					
 				</div>
 
 			</div>
 
 		</section>
 	</main>
+	
+	
+	
+	<%@include file="/footer.jsp" %>
 
 
 	<script>
@@ -228,9 +246,10 @@
 		inputDeliveryChange.forEach(function(upDate) {
 			upDate.addEventListener("change", function() {
 
-				const parent = this.closest(".inside");
+				const parent = this.closest(".cart_end");
 				const updateBtn = parent.querySelector(".update");
 				const date = parent.querySelector("#date").value;
+				const orderBtn = parent.querySelector("#orderOne");
 
 				if (date < min_date) {
 					alert("Delivery date should be atleast 7 days from now");
@@ -240,11 +259,16 @@
 					window.location.reload();
 				} else {
 					updateBtn.removeAttribute("style");
+					orderBtn.classList.remove("order");
+					orderBtn.classList.add("disabled");
+					orderBtn.disabled = true;
 				}
 
 			});
 
 		});
+		
+		
 		
 		
 
@@ -257,9 +281,10 @@
 				
 				event.preventDefault();
 
-				const parent_div = this.closest(".inside");
+				const parent_div = this.closest(".cart_end");
 				const updateBtn = parent_div.querySelector(".update");
 				const guest = parent_div.querySelector(".number").value;
+				const orderBtn = parent_div.querySelector("#orderOne");
 
 				if (guest < 50) {
 					alert("NoOfGuest cannot be less than 50");
@@ -269,6 +294,9 @@
 					
 				} else {
 					updateBtn.removeAttribute("style");
+					orderBtn.classList.remove("order");
+					orderBtn.classList.add("disabled");
+					orderBtn.disabled = true;
 				}
 
 			});
@@ -354,6 +382,8 @@
 					
 		})
 	</script>
+	
+	<%} %>
 
 
 </body>

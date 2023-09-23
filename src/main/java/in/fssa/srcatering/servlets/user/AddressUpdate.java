@@ -1,6 +1,7 @@
 package in.fssa.srcatering.servlets.user;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,9 +24,7 @@ public class AddressUpdate extends HttpServlet {
        
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
-		
+
 		String addressId = (String) request.getParameter("addressId");
 		
 		AddressBookService addressBookService = new AddressBookService();
@@ -41,7 +40,7 @@ public class AddressUpdate extends HttpServlet {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/address_form.jsp");
 				dispatcher.forward(request, response);
 				
-			} catch (ValidationException | ServiceException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
@@ -50,13 +49,15 @@ public class AddressUpdate extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		PrintWriter out = response.getWriter();
+		
 		int addressId = Integer.parseInt(request.getParameter("addressId"));
 		AddressBookService addressBookService = new AddressBookService();
 		AddressBook addressBook1 = new AddressBook();
 		
 		try {
 			addressBook1 = addressBookService.getAddressByAddressId(addressId);
-		} catch (ValidationException | ServiceException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
@@ -90,15 +91,17 @@ public class AddressUpdate extends HttpServlet {
 		try {
 			addressBookService.updateAddress(addressBook);
 			
-			/*addressBookService.setStatusFalse(addressBook1.getId());
-			addressBookService.setAsDefaultFalse(addressBook1.getId());*/
-			
 			response.sendRedirect(request.getContextPath()+"/user/address");
 			
 			System.out.println("Address Updated sucessfully");
 			
-		} catch (ValidationException | ServiceException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			
+			String errorMessage = e.getMessage();
+			out.println("<script>alert('" + errorMessage + "');</script>");
+			response.sendRedirect(errorMessage);
+
 		}
 		
 	}

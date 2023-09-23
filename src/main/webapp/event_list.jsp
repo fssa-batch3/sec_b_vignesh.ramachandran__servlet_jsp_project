@@ -46,6 +46,8 @@
 	</main>
 	<!-- main ends -->
 	
+	<%@include file="/footer.jsp" %>
+	
 	<script>
         const events = [
           {

@@ -38,7 +38,6 @@ public class NewDish extends HttpServlet {
 		Set<Category> categoryList = new TreeSet<Category>();
 		
 		QuantityUnit[] quantityUnit = QuantityUnit.values();
-		System.out.println(quantityUnit);
 		
 		try {
 			menuList =  menuService.getAllMenus();
@@ -50,9 +49,11 @@ public class NewDish extends HttpServlet {
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/add_dish.jsp");
 			dispatcher.forward(request, response);
 			
-		} catch (ServiceException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
-			out.println(e.getMessage());
+			
+			out.println("<script>alert('"+e.getMessage()+"');</script>");
+			out.println("<script>window.history.back();</script>");
 		}
 	
 		

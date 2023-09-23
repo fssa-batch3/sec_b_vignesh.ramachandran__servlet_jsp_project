@@ -32,14 +32,23 @@ public class NewCategory extends HttpServlet {
 		Set<Menu> menuList = new HashSet<Menu>();
 		
 		try {
+			
 			menuList = menuService.getAllMenus();
 			
 			request.setAttribute("menuList", menuList);
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/add_category.jsp");
 			dispatcher.forward(request, response);
-		} catch (ServiceException e) {
+			
+		} catch (Exception e) {
 			e.printStackTrace();
-			out.println(e.getMessage());
+			
+			out.println("<script>alert('"+e.getMessage()+"');</script>");
+			out.println("<script>window.history.back();</script>");
+
+//			String errorMessage = e.getMessage();
+//			request.setAttribute("errorMessage", errorMessage);
+//			RequestDispatcher dispatcher = request.getRequestDispatcher(request.getContextPath()+"/error.jsp");
+//			dispatcher.forward(request, response);
 		}
 	}
 

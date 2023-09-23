@@ -50,13 +50,10 @@ public class ListUserDetails extends HttpServlet {
 				request.setAttribute("addressBook", addressBook);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/user_details.jsp");
 				dispatcher.forward(request, response);
-			} catch (ValidationException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 				out.println(e.getMessage());
-			} catch (ServiceException e) {
-				e.printStackTrace();
-				out.println(e.getMessage());
-			}
+			} 
 
 		} else {
 			
@@ -69,10 +66,7 @@ public class ListUserDetails extends HttpServlet {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/user_details.jsp");
 				dispatcher.forward(request, response);
 
-			} catch (ValidationException e) {
-				e.printStackTrace();
-				out.println(e.getMessage());
-			} catch (ServiceException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 				out.println(e.getMessage());
 			}

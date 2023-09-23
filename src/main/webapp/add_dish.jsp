@@ -26,7 +26,8 @@
 <link rel="stylesheet"
 	href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 
-<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/admin/dishes_add.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/assets/css/admin/dishes_add.css">
 
 <title>Dish add</title>
 
@@ -78,97 +79,108 @@
 				</select>
 			</div>
 
-			<label for="dish_name">Dish name:</label> <input type="text"
-				name="dish_name" required> <br> <label for="quantity">Quantity</label>
-			<input type="number" name="quantity" required> <br> <label
-				for="price">Price</label> <input type="number" name="price" required>
-			<br> <label>Select QuantityUnit</label> <select
-				name="quantity_unit" required>
-				<option value="">Select</option>
-				<%
-				for (QuantityUnit obj : quantityUnitList) {
-				%>
-				<option value="<%=obj.name()%>"><%=obj.name()%></option>
+			<div class="field">
 
-				<%
-				}
-				%>
-			</select>
-			<button type="submit" class="btn_submit" id="submit">Create</button>
+
+				<div class="content">
+					<label for="dish_name">Dish name:</label> <input type="text" placeholder="Enter Dish name"
+						id="dishName" pattern="^[a-zA-Z -]+$" title="Enter alphabets only"
+						name="dish_name" required>
+				</div>
+
+				<div class="content">
+					<label for="quantity">Quantity</label> <input type="number" placeholder="Enter Dish quantity"
+						name="quantity" id="dishQuantity" required>
+				</div>
+
+				<div class="content">
+					<label for="price">Price</label> <input type="number" name="price" placeholder="Enter Dish price"
+						id="dishPrice" required>
+				</div>
+
+				<div class="content">
+					<label>Select QuantityUnit</label> <select name="quantity_unit"
+						required>
+						<option value="">Select</option>
+						<%
+						for (QuantityUnit obj : quantityUnitList) {
+						%>
+						<option value="<%=obj.name()%>"><%=obj.name()%></option>
+
+						<%
+						}
+						%>
+					</select>
+				</div>
+
+			</div>
+			<div class="instructions">
+				<p>* For NOS quantity should be less than 6 and greater than zero</p>
+				<p>* For GRAMS quantity should be less than 501 and greater than 19</p>
+			</div>
+			
+			<div class="buttons_div">
+				<button type="submit" class="btn_submit" id="submit">Create</button>
+				<button class="btn back" id="btn_back" type="button">Back</button>
+			</div>
 		</form>
 
 	</main>
 
 
+	<script>
+		const formId = document.getElementById("getData");
 
-	<%-- <form action="create" method="post">
-		<h2>Dish Add</h2>
-		<label>Select Menu</label> <select name="menuId" id="menuName"
-			required>
-			<option value="">Select</option>
-			<%
-			for (Menu obj : menuList) {
-			%>
-			<option value="<%=obj.getId()%>">
-				<%=obj.getMenuName()%>
-			</option>
-			<%
+		formId.addEventListener("submit", function(event) {
+
+			const name = document.getElementById("dishName").value;
+			const quantity = document.getElementById("dishQuantity").value;
+			const price = document.getElementById("dishPrice").value;
+
+			if (name.trim() == "") {
+				alert("Dish Name cannot be empty");
+				event.preventDefault();
 			}
-			%>
-		</select> <br> <label>Select Category</label> <select name="categoryId"
-			id="categorySelect" required>
-			<option value="">Select</option>
-			<%
-			for (Category obj : categoryList) {
-			%>
-			<option value="<%=obj.getId()%>"><%=obj.getCategoryName()%></option>
-			<%
+			
+			const pattern = /^[a-zA-Z -]+$/;
+		    if (!pattern.test(name)) {
+		        alert("Enter alphabets only.");
+		        event.preventDefault();
+		    }
+
+			if (quantity.trim() == "" || quantity <= 0) {
+				alert("Dish quantity cannot be less than or equal to zero");
+				event.preventDefault();
 			}
-			%>
-		</select> <br> <label for="dish_name">Dish name:</label> <input
-			type="text" name="dish_name" required> <br> <label
-			for="quantity">Quantity</label> <input type="number" name="quantity"
-			required> <br> <label for="price">Price</label> <input
-			type="number" name="price" required> <br> <label>Select
-			QuantityUnit</label> <select name="quantity_unit" required>
-			<option value="">Select</option>
-			<%
-			for (QuantityUnit obj : quantityUnitList) {
-			%>
-			<option value="<%=obj.name()%>"><%=obj.name()%></option>
 
-			<%
+			if (quantity > 500) {
+				alert("Dish quantity cannot be greater than 500");
+				event.preventDefault();
 			}
-			%>
-		</select> <br>
 
-		<button type="submit">Create</button>
-
-	</form> --%>
-
-	<!-- 	<script>
-		function menuTypeFind(){
-			console.log("methohd kku varuthu")
-			const menuType = document.getElementById("menuName").value;
-			if(menuType != ""){
-				fetch("categories?menuId=" + encodeURIComponent(menuType))
-                .then(response => response.json())
-                .then(categories => {
-                    const categorySelect = document.getElementById("categorySelect");
-                   /*  categorySelect.innerHTML = ""; // Clear existing options */
-                    categories.forEach(category => {
-                        const option = document.createElement("option");
-                        option.value = category.id;
-                        option.textContent = category.name;
-                        categorySelect.appendChild(option);
-                    });
-                })
-                .catch(error => {
-                    console.error("Error fetching categories:", error);
-                });
+			if (price.trim() == "" || price < 0) {
+				alert("Dish price cannot be less than zero");
+				event.preventDefault();
 			}
-		}
-	</script> -->
+
+			if (price > 100) {
+				alert("Dish price cannot be greater than 100");
+				event.preventDefault();
+			}
+
+		});
+		
+		const btnBack = document.getElementById("btn_back");
+		
+			btnBack.addEventListener("click", function(){
+				
+				window.history.back();
+			
+		});
+		
+	</script>
+
+
 
 
 </body>

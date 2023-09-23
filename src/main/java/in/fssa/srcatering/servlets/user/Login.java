@@ -48,18 +48,14 @@ public class Login extends HttpServlet {
 			out.println("</script>");
 
 			session.setAttribute("loggedUser", email);
-			response.sendRedirect(request.getContextPath() + "/index");
-
-		} catch (ValidationException | ServiceException e) {
+			response.sendRedirect(request.getContextPath() + "/index"); 
+			
+		} catch (Exception e) {
 			e.printStackTrace();
-			
-			request.setAttribute("errorMessage", e.getMessage());
-			
+	
+			request.setAttribute("errorMessage", "Invalid Login Credentials");
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 			
-			out.println("<script type=\"text/javascript\">");
-			out.println("alert('" + e.getMessage() + "');");
-			out.println("</script>");
 		}
 
 	}

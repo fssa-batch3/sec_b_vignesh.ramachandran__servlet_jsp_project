@@ -1,3 +1,4 @@
+<%@page import="java.io.PrintWriter"%>
 <%@page import="in.fssa.srcatering.model.AddressBook"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.ArrayList"%>
@@ -35,13 +36,48 @@
 	<%
 	List<AddressBook> addressList = new ArrayList<>();
 	addressList = (List<AddressBook>) request.getAttribute("addressList");
+	
+	String menu_id = request.getParameter("menuId");
+	String category_id = request.getParameter("categoryId");
+	String cart_id = request.getParameter("cartId");
+	String orderAll = request.getParameter("orderAll");
+
 	%>
 
 	<main>
 		<div class="heading">
 			<h1>Address Book</h1>
-			<a href="<%=request.getContextPath()%>/address_form/create"
-				id="myButton">Add Address</a>
+			
+				<%if(menu_id != null && category_id != null){ %>
+				
+					<a href="<%=request.getContextPath()%>/address_form/create?menuId=<%=Integer.parseInt(menu_id)%>
+						&categoryId=<%=Integer.parseInt(category_id)%>" id="myButton">
+						Add Address
+					</a>
+					
+				<%} else if (cart_id != null) { %>
+				
+					<a href="<%=request.getContextPath()%>/address_form/create?cartId=<%=Integer.parseInt(cart_id)%>" id="myButton">
+						Add Address
+					</a>
+					
+				<%} else if (orderAll != null) {%>
+				
+					<a href="<%=request.getContextPath()%>/address_form/create?orderAll=true" id="myButton">
+						Add Address
+					</a>
+					
+				<%} else {%>
+					
+					<a href="<%=request.getContextPath()%>/address_form/create" id="myButton">
+						Add Address
+					</a>
+				
+				<%} %>
+			
+			<%-- <a href="<%=request.getContextPath()%>/address_form/create" id="myButton">
+				Add Address
+			</a> --%>
 		</div>
 
 		<section class="profile">
@@ -64,11 +100,6 @@
 					<div class="divBtn">
 						<%
 						if (address.isSetAsDefault() == 0) {
-							
-							String menu_id = request.getParameter("menuId");
-							String category_id = request.getParameter("categoryId");
-							String cart_id = request.getParameter("cartId");
-							String orderAll = request.getParameter("orderAll");
 							
 							if(menu_id != null && category_id != null){
 								int menuId = Integer.parseInt(menu_id);
@@ -124,8 +155,9 @@
 						<%
 						}
 						%>
-
+						
 						<a href="<%=request.getContextPath() %>/address_form/update?addressId=<%=address.getId()%>" class="btn edit" >Edit</a>
+
 					</div>
 				</div>
 				<%
@@ -134,10 +166,21 @@
 			</div>
 
 		</section>
+		
+		
+		<%String errorMessage = (String) request.getParameter("errorMessage");
+		
+			if(errorMessage != null){
+				PrintWriter outer = response.getWriter();
+				outer.println("<script>alert('" + errorMessage + "');</script>");
+			}
+		
+		%>
 	</main>
 
 
-	<script type="text/javascript">
+
+	<!-- <script type="text/javascript">
 	
 		function setAsDefault(addressId) {
 			// Create an XMLHttpRequest (AJAX) object
@@ -151,7 +194,7 @@
 		    var data = "addressId=" + encodeURIComponent(addressId);
 		}
 	
-	</script>
+	</script> -->
 
 
 

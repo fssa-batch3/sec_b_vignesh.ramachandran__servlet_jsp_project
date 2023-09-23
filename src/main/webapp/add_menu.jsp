@@ -44,38 +44,56 @@
 					<input type="url" class="menuimage" name="menu_image"
 						placeholder="Enter Image URL" id="menuImage" pattern="https?://.+"
 						title="It should be URL.eg:http, https" required> 
-					<input
+					<input type="text"
 						name="description" class="menuabout" name="description"
-						placeholder="Enter Menu Description" id="menuAbout"
+						placeholder="Enter Menu Description" id="menuAbout" title="Enter alphabets only"
 						pattern="^(?!\s)[a-zA-Z\s\W]+$" required>
 				</div>
 
-				<button class="btn_submit" type="submit">Create</button>
-
+				<div class="buttons_div">
+					<button class="btn_submit" type="submit">Create</button>
+					<button class="btn back" id="btn_back" type="button">Back</button>
 				</div>
+				
 			</form>
 		</section>
 	</main>
 
-
-
-
-<!-- 	<form action="create" method="post">
-		<h2>MENU-ADD</h2>
-		<div class="heading">
-			<h2>Create New Menu</h2>
-
-		</div>
-
-		<div class="input_group">
-			<label>Menu Name</label> <input type="text" name="menu_name" required>
-			<label>Menu Image </label> <input type="text" name="menu_image"
-				required> <label>Description</label> <input type="text"
-				name="description" required>
-		</div>
-
-		<button class="btn_submit" type="submit">Create</button>
-	</form> -->
+	<script>
+	
+		const btnBack = document.getElementById("btn_back");
+		
+		btnBack.addEventListener("click", function(){
+			
+			window.history.back();
+			
+		});
+	
+		const formId = document.querySelector("#form_id");
+		
+		formId.addEventListener("submit", function(event){
+			
+			const name = document.getElementById("menuName").value;
+			const image = document.getElementById("menuImage").value;
+			const description = document.getElementById("menuAbout").value;
+			
+			if(name.trim() == ""){
+				alert("Menu Name cannot be empty");
+				event.preventDefault();
+			}
+			
+			if(image.trim() == ""){
+				alert("Menu Image cannot be empty");
+				event.preventDefault();
+			}
+			
+			if(description.trim() == ""){
+				alert("Menu description cannot be empty");
+				event.preventDefault();
+			}
+		});
+	
+	</script>
 
 
 </body>

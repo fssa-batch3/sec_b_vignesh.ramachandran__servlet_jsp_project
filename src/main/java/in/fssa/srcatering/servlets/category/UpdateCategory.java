@@ -50,8 +50,9 @@ public class UpdateCategory extends HttpServlet {
 	        // Using JavaScript to display an alert
 	        out.println("<script>alert('" + alertMessage + "');window.location.href='" + redirectURL + "';</script>");
 
-		} catch (ValidationException | ServiceException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			
 			String redirectURL = request.getContextPath() + "/category/edit";
 			out.println("<script>alert('"+ e.getMessage() +"');window.location.href='" + redirectURL +"';</script>");
 		} 

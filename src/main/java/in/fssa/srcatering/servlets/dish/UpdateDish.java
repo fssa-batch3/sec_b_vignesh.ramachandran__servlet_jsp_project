@@ -14,6 +14,7 @@ import in.fssa.srcatering.exception.ValidationException;
 import in.fssa.srcatering.model.Dish;
 import in.fssa.srcatering.model.QuantityUnit;
 import in.fssa.srcatering.service.DishService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class UpdateDish
@@ -33,12 +34,14 @@ public class UpdateDish extends HttpServlet {
 
 		if (selectedDishIds == null) {
 
-			out.println("Select the checkbox");
+			out.println("<script>alert('select the checkbox to update');</script>");
+			out.println("<script>window.history.back();</script>");
 		}
 
 		Dish dish = null;
 
 		if (selectedDishIds != null) {
+			boolean flag = true;
 			for (String dishId : selectedDishIds) {
 
 				int id = Integer.parseInt(dishId);
@@ -64,22 +67,30 @@ public class UpdateDish extends HttpServlet {
 				dish.setStatus(status);
 
 				try {
+
 					dishService.updateDish(dish);
 					dish = null;
-				} catch (ValidationException | ServiceException e) {
-					e.printStackTrace();
-					String redirectURL = request.getContextPath() + "/dish/edit";
-					out.println("<script>alert('"+ e.getMessage() +"');window.location.href='" + redirectURL +"';</script>");
+
+				} catch (Exception e) {
+					flag = false;
+					Logger.error(e);
+
+					out.println("<script>alert('" + e.getMessage() + "');</script>");
+					out.println("<script>window.history.back();</script>");
+
+//					String redirectURL = request.getContextPath() + "/dish/edit";
+//					out.println("<script>alert('"+ e.getMessage() +"');window.location.href='" + redirectURL +"';</script>");
 				}
 			}
-//			int menuId = Integer.parseInt(request.getParameter("menuId"));
-//			int categoryId = Integer.parseInt(request.getParameter("categoryId"));
-			
-			String redirectURL = request.getContextPath() + "/dish/edit";
-	        String alertMessage = "Dish updated successfully!";
-	        
-	        // Using JavaScript to display an alert
-	        out.println("<script>alert('" + alertMessage + "');window.location.href='" + redirectURL + "';</script>");
+
+			if (flag) {
+				String redirectURL = request.getContextPath() + "/dish/edit";
+				String alertMessage = "Dish updated successfully!";
+
+				// Using JavaScript to display an alert
+				out.println(
+						"<script>alert('" + alertMessage + "');window.location.href='" + redirectURL + "';</script>");
+			}
 		}
 
 	}

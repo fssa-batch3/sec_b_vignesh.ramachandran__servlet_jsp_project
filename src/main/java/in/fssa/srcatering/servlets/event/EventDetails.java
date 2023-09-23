@@ -1,6 +1,7 @@
 package in.fssa.srcatering.servlets.event;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -24,14 +25,19 @@ public class EventDetails extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		PrintWriter out = response.getWriter();
+		
 		MenuService menuService = new MenuService();
 		Set<Menu> menuList = new HashSet<>();
 		try {
 			menuList = menuService.getAllActiveMenus();
 			
 			request.setAttribute("menuList", menuList);
-		} catch (ServiceException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
+			
+			out.println("<script>alert('"+e.getMessage()+"');</script>");
+			out.println("<script>window.history.back();</script>");
 		}
 		
 		String eventName = request.getParameter("eventName");

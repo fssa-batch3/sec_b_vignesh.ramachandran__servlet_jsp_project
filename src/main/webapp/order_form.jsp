@@ -24,7 +24,7 @@
 <link rel="stylesheet"
 	href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 	
-<link rel="stylesheet" href="<%=request.getContextPath()%>/assest/css/normalize.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/assets/css/normalize.css">
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/assets/css/profile/order_form.css">
@@ -61,7 +61,7 @@
 					<h3>Personal Details</h3>
 
 					<div class="event">
-						<label>Event Name:</label> <input type="text" name="eventName"
+						<label>Event Name:</label> <input type="text" name="eventName" id="eventName" title="Enter alphabets only"
 							pattern="^[a-zA-Z\s]+$" required>
 					</div>
 
@@ -70,39 +70,49 @@
 						
 						<%if(address != null){ %>
 						
-							<textarea type="text" id="address"
-								placeholder="Enter your delivery address" rows="6" cols="50"
-								readonly>
-	                                <%=address.getName() + ", " + address.getEmail() + ", " + address.getPhoneNumber() + ", " + address.getDoorNo()
+							<div id="address">
+								<%=address.getName() + ", " + address.getEmail() + ", " + address.getPhoneNumber() + ", " + address.getDoorNo()
 										+ ", " + address.getStreetName() + ", " + address.getSubLocality() + ", " + address.getCity() + ", "
 										+ address.getDistrict() + ", " + address.getState() + ", " + address.getPincode()%>
-	                        </textarea>
+							</div>
+							
+							<p class="ensure">Choose your default address to deliver your delicious food</p>
+							
+							<%if(cartId != null){ %>
                         
-                        <%} else { %>
+	                        	<a href="<%=request.getContextPath()%>/user/address?cartId=<%=cartId%>">
+									<input type="hidden" name="page" value="orderpage">
+									<button type="button" class="btn changeAdd">Change Address</button>
+								</a>
                         	
-                        	<textarea type="text" id="address"
-								placeholder="Enter your delivery address" rows="6" cols="50"
-								readonly>
-	                               
-                        	</textarea>
-                        
-                        <%} %>
-                        
-                        <%if(cartId != null){ %>
-                        
-                        	<a href="<%=request.getContextPath()%>/user/address?cartId=<%=cartId%>">
-								<input type="hidden" name="page" value="orderpage">
-								<button type="button" class="btn changeAdd">Change Address</button>
-							</a>
-                        	
+	                        <%} else { %>
+	
+								<a href="<%=request.getContextPath()%>/user/address?menuId=<%=menu.getId()%>&categoryId=<%=category.getId()%>">
+									<input type="hidden" name="page" value="orderpage">
+									<button type="button" class="btn changeAdd">Change Address</button>
+								</a>
+							
+							<%} %>
+
                         <%} else { %>
 
-							<a href="<%=request.getContextPath()%>/user/address?menuId=<%=menu.getId()%>&categoryId=<%=category.getId()%>">
-								<input type="hidden" name="page" value="orderpage">
-								<button type="button" class="btn changeAdd">Change Address</button>
-							</a>
-						
-						<%} %>
+                        	<%if(cartId != null){ %>
+                        
+	                        	<a href="<%=request.getContextPath()%>/user/address?cartId=<%=cartId%>">
+									<input type="hidden" name="page" value="orderpage">
+									<button type="button" class="btn changeAdd">Create Address</button>
+								</a>
+                        	
+	                        <%} else { %>
+	
+								<a href="<%=request.getContextPath()%>/user/address?menuId=<%=menu.getId()%>&categoryId=<%=category.getId()%>">
+									<input type="hidden" name="page" value="orderpage">
+									<button type="button" class="btn changeAdd">Create Address</button>
+								</a>
+							
+							<%} %>
+
+                        <%} %>
 
 					</div>
 
@@ -146,7 +156,7 @@
 							<div>
 							
 								<label>Menu Price: </label> 
-								<input type="number" id="price" value="<%=price%>" readonly>
+								<p>Rs.<input type="number" id="price" value="<%=price%>" readonly></p>
 								
 							</div>
 							<div>
@@ -156,11 +166,12 @@
 									value="<%=deliveryDate%>" required>
 								
 							</div>
-							<p class="ensure">*Please check the Delivery date and No.of.guest. If you want to edit go to My cart</p>
+							<span class="guest_message">* No.of.guest should be minimum 50 and maximum 1500</span>
+							<p class="ensure">*Please check the Delivery date and No.of.guest.</p>
 						</div>
 						<div class="last">
 							<label>Total Cost</label>
-							<input class="price" id="totalCost" name="totalCost" value="" readonly>
+							<p>Rs.<input class="price" id="totalCost" name="totalCost" value="" readonly></p>
 						</div>
 					</div>
 				</aside>
@@ -169,6 +180,8 @@
 		<!-- order form ends -->
 	</main>
 	<!-- main ends -->
+	
+	<%@include file="/footer2.jsp" %>
 
 	<script>
 	
@@ -294,13 +307,16 @@
 		// order button
 		const orderBtn = document.querySelector(".submit");
 		
-		orderBtn.forEach(function (order){
-			order.addEventListener("click", function(event){
+		orderBtn.addEventListener("click", function(event){
 				
-				const parent_div = this.closest(".seperation");
+			 	const date = document.querySelector("#date").value;
+				const guest = document.querySelector("#noOfGuest").value;
+				const eventName = document.querySelector("#eventName").value;
 				
-			 	const date = parent_div.querySelector("#date").value;
-				const guest = parent_div.querySelector("#noOfGuest").value;
+				if(eventName.trim() == ""){
+					alert("Enter Event Name");
+					event.preventDefault();
+				}
 
 				if (guest < 50) {
 					alert("NoOfGuest cannot be less than 50");
@@ -319,7 +335,10 @@
 					event.preventDefault();
 				}
 				
-			});
+				if(!document.getElementById("address")){
+					alert("Create Address to order Menu");
+					event.preventDefault();
+				}
 		});
 		
 		

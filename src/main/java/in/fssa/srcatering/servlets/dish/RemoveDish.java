@@ -52,7 +52,7 @@ public class RemoveDish extends HttpServlet {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/remove_dish.jsp");
 				dispatcher.forward(request, response);
 
-			} catch (ServiceException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
@@ -74,13 +74,10 @@ public class RemoveDish extends HttpServlet {
 				request.setAttribute("dishList", dishList);
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/remove_dish.jsp");
 				dispatcher.forward(request, response);
-			} catch (ValidationException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 				out.println(e.getMessage());
-			} catch (ServiceException e) {
-				e.printStackTrace();
-				out.println(e.getMessage());
-			}
+			} 
 		}
 
 	}

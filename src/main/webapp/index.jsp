@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@page import="in.fssa.srcatering.model.Menu"%>
 <%@page import="java.util.Set"%>
+
 <html>
 <head>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -303,7 +304,9 @@
 	  }
 	}
 	</script>
-
+	
+	
+	<%@include file="/footer.jsp" %>
 
 </body>
 </html>

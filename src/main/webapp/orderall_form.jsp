@@ -68,25 +68,37 @@
 					<h3>Personal Details</h3>
 
 					<div class="event">
-						<label>Event Name:</label> <input type="text" name="eventName"
+						<label>Event Name:</label> <input type="text" name="eventName" id="eventName" placeholder="Enter event name"
 							pattern="^[a-zA-Z\s]+$" required>
 					</div>
 
 					<div class="address">
 					
 						<label>DELIVERY ADDRESS: </label>
-						<textarea type="text" id="address"
-							placeholder="Enter your delivery address" rows="6" cols="50"
-							readonly>
-                                <%=address.getName() + ", " + address.getEmail() + ", " + address.getPhoneNumber() + ", " + address.getDoorNo()
-									+ ", " + address.getStreetName() + ", " + address.getSubLocality() + ", " + address.getCity() + ", "
-									+ address.getDistrict() + ", " + address.getState() + ", " + address.getPincode()%>
-                        </textarea>
-                        
-                        <a href="<%=request.getContextPath()%>/user/address?orderAll="+true>
-							<input type="hidden" name="page" value="orderpage">
-							<button type="button" class="btn changeAdd">Change Address</button>
-						</a>
+						
+						<%if(address != null){ %>
+						
+							<div id="address">
+								<%=address.getName() + ", " + address.getEmail() + ", " + address.getPhoneNumber() + ", " + address.getDoorNo()
+										+ ", " + address.getStreetName() + ", " + address.getSubLocality() + ", " + address.getCity() + ", "
+										+ address.getDistrict() + ", " + address.getState() + ", " + address.getPincode()%>
+							</div>
+							
+							<span>Choose your default address to deliver your delicious food</span>
+							
+							<a href="<%=request.getContextPath()%>/user/address?orderAll="+true>
+								<input type="hidden" name="page" value="orderpage">
+								<button type="button" class="btn changeAdd">Change Address</button>
+							</a>
+
+                        <%} else { %>
+
+							<a href="<%=request.getContextPath()%>/user/address?orderAll="+true>
+								<input type="hidden" name="page" value="orderpage">
+								<button type="button" class="btn changeAdd">Create Address</button>
+							</a>
+
+                        <%} %>
 
 					</div>
 
@@ -124,8 +136,9 @@
 								
 								<div>
 									<label for="noOfGuest">No.Of.Guest:</label> 
+									<%-- <p name="noOfGuest" id="noOfGuest"<%=count %>"><%=noOfGuest%></p> --%>
 									<input type="number" id="noOfGuest" class="number" name="noOfGuest<%=count %>"
-										min="50" max="1500" value="<%=noOfGuest%>" required>
+										min="50" max="1500" value="<%=noOfGuest%>" readonly>
 								</div>
 								
 								<div>
@@ -146,7 +159,7 @@
 								
 									<label for="dateOfDelivery">Delivery Date: </label>
 									 <input type="date" id="date" class="date" name="deliveryDate<%=count %>"
-										value="<%=deliveryDate%>" required>
+										value="<%=deliveryDate%>" readonly>
 									
 								</div>
 								<p class="ensure">*Please check the Delivery date and No.of.guest. If you want to edit go to My cart</p>
@@ -164,6 +177,7 @@
 	</main>
 	<!-- main ends -->
 	
+	<%@include file="/footer2.jsp" %>
 	
 	<script>
 	
@@ -289,32 +303,20 @@
 		// order button
 		const orderBtn = document.querySelector(".submit");
 		
-		orderBtn.forEach(function (order){
-			order.addEventListener("click", function(event){
+		orderBtn.addEventListener("click", function(event){
+			
+			const eventName = document.querySelector("#eventName").value;
+			
+			if(eventName.trim() == ""){
+				alert("Enter Event Name");
+				event.preventDefault();
+			}
 				
-				const parent_div = this.closest(".seperation");
+			if(!document.getElementById("address")){
+				alert("Create Address to order Menu");
+				event.preventDefault();
+			}
 				
-			 	const date = parent_div.querySelector("#date").value;
-				const guest = parent_div.querySelector("#noOfGuest").value;
-
-				if (guest < 50) {
-					alert("NoOfGuest cannot be less than 50");
-					event.preventDefault();
-					
-				} else if (guest > 1500) {
-					alert("NoOfGuest cannot be greater than 1500");
-					event.preventDefault();
-				}
-				
-				if (date < min_date) {
-					alert("Delivery date should be atleast 7 days from now");
-					event.preventDefault();
-				} else if (date > max_date) {
-					alert("Delivery date should be within 2 months from now");
-					event.preventDefault();
-				}
-				
-			});
 		});
 		
 		

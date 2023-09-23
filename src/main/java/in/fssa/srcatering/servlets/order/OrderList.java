@@ -56,7 +56,7 @@ public class OrderList extends HttpServlet {
 			try {
 				user = userService.findByEmail(loggedUser);
 				orderList = orderService.getAllOrdersByUserId(user.getId());
-			} catch (ValidationException | ServiceException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
@@ -66,7 +66,7 @@ public class OrderList extends HttpServlet {
 
 				try {
 					orderProductList = new OrderProductService().getAllOrderProductsByOrderId(order.getId());
-				} catch (ValidationException | ServiceException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 
@@ -80,7 +80,7 @@ public class OrderList extends HttpServlet {
 						try {
 							orderProductService.updateOrderStatusAndCancelDate(OrderStatus.DELIVERED,
 									orderProduct.getOrderId(), orderProduct.getMenuId(), orderProduct.getCategoryId(),null);
-						} catch (ValidationException | ServiceException e) {
+						} catch (Exception e) {
 							e.printStackTrace();
 						}
 
