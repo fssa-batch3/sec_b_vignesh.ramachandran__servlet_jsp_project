@@ -18,8 +18,11 @@ import in.fssa.srcatering.model.CaterApproval;
 import in.fssa.srcatering.model.Order;
 import in.fssa.srcatering.model.OrderProduct;
 import in.fssa.srcatering.model.OrderStatus;
+import in.fssa.srcatering.model.Review;
 import in.fssa.srcatering.service.OrderProductService;
 import in.fssa.srcatering.service.OrderService;
+import in.fssa.srcatering.service.ReviewService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class CateringOrderList
@@ -36,12 +39,25 @@ public class CateringOrderList extends HttpServlet {
 		OrderProductService orderProductService = new OrderProductService();
 		List<OrderProduct> allOrderProducts = new ArrayList<>();
 		List<Order> orderList = new ArrayList<>();
+		List<Review> reviewList = new ArrayList<>();
 		
 		try {
 			orderList = new OrderService().getAllOrders();
 			allOrderProducts = orderProductService.getAllOrderProducts();
+			
+			Review review = null;
+			
+			for(OrderProduct orderProduct: allOrderProducts) {
+
+				review = new ReviewService().getReviewByOrderIdAndMenuIdAndCategoryId(orderProduct.getOrderId(), orderProduct.getMenuId(),
+						orderProduct.getCategoryId());
+				if (review != null) {
+					reviewList.add(review);
+				}
+			}
+			
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e);
 			
 			out.println("<script>alert('"+e.getMessage()+"');</script>");
 			out.println("<script>window.history.back();</script>");
@@ -49,6 +65,7 @@ public class CateringOrderList extends HttpServlet {
 		
 		request.setAttribute("orderList", orderList);
 		request.setAttribute("allOrderProducts", allOrderProducts);
+		request.setAttribute("reviewList", reviewList);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("catering_orderlist.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -76,7 +93,7 @@ public class CateringOrderList extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/cateringorders");
 				
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 				
 				out.println("<script>alert('"+e.getMessage()+"');</script>");
 				out.println("<script>window.history.back();</script>");
@@ -92,7 +109,7 @@ public class CateringOrderList extends HttpServlet {
 				
 				response.sendRedirect(request.getContextPath() + "/cateringorders");
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 				
 				out.println("<script>alert('"+e.getMessage()+"');</script>");
 				out.println("<script>window.history.back();</script>");
@@ -112,7 +129,7 @@ public class CateringOrderList extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/cateringorders");
 				
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 				
 				out.println("<script>alert('"+e.getMessage()+"');</script>");
 				out.println("<script>window.history.back();</script>");
@@ -129,7 +146,7 @@ public class CateringOrderList extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/cateringorders");
 				
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 				
 				out.println("<script>alert('"+e.getMessage()+"');</script>");
 				out.println("<script>window.history.back();</script>");

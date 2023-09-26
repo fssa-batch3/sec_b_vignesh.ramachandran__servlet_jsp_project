@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import in.fssa.srcatering.exception.ServiceException;
 import in.fssa.srcatering.exception.ValidationException;
 import in.fssa.srcatering.service.UserService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class RemoveUser
@@ -30,20 +31,10 @@ public class DeleteUser extends HttpServlet {
 			userService.deleteUser(id);
 			response.sendRedirect(request.getContextPath()+"/users");
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e);
 			out.println(e.getMessage());
 		} 
 
 	}
-
-	/*
-	 * protected void doGet(HttpServletRequest request, HttpServletResponse
-	 * response) throws ServletException, IOException { int id =
-	 * Integer.parseInt(request.getParameter("userId"));
-	 * request.setAttribute("UserId", id);
-	 * 
-	 * RequestDispatcher dispatcher = request.getRequestDispatcher("delete");
-	 * dispatcher.forward(request, response); }
-	 */
 
 }

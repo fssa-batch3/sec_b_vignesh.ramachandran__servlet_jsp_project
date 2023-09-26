@@ -226,68 +226,65 @@
 						
 						<% if(orderProduct.getOrderStatus() == OrderStatus.DELIVERED){ %>
 						
-							<%for(Review review : reviewList){ %>
-							
-							<%System.out.println(review.getOrderId() == orderProduct.getId()); %>
-							
-								<% if(review.getOrderId() == orderProduct.getOrderId() && review.getMenuId() == orderProduct.getMenuId() &&
-										review.getCategoryId() == orderProduct.getCategoryId()){%>
-							 
-							 		<div class="star-widget">
-							 		
-							 			<input type="radio" name="rate" id="rate-1" value="1"> 
-										<label for="rate-1" class="fa fa-star"></label>
-										
-										<input type="radio" name="rate" id="rate-2" value="2"> 
-										<label for="rate-2" class="fa fa-star"></label> 
-										
-										<input type="radio" name="rate" id="rate-3" value="3"> 
-										<label for="rate-3" class="fa fa-star"></label> 
-										
-										<input type="radio" name="rate" id="rate-4" value="4"> 
-										<label for="rate-4" class="fa fa-star"></label> 
-							 		
-								 		<input type="radio" name="rate" id="rate-5" value="5"> 
-										<label for="rate-5" class="fa fa-star"></label> 
-
-							 		</div>
-									<p class="revFeedback"><%=review.getFeedback() %></p>
-									
-									<script>
-									
-										// Assuming you have an element with class "star-widget" containing radio buttons
-										var starWidget = document.querySelector(".star-widget");
-	
-										// Set the star rating value (e.g., star = 3 for a rating of 3)
-										var star = <%=review.getStar()%>;
-	
-										// Get all radio buttons within the star-widget
-										var radioButtons = starWidget.querySelectorAll("input[type='radio']");
-	
-										// Iterate through the radio buttons and set "checked" property
-										for (var i = 0; i < star; i++) {
-										    radioButtons[i].checked = true;
-										}
-	
-										// Optionally, you can change the color of the labels for the selected stars
-										var labels = starWidget.querySelectorAll("label");
-										for (var i = 0; i < star; i++) {
-										    labels[i].style.color = "#fd4";
-										}
-										
-									</script>
-									
-									
-							
-								<%} else { %>
+							<%if(reviewList.size() > 0){ %>
+						
+								<%for(Review review : reviewList){ %>
 								
-									<a href="<%=request.getContextPath()%>/review/create?orderId=<%=orderProduct.getOrderId()%>
-										&menuId=<%=orderProduct.getMenuId()%>&categoryId=<%=orderProduct.getCategoryId()%>">
-										<button type="submit" class="btnReview">Give Review</button>
-									</a>
+								
+									<% if(review.getOrderId() == orderProduct.getOrderId() && review.getMenuId() == orderProduct.getMenuId() &&
+											review.getCategoryId() == orderProduct.getCategoryId()){%>
+								 
+								 		<div class="star-widget" id="star-widget-<%= review.getId() %>">
+								 		
+								 			<input type="radio" name="rate" id="rate-1" value="1"> 
+											<label for="rate-1" class="fa fa-star"></label>
+											
+											<input type="radio" name="rate" id="rate-2" value="2"> 
+											<label for="rate-2" class="fa fa-star"></label> 
+											
+											<input type="radio" name="rate" id="rate-3" value="3"> 
+											<label for="rate-3" class="fa fa-star"></label> 
+											
+											<input type="radio" name="rate" id="rate-4" value="4"> 
+											<label for="rate-4" class="fa fa-star"></label> 
+								 		
+									 		<input type="radio" name="rate" id="rate-5" value="5"> 
+											<label for="rate-5" class="fa fa-star"></label> 
+	
+								 		</div>
+										<p class="revFeedback"><%=review.getFeedback() %></p>
+
+										<script>
+									        var starWidget = document.querySelector("#star-widget-<%= review.getId() %>");
+									        var star = <%= review.getStar() %>;
+									        var radioButtons = starWidget.querySelectorAll("input[type='radio']");
+									        for (var i = 0; i < star; i++) {
+									            radioButtons[i].checked = true;
+									        }
+									        var labels = starWidget.querySelectorAll("label");
+									        for (var i = 0; i < star; i++) {
+									            labels[i].style.color = "#fd4";
+									        }
+									    </script>
+
+									<%} else { %>
+									
+										<a href="<%=request.getContextPath()%>/review/create?orderId=<%=orderProduct.getOrderId()%>
+											&menuId=<%=orderProduct.getMenuId()%>&categoryId=<%=orderProduct.getCategoryId()%>">
+											<button type="submit" class="btnReview">Give Review</button>
+										</a>
+									
+									<%} %>
 								
 								<%} %>
-							
+								
+							<%} else { %> 
+									
+								<a href="<%=request.getContextPath()%>/review/create?orderId=<%=orderProduct.getOrderId()%>
+									&menuId=<%=orderProduct.getMenuId()%>&categoryId=<%=orderProduct.getCategoryId()%>">
+									<button type="submit" class="btnReview">Give Review</button>
+								</a>
+								
 							<%} %>
 
 						<%} %>

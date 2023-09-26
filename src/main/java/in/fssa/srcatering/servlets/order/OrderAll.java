@@ -30,6 +30,7 @@ import in.fssa.srcatering.service.MenuService;
 import in.fssa.srcatering.service.OrderProductService;
 import in.fssa.srcatering.service.OrderService;
 import in.fssa.srcatering.service.UserService;
+import in.fssa.srcatering.util.Logger;
 import in.fssa.srcatering.validator.OrderProductValidator;
 
 /**
@@ -54,7 +55,7 @@ public class OrderAll extends HttpServlet {
 			try {
 				user = userService.findByEmail(loggedUser);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 				
 				out.println("<script>alert('"+ e.getMessage() +"');</script>");
 				out.println("<script>window.history.back();</script>");
@@ -66,7 +67,7 @@ public class OrderAll extends HttpServlet {
 		try {
 			address = new AddressBookService().getDefaultAddressByUserId(user.getId());
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e);
 			
 			out.println("<script>alert('"+ e.getMessage() +"');</script>");
 			out.println("<script>window.history.back();</script>");
@@ -78,7 +79,7 @@ public class OrderAll extends HttpServlet {
 		try {
 			cartList = cartService.getAllCartsByUserId(user.getId());
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e);
 			
 			out.println("<script>alert('"+ e.getMessage() +"');</script>");
 			out.println("<script>window.history.back();</script>");
@@ -117,7 +118,7 @@ public class OrderAll extends HttpServlet {
 				request.setAttribute("address", address);
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 				
 				out.println("<script>alert('"+ e.getMessage() +"');</script>");
 				out.println("<script>window.history.back();</script>");
@@ -149,7 +150,7 @@ public class OrderAll extends HttpServlet {
 				user = userService.findByEmail(loggedUser);
 				addressBook = addressBookService.getDefaultAddressByUserId(user.getId());
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 				
 				out.println("<script>alert('"+ e.getMessage() +"');</script>");
 				out.println("<script>window.history.back();</script>");
@@ -195,7 +196,7 @@ public class OrderAll extends HttpServlet {
 			try {
 				orderId = orderService.createOrder(order);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 				
 				out.println("<script>alert('"+ e.getMessage() +"');</script>");
 				out.println("<script>window.history.back();</script>");
@@ -221,7 +222,7 @@ public class OrderAll extends HttpServlet {
 					orderProductService.createOrderProduct(orderId, orderProduct);
 
 				} catch (Exception e) {
-					e.printStackTrace();
+					Logger.error(e);
 					
 					out.println("<script>alert('"+ e.getMessage() +"');</script>");
 					out.println("<script>window.history.back();</script>");
@@ -239,7 +240,7 @@ public class OrderAll extends HttpServlet {
 				out.println("</script>");
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 				
 				out.println("<script>alert('"+ e.getMessage() +"');</script>");
 				out.println("<script>window.history.back();</script>");

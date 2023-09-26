@@ -28,6 +28,7 @@ import in.fssa.srcatering.service.MenuService;
 import in.fssa.srcatering.service.OrderProductService;
 import in.fssa.srcatering.service.OrderService;
 import in.fssa.srcatering.service.UserService;
+import in.fssa.srcatering.util.Logger;
 import in.fssa.srcatering.validator.OrderProductValidator;
 
 /**
@@ -52,7 +53,7 @@ public class CreateOrder extends HttpServlet {
 			try {
 				user = userService.findByEmail(loggedUser);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 			}
 		}
 
@@ -64,7 +65,7 @@ public class CreateOrder extends HttpServlet {
 			try {
 				addressBook = addressBookService.getDefaultAddressByUserId(user.getId());
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 			}
 
 		}
@@ -84,7 +85,7 @@ public class CreateOrder extends HttpServlet {
 			try {
 				cart = cartService.getCartByCartId(cartId);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 				
 				out.println("<script>alert('"+ e.getMessage() +"');</script>");
 				out.println("<script>window.history.back();</script>");
@@ -134,7 +135,7 @@ public class CreateOrder extends HttpServlet {
 			dispatcher.forward(request, response);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e);
 			
 			out.println("<script>alert('"+ e.getMessage() +"');</script>");
 			out.println("<script>window.history.back();</script>");
@@ -161,7 +162,7 @@ public class CreateOrder extends HttpServlet {
 				user = userService.findByEmail(loggedUser);
 				addressBook = addressBookService.getDefaultAddressByUserId(user.getId());
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 				
 				out.println("<script>alert('"+ e.getMessage() +"');</script>");
 				out.println("<script>window.history.back();</script>");
@@ -210,7 +211,7 @@ public class CreateOrder extends HttpServlet {
 				out.println("</script>");
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 				
 				out.println("<script>alert('"+ e.getMessage() +"');</script>");
 				out.println("<script>window.history.back();</script>");

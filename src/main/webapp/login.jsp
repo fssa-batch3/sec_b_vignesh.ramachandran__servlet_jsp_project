@@ -24,7 +24,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath() %>/assets/css/profile/login.css">
 <link rel="stylesheet" href="<%=request.getContextPath() %>/assets/css/notify.css">
 
-<script src="https://cdn.jsdelivr.net/gh/suryaumapathy2812/notify__js/notify.js"> </script>
+<script src="<%=request.getContextPath()%>/assets/JS/notify.js"> </script>
 
 <title>Login</title>
 
@@ -77,7 +77,6 @@
 						Notify.error(
 							`<%=errorMessage%>
 							`);
-				    	<%-- alert('<%=errorMessage%>'); --%>
 					</script>
 				<%
 				}

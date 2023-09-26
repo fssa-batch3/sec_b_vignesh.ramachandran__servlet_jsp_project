@@ -13,6 +13,7 @@ import in.fssa.srcatering.exception.ServiceException;
 import in.fssa.srcatering.exception.ValidationException;
 import in.fssa.srcatering.model.Category;
 import in.fssa.srcatering.service.CategoryService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class UpdateCategory
@@ -33,8 +34,6 @@ public class UpdateCategory extends HttpServlet {
 		String category_name = request.getParameter("category_name");
 		String image = request.getParameter("category_image");
 		
-		System.out.println("fghj"+category_name);
-		
 		Category category = new Category();
 		category.setMenu_id(menuId);
 		category.setId(categoryId);
@@ -51,7 +50,7 @@ public class UpdateCategory extends HttpServlet {
 	        out.println("<script>alert('" + alertMessage + "');window.location.href='" + redirectURL + "';</script>");
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e);
 			
 			String redirectURL = request.getContextPath() + "/category/edit";
 			out.println("<script>alert('"+ e.getMessage() +"');window.location.href='" + redirectURL +"';</script>");

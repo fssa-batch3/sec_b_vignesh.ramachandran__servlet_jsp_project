@@ -148,9 +148,7 @@
 					<div>
 						<label for="password">Password :</label> <input type="password"
 							name="password" id="password"
-							pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-							value="<%=user1.getPassword()%>"
-							title="Must contain at least one number, one uppercase, lowercase and one symbol, and at least 8 or more characters"
+							value="********"
 							disabled>
 					</div>
 					
@@ -185,10 +183,6 @@
 					
 
 				</div>
-				<div class="show_password">
-					<input type="checkbox" id="show"> <label>Show
-						password</label>
-				</div>
 
 				<div class="btn_content">
 					<a href="edit">
@@ -197,16 +191,18 @@
 							<p>Edit profile</p>
 						</button>
 					</a>
+					
+					<a href="logout?userId=<%=user1.getId()%>">
+						<button class="logout btn" type="submit" id="logout">Log
+							out</button>
+					</a>
 					<!-- <a href="../../index.html">
 						<button class="btn back" type="button">Back</button>
 					</a> -->
 				</div>
 				
 				<div class="logout_button">
-					<a href="logout?userId=<%=user1.getId()%>">
-						<button class="logout btn" type="submit" id="logout">Log
-							out</button>
-					</a>
+					
 				</div>
 			</div>
 		</section>
@@ -217,21 +213,7 @@
 	<%@include file="/footer2.jsp" %>
 
 	<script>
-	 // show password
-    const Password = document.querySelector("#password");
-    const CnfPassword = document.querySelector("#con_password");
-    const Checkbox = document.querySelector("#show");
 
-    Checkbox.addEventListener("click", () => {
-      const type =
-		Password.getAttribute("type") === "password" ? "text" : "password";
-      	Password.setAttribute("type", type);
-
-      const cnfType = CnfPassword.getAttribute("type") === "password" ? "text" : "password";
-		CnfPassword.setAttribute("type", cnfType);
-    });
-    
-    
     const logoutBtn = document.getElementById("logout");
     
     logoutBtn.addEventListener("click", function(event){

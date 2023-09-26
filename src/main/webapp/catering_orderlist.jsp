@@ -1,3 +1,4 @@
+<%@page import="in.fssa.srcatering.model.Review"%>
 <%@page import="in.fssa.srcatering.model.AddressBook"%>
 <%@page import="in.fssa.srcatering.service.AddressBookService"%>
 <%@page import="in.fssa.srcatering.model.Order"%>
@@ -35,6 +36,7 @@
 
 <link rel="stylesheet"
 	href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/assets/css/normalize.css">
@@ -52,6 +54,8 @@
 	
 	List<Order> orderList = new ArrayList<>();
 	orderList = (List<Order>) request.getAttribute("orderList");
+	
+	List<Review> reviewList = (List<Review>) request.getAttribute("reviewList");
 	
 	AddressBook address = null;
 	String eventName = null;
@@ -331,6 +335,63 @@
 							<%
 							}
 							%>
+							
+							<% if(orderProduct.getOrderStatus() == OrderStatus.DELIVERED){ 
+								boolean reviewFound = false;
+							%>
+						
+								<%for(Review review : reviewList){ %>
+								
+									<% if(review.getOrderId() == orderProduct.getOrderId() && review.getMenuId() == orderProduct.getMenuId() &&
+											review.getCategoryId() == orderProduct.getCategoryId()){
+											
+										reviewFound = true;
+											%>
+								 
+								 		<div class="star-widget" id="star-widget-<%= review.getId() %>">
+								 		
+								 			<input type="radio" name="rate" id="rate-1" value="1"> 
+											<label for="rate-1" class="fa fa-star"></label>
+											
+											<input type="radio" name="rate" id="rate-2" value="2"> 
+											<label for="rate-2" class="fa fa-star"></label> 
+											
+											<input type="radio" name="rate" id="rate-3" value="3"> 
+											<label for="rate-3" class="fa fa-star"></label> 
+											
+											<input type="radio" name="rate" id="rate-4" value="4"> 
+											<label for="rate-4" class="fa fa-star"></label> 
+								 		
+									 		<input type="radio" name="rate" id="rate-5" value="5"> 
+											<label for="rate-5" class="fa fa-star"></label> 
+	
+								 		</div>
+										<p class="revFeedback"><%=review.getFeedback() %></p>
+										
+										<script>
+									        var starWidget = document.querySelector("#star-widget-<%= review.getId() %>");
+									        var star = <%= review.getStar() %>;
+									        var radioButtons = starWidget.querySelectorAll("input[type='radio']");
+									        for (var i = 0; i < star; i++) {
+									            radioButtons[i].checked = true;
+									        }
+									        var labels = starWidget.querySelectorAll("label");
+									        for (var i = 0; i < star; i++) {
+									            labels[i].style.color = "#fd4";
+									        }
+									    </script>
+										
+									<%} %>
+								
+								<%} %>
+									
+								<% if(!reviewFound) {%>
+										
+									<p>Review pending</p>
+									
+								<%} %>
+
+						<%} %>
 						</div>
 
 						<div class="field">
@@ -546,7 +607,10 @@
 			  });
 		});
 		
+		
+		
 	</script>
+	
 
 
 

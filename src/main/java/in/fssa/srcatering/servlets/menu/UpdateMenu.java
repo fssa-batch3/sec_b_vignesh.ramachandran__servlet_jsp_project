@@ -13,6 +13,7 @@ import in.fssa.srcatering.exception.ServiceException;
 import in.fssa.srcatering.exception.ValidationException;
 import in.fssa.srcatering.model.Menu;
 import in.fssa.srcatering.service.MenuService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class UpdateMenu
@@ -50,7 +51,7 @@ public class UpdateMenu extends HttpServlet {
 	        out.println("<script>alert('" + alertMessage + "');window.location.href='" + redirectURL + "';</script>");
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e);
 			String redirectURL = request.getContextPath() + "/menu/edit";
 			out.println("<script>alert('"+ e.getMessage() +"');window.location.href='" + redirectURL +"';</script>");
 		} 

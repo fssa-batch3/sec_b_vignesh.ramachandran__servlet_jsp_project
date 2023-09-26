@@ -85,18 +85,23 @@
 	const editBtn = document.querySelectorAll(".edit");
 	
 	revForm.addEventListener("submit", (event) => {
-		
 	
-		const star_value = document.querySelector('input[name="rate"]:checked').value;
+		const star_value = document.querySelector('input[name="rate"]:checked');
 		const rev_message = document
 	    .querySelector("textarea")
 	    .value.trim()
 	    .split(/\s+/g)
 	    .join(" ");
 		
+		
+		if(!star_value){
+			alert("You should give atleast one start");
+			event.preventDefault();
+		}
+
 		function validate() {
 		    if (/^\s*$/g.test(rev_message)) {
-		      alert("Enter the feedback");
+		      alert("Feedback cannot be empty");
 		      event.preventDefault();
 		    }
 		}
@@ -105,10 +110,10 @@
 		const star = document.getElementById("star");
 		const feedback = document.getElementById("feedback");
 		
-		star.value = star_value;
-		feedback.value = rev_message;
-		
-		console.log(star);
+		if(star_value){
+			star.value = star_value.value;
+			feedback.value = rev_message;
+		}
 	
 	});
 	

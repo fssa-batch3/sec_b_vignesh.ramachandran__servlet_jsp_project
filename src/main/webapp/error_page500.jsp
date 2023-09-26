@@ -49,8 +49,9 @@ p {
 	margin-bottom: 4em;
 }
 
-a {
-	color: white;
+a button {
+	padding: .5rem .75rem;
+	color: black;
 	text-decoration: none;
 	text-transform: uppercase;
 }
@@ -72,7 +73,10 @@ a:hover {
 			OOPS ! Something went wrong. We're <i>looking</i> to see what
 			happened.
 		</p>
-		<a href="index">Home</a>
+		
+		<a href="index">
+			<button>Home</button>
+		</a>
 	</div>
 
 

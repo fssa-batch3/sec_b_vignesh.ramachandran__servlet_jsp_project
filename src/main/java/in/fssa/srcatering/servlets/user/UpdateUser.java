@@ -13,6 +13,7 @@ import in.fssa.srcatering.exception.ServiceException;
 import in.fssa.srcatering.exception.ValidationException;
 import in.fssa.srcatering.model.User;
 import in.fssa.srcatering.service.UserService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class UpdateUser
@@ -44,7 +45,7 @@ public class UpdateUser extends HttpServlet {
 			userService.updateUser(id, user);
 			response.sendRedirect("details");
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e);
 			
 			out.println("<script>alert('"+ e.getMessage() +"');</script>");
 			out.println("<script>window.history.back();</script>");

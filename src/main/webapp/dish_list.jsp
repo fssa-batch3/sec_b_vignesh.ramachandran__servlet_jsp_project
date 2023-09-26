@@ -1,3 +1,4 @@
+<%@page import="in.fssa.srcatering.model.Review"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page import="java.util.Set"%>
 <%@page import="java.util.HashSet"%>
@@ -28,6 +29,7 @@
 
 <link rel="stylesheet"
 	href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <title>Dishes</title>
 <link rel="stylesheet"
@@ -45,6 +47,7 @@
 	int totalPrice = (Integer) request.getAttribute("totalPrice");
 	List<Integer> menuIds = (List<Integer>) request.getAttribute("menuIds");
 	List<Integer> categoryIds = (List<Integer>) request.getAttribute("categoryIds");
+	List<Review> reviewList = (List<Review>) request.getAttribute("reviewList");
 	
 	request.setAttribute("dishList", dishList);
 	request.setAttribute("menu", menu);
@@ -95,7 +98,6 @@
 								value="<%=totalPrice%>">
 								
 							
-							
 							<%if(menuIds.contains(menu.getId()) && categoryIds.contains(category.getId())){ %>
 
 									<button class="go_to_cart">
@@ -106,9 +108,7 @@
 							<%} else { %>
 							
 								<button class="add_to_cart" type="submit">
-									Add to Cart <a> <img class="plus-image"
-										src="https://iili.io/J9rMPBs.png" alt="plus image">
-									</a>
+									Add to Cart
 								</button>
 							
 							<%} %>
@@ -127,9 +127,7 @@
 
 						<button class="add_to_cart" type="submit"
 							onclick="showLoginAlert()">
-							Add to Cart <a> <img class="plus-image"
-								src="https://iili.io/J9rMPBs.png" alt="plus image">
-							</a>
+							Add to Cart 
 						</button>
 	
 						<button class="buy_now" onclick="showLoginAlert()">Buy Now</button>
@@ -198,12 +196,62 @@
 				
 				</div>
 				
+				<%if(reviewList != null){ 
+					for(Review review : reviewList){
+					
+					User user = new UserService().findByUserId(review.getUserId());
+				%>
+					<div class="rating">
+					
+						<div class="rev_user">
+							<div class="user_pic">
+								<img src="<%=request.getContextPath() %>/assets/img/profile.png" alt="profile_image">
+								<h2><%=user.getName() %></h2>
+							</div>
+							<div class="star-widget" id="star-widget-<%= review.getId() %>">
+								
+								<input type="radio" name="rate" id="rate-1" value="1"> 
+								<label for="rate-1" class="fa fa-star"></label>
+											
+								<input type="radio" name="rate" id="rate-2" value="2"> 
+								<label for="rate-2" class="fa fa-star"></label> 
+									
+								<input type="radio" name="rate" id="rate-3" value="3"> 
+								<label for="rate-3" class="fa fa-star"></label> 
+											
+								<input type="radio" name="rate" id="rate-4" value="4"> 
+								<label for="rate-4" class="fa fa-star"></label> 
+								 		
+								<input type="radio" name="rate" id="rate-5" value="5"> 
+								<label for="rate-5" class="fa fa-star"></label> 
+							
+							</div>
+							<p class="revFeedback"><%=review.getFeedback() %></p>
+							
+							<script>
+								var starWidget = document.querySelector("#star-widget-<%= review.getId() %>");
+								var star = <%= review.getStar() %>;
+								var radioButtons = starWidget.querySelectorAll("input[type='radio']");
+								for (var i = 0; i < star; i++) {
+									radioButtons[i].checked = true;
+								}
+								var labels = starWidget.querySelectorAll("label");
+								for (var i = 0; i < star; i++) {
+									labels[i].style.color = "#fd4";
+								}
+							</script>						
+						</div>
+					
+					</div>
+					<%} %>
+				<%} %>
 				
 				
-				<% String errorMessage = (String) request.getAttribute("errorMessage");
+				
+				<%-- <% String errorMessage = (String) request.getAttribute("errorMessage");
 				   if (errorMessage != null && !errorMessage.isEmpty()) { %>
 				   <div id="error_message" style="color: red;"><%= errorMessage %></div>
-				<% } %>
+				<% } %> --%>
 				
 
 			</div>

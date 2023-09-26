@@ -19,6 +19,7 @@ import in.fssa.srcatering.model.Menu;
 import in.fssa.srcatering.model.User;
 import in.fssa.srcatering.service.MenuService;
 import in.fssa.srcatering.service.UserService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class Index
@@ -45,7 +46,7 @@ public class Index extends HttpServlet {
 			dispatcher.forward(request, response);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e);
 			out.println(e.getMessage());
 		}
 		
@@ -72,7 +73,7 @@ public class Index extends HttpServlet {
 //				dispatcher.forward(request, response);
 //
 //			} catch (Exception e) {
-//				e.printStackTrace();
+//				Logger.error(e);
 //				out.println(e.getMessage());
 //			} 
 //		} else {
@@ -86,7 +87,7 @@ public class Index extends HttpServlet {
 //				dispatcher.forward(request, response);
 //
 //			} catch (Exception e) {
-//				e.printStackTrace();
+//				Logger.error(e);
 //				out.println(e.getMessage());
 //			}
 //		}

@@ -20,6 +20,7 @@ import in.fssa.srcatering.model.Menu;
 import in.fssa.srcatering.service.CategoryService;
 import in.fssa.srcatering.service.DishService;
 import in.fssa.srcatering.service.MenuService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class RemoveDish
@@ -53,7 +54,7 @@ public class RemoveDish extends HttpServlet {
 				dispatcher.forward(request, response);
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 			}
 
 		} else {
@@ -75,8 +76,7 @@ public class RemoveDish extends HttpServlet {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/remove_dish.jsp");
 				dispatcher.forward(request, response);
 			} catch (Exception e) {
-				e.printStackTrace();
-				out.println(e.getMessage());
+				Logger.error(e);
 			} 
 		}
 

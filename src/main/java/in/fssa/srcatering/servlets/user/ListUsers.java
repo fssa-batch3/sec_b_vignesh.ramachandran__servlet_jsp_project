@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import in.fssa.srcatering.exception.ServiceException;
 import in.fssa.srcatering.model.User;
 import in.fssa.srcatering.service.UserService;
+import in.fssa.srcatering.util.Logger;
 
 @WebServlet("/users")
 
@@ -37,7 +38,7 @@ public class ListUsers extends HttpServlet {
 			dispatcher.forward(request, response);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e);
 			out.println(e.getMessage());
 		}
 

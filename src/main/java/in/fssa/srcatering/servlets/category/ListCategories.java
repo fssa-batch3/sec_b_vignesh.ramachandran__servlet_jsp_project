@@ -20,6 +20,7 @@ import in.fssa.srcatering.model.Category;
 import in.fssa.srcatering.model.Menu;
 import in.fssa.srcatering.service.CategoryService;
 import in.fssa.srcatering.service.MenuService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class ListCategories
@@ -63,7 +64,7 @@ public class ListCategories extends HttpServlet {
 			dispatcher.forward(request, response);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e);
 			
 			out.println("<script>alert('"+e.getMessage()+"');</script>");
 			out.println("<script>window.history.back();</script>");

@@ -36,7 +36,9 @@ menuList1 = menuService1.getAllActiveMenus();
 	<div class="bx bx-menu" id="toggle" onclick="openNav()"></div>
 	
 	<div class="icon-left">
-		<img src="https://iili.io/J93qiue.png" alt="Company Logo" class="logo" />
+		<a href="<%=request.getContextPath()%>/index"><img src="https://iili.io/J93qiue.png" alt="Company Logo" class="logo" />
+		</a>
+		
 		<h1>SR</h1>
 		<div>
 			<p>Catering</p>

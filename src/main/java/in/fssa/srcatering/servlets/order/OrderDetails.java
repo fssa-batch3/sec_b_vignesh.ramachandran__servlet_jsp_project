@@ -25,6 +25,7 @@ import in.fssa.srcatering.service.AddressBookService;
 import in.fssa.srcatering.service.OrderProductService;
 import in.fssa.srcatering.service.OrderService;
 import in.fssa.srcatering.service.ReviewService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class OrderDetails
@@ -35,7 +36,7 @@ public class OrderDetails extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+
 		PrintWriter out = response.getWriter();
 
 		int orderId = Integer.parseInt(request.getParameter("orderId"));
@@ -46,9 +47,9 @@ public class OrderDetails extends HttpServlet {
 		try {
 			order = orderService.getOrderByOrderId(orderId);
 		} catch (Exception e) {
-			e.printStackTrace();
-			
-			out.println("<script>alert('"+ e.getMessage() +"');</script>");
+			Logger.error(e);
+
+			out.println("<script>alert('" + e.getMessage() + "');</script>");
 			out.println("<script>window.history.back();</script>");
 		}
 
@@ -58,64 +59,67 @@ public class OrderDetails extends HttpServlet {
 		try {
 			address = addressBookService.getAddressByAddressId(order.getAddressId());
 		} catch (Exception e) {
-			e.printStackTrace();
-			
-			out.println("<script>alert('"+ e.getMessage() +"');</script>");
+			Logger.error(e);
+
+			out.println("<script>alert('" + e.getMessage() + "');</script>");
 			out.println("<script>window.history.back();</script>");
 		}
 
 		OrderProductService orderProductService = new OrderProductService();
 		Set<OrderProduct> orderProductList = new HashSet<>();
-		
+
 		// converting string menuIds to List<Integer>
-		
+
 		String menuIds = request.getParameter("menuIds");
 		String categoryIds = request.getParameter("categoryIds");
-		
+
 		String[] menuElements = menuIds.replaceAll("[\\[\\]]", "").split(",");
 		String[] categoryElements = categoryIds.replaceAll("[\\[\\]]", "").split(",");
-		
+
 		List<Integer> menuIdList = new ArrayList<>();
 		List<Integer> categoryIdList = new ArrayList<>();
-		
+
 		for (String element : menuElements) {
 			menuIdList.add(Integer.parseInt(element.trim()));
-        }
-		
-		for(String element: categoryElements) {
+		}
+
+		for (String element : categoryElements) {
 			categoryIdList.add(Integer.parseInt(element.trim()));
 		}
-		
+
 		List<Review> reviewList = new ArrayList<>();
-				
 
 		try {
-			
-			for(int i=0; i<menuIdList.size(); i++) {
-				
+
+			for (int i = 0; i < menuIdList.size(); i++) {
+
 				int menuId = menuIdList.get(i);
 				int categoryId = categoryIdList.get(i);
-				
+
 				OrderProduct orderProduct = null;
-				
-				orderProduct =  orderProductService.getOrderProductByOrderIdAndMenuIdAndCategoryId(order.getId(), menuId, categoryId);
-				
+
+				orderProduct = orderProductService.getOrderProductByOrderIdAndMenuIdAndCategoryId(order.getId(), menuId,
+						categoryId);
+
 				orderProductList.add(orderProduct);
-				
+
 				Review review = null;
-				review = new ReviewService().getReviewByOrderIdAndMenuIdAndCategoryId(order.getId(), menuId, categoryId);
-				reviewList.add(review);
+				review = new ReviewService().getReviewByOrderIdAndMenuIdAndCategoryId(order.getId(), menuId,
+						categoryId);
+				if (review != null) {
+					reviewList.add(review);
+				}
 			}
 
 		} catch (Exception e) {
-			e.printStackTrace();
-			
-			out.println("<script>alert('"+ e.getMessage() +"');</script>");
+			Logger.error(e);
+
+			out.println("<script>alert('" + e.getMessage() + "');</script>");
 			out.println("<script>window.history.back();</script>");
 		}
 
 		request.setAttribute("address", address);
-		request.setAttribute("orderProductList", orderProductList);
+		request.setAttribute("orderProductList", orderProductList);		
 		request.setAttribute("reviewList", reviewList);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/order_details.jsp");
 		dispatcher.forward(request, response);
@@ -134,21 +138,22 @@ public class OrderDetails extends HttpServlet {
 		OrderProductService orderProductService = new OrderProductService();
 
 		try {
-			
+
 			out.println("<script type=\"text/javascript\">");
 			out.println("var cancelReason = localStorage.getItem(\"cancelReason\");");
 			out.println("</script>");
-			
+
 			String cancelReason = request.getParameter("cancelReason");
 
-			orderProductService.updateOrderStatusAndCancelDate(OrderStatus.CANCELLED, orderId, menuId, categoryId,cancelReason);
+			orderProductService.updateOrderStatusAndCancelDate(OrderStatus.CANCELLED, orderId, menuId, categoryId,
+					cancelReason);
 
 			response.sendRedirect(request.getContextPath() + "/orders");
 
 		} catch (Exception e) {
-			e.printStackTrace();
-			
-			out.println("<script>alert('"+ e.getMessage() +"');</script>");
+			Logger.error(e);
+
+			out.println("<script>alert('" + e.getMessage() + "');</script>");
 			out.println("<script>window.history.back();</script>");
 		}
 

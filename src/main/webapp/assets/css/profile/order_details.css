@@ -119,6 +119,11 @@ span {
     animation: radio-translate 0.5s ease-in-out;
   }
   
+  .star_count{
+  	font-size: var(--h2-font);
+  	color: var(--text-color);	
+  }
+  
   @keyframes radio-translate {
     0% {
       transform: translateX(0);

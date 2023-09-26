@@ -27,6 +27,7 @@ import in.fssa.srcatering.service.MenuService;
 import in.fssa.srcatering.service.OrderProductService;
 import in.fssa.srcatering.service.OrderService;
 import in.fssa.srcatering.service.UserService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class OrderList
@@ -57,7 +58,7 @@ public class OrderList extends HttpServlet {
 				user = userService.findByEmail(loggedUser);
 				orderList = orderService.getAllOrdersByUserId(user.getId());
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 			}
 
 			for (Order order : orderList) {
@@ -67,7 +68,7 @@ public class OrderList extends HttpServlet {
 				try {
 					orderProductList = new OrderProductService().getAllOrderProductsByOrderId(order.getId());
 				} catch (Exception e) {
-					e.printStackTrace();
+					Logger.error(e);
 				}
 
 				for (OrderProduct orderProduct : orderProductList) {
@@ -81,7 +82,7 @@ public class OrderList extends HttpServlet {
 							orderProductService.updateOrderStatusAndCancelDate(OrderStatus.DELIVERED,
 									orderProduct.getOrderId(), orderProduct.getMenuId(), orderProduct.getCategoryId(),null);
 						} catch (Exception e) {
-							e.printStackTrace();
+							Logger.error(e);
 						}
 
 					}
@@ -97,14 +98,5 @@ public class OrderList extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
 
 }

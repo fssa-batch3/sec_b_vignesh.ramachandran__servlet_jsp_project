@@ -19,6 +19,7 @@ import in.fssa.srcatering.model.AddressBook;
 import in.fssa.srcatering.model.User;
 import in.fssa.srcatering.service.AddressBookService;
 import in.fssa.srcatering.service.UserService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class AddressBook
@@ -49,7 +50,7 @@ public class AddressBookList extends HttpServlet {
 
 				addressList = addressBookService.getAllAddressesByUserId(user.getId());
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 			}
 		}
 
@@ -81,7 +82,7 @@ public class AddressBookList extends HttpServlet {
 				user = userService.findByEmail(loggedUser);
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 			}
 		}
 
@@ -117,7 +118,7 @@ public class AddressBookList extends HttpServlet {
 				}					
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 			}
 
 		} else if (("removeForm".equals(formName))) {
@@ -130,7 +131,7 @@ public class AddressBookList extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/user/address");
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 			}
 
 		}

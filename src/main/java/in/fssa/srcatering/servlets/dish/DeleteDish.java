@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import in.fssa.srcatering.exception.ServiceException;
 import in.fssa.srcatering.exception.ValidationException;
 import in.fssa.srcatering.service.DishService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class DeleteDish
@@ -37,7 +38,6 @@ public class DeleteDish extends HttpServlet {
 		if (selectedDishIds != null) {
 			
 			dishId = Integer.parseInt(request.getParameter("selectedDishes"));
-			System.out.println(dishId);
 			
 			DishService dishService = new DishService();
 			
@@ -47,8 +47,8 @@ public class DeleteDish extends HttpServlet {
 				response.sendRedirect(request.getContextPath()+"/dish/remove?menuId="+menuId+"&categoryId="+categoryId);
 
 			} catch (Exception e) {
-				e.printStackTrace();
-//				out.println(e.getMessage());
+				Logger.error(e);
+
 				out.println("<script>alert('"+e.getMessage()+"');</script>");
 				out.println("<script>window.history.back();</script>");
 			}

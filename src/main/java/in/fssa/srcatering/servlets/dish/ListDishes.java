@@ -20,12 +20,15 @@ import in.fssa.srcatering.model.Cart;
 import in.fssa.srcatering.model.Category;
 import in.fssa.srcatering.model.Dish;
 import in.fssa.srcatering.model.Menu;
+import in.fssa.srcatering.model.Review;
 import in.fssa.srcatering.model.User;
 import in.fssa.srcatering.service.CartService;
 import in.fssa.srcatering.service.CategoryService;
 import in.fssa.srcatering.service.DishService;
 import in.fssa.srcatering.service.MenuService;
+import in.fssa.srcatering.service.ReviewService;
 import in.fssa.srcatering.service.UserService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class ListDishes
@@ -45,11 +48,25 @@ public class ListDishes extends HttpServlet {
 		UserService userService = new UserService();
 		User user = null;
 		
+		CartService cartService = new CartService();
+		List<Cart> cartList = new ArrayList<>();
+		
+		List<Integer> menuIds = new ArrayList<>();
+		List<Integer> categoryIds = new ArrayList<>();
+		
 		if (loggedUser != null) {
 			try {
 				user = userService.findByEmail(loggedUser);
+				
+				cartList = cartService.getAllCartsByUserId(user.getId());
+				
+				for(Cart cart: cartList) {
+					menuIds.add(cart.getMenuId());
+					categoryIds.add(cart.getCategoryId());
+				}
+				
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 				
 			}
 		}
@@ -57,15 +74,22 @@ public class ListDishes extends HttpServlet {
 		DishService dishService = new DishService();
 		MenuService menuService = new MenuService();
 		CategoryService categoryService = new CategoryService();
-		CartService cartService = new CartService();
+		
+		ReviewService reviewService = new ReviewService();
 
 		int menuId = Integer.parseInt(request.getParameter("menuId"));
 		int categoryId = Integer.parseInt(request.getParameter("categoryId"));
 
 		Set<Dish> dishList = new HashSet<>();
 		Set<Menu> menuList = new HashSet<>();
-		List<Integer> menuIds = new ArrayList<>();
-		List<Integer> categoryIds = new ArrayList<>();
+		List<Review> reviewList = new ArrayList<>();
+		
+		try {
+			reviewList = reviewService.getAllReviewsByMenuIdAndCategoryId(menuId, categoryId);
+		} catch (Exception e) {
+			Logger.error(e);
+		}
+		
 	
 		try {
 			
@@ -77,13 +101,6 @@ public class ListDishes extends HttpServlet {
 
 			int totalPrice = categoryService.getTotalPriceOfTheCategoryByMenuIdAndCategoryId(menuId, categoryId);
 			
-			List<Cart> cartList = cartService.getAllCartsByUserId(user.getId());
-			
-			for(Cart cart: cartList) {
-				menuIds.add(cart.getMenuId());
-				categoryIds.add(cart.getCategoryId());
-			}
-			
 			request.setAttribute("dishList", dishList);
 			request.setAttribute("menu", menu);
 			request.setAttribute("menuList", menuList);
@@ -91,11 +108,16 @@ public class ListDishes extends HttpServlet {
 			request.setAttribute("totalPrice", totalPrice);
 			request.setAttribute("menuIds", menuIds);
 			request.setAttribute("categoryIds", categoryIds);
+			
+			if(reviewList.size() > 0) {
+				request.setAttribute("reviewList", reviewList);
+			}
+			
 			RequestDispatcher dispatcher = request.getRequestDispatcher("/dish_list.jsp");
 			dispatcher.forward(request, response);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e);
 
 			out.println("<script>alert('"+e.getMessage()+"');</script>");
 			out.println("<script>window.history.back();</script>");

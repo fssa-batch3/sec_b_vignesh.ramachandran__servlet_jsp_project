@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import in.fssa.srcatering.exception.ServiceException;
 import in.fssa.srcatering.exception.ValidationException;
 import in.fssa.srcatering.service.UserService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class Login
@@ -51,9 +52,10 @@ public class Login extends HttpServlet {
 			response.sendRedirect(request.getContextPath() + "/index"); 
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e);
 	
 			request.setAttribute("errorMessage", "Invalid Login Credentials");
+			
 			request.getRequestDispatcher("/login.jsp").forward(request, response);
 			
 		}

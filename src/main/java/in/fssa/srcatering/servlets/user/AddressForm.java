@@ -17,6 +17,7 @@ import in.fssa.srcatering.model.AddressBook;
 import in.fssa.srcatering.model.User;
 import in.fssa.srcatering.service.AddressBookService;
 import in.fssa.srcatering.service.UserService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class AddressForm
@@ -55,7 +56,7 @@ public class AddressForm extends HttpServlet {
 			User user = userService.findByEmail(loggedUser);
 			userId = user.getId();
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e);
 		}
 		
 		
@@ -99,7 +100,7 @@ public class AddressForm extends HttpServlet {
 			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e);
 			
 			String errorMessage = e.getMessage();
 			

@@ -54,7 +54,8 @@ span {
     width: 18.75rem;
     height: 18.75rem;
     border-radius: .625rem;
-    box-shadow: 0 .5rem 1.25rem black;
+   /*  box-shadow: 0 .5rem 1.25rem black; */
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 .menu-list_1 div {
     padding-top: 2rem;

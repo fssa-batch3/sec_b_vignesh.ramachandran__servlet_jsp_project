@@ -29,6 +29,7 @@ import in.fssa.srcatering.service.CategoryService;
 import in.fssa.srcatering.service.DishService;
 import in.fssa.srcatering.service.MenuService;
 import in.fssa.srcatering.service.UserService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class CreateCart
@@ -69,7 +70,7 @@ public class CreateCart extends HttpServlet {
 			try {
 				user = userService.findByEmail(loggedUser);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 			}
 		}
 
@@ -89,13 +90,13 @@ public class CreateCart extends HttpServlet {
 			
 			/* for exception handling */
 			
-			menu = menuService.findByMenuId(menuId);
-			menuList = menuService.getAllMenus();
-			category = categoryService.getCategoryByMenuIdAndCategoryId(menuId, categoryId);
-
-			dishList = dishService.getAllActiveDishesByMenuIdAndCategoryId(menuId, categoryId);
-
-			totalPrice = categoryService.getTotalPriceOfTheCategoryByMenuIdAndCategoryId(menuId, categoryId);
+//			menu = menuService.findByMenuId(menuId);
+//			menuList = menuService.getAllMenus();
+//			category = categoryService.getCategoryByMenuIdAndCategoryId(menuId, categoryId);
+//
+//			dishList = dishService.getAllActiveDishesByMenuIdAndCategoryId(menuId, categoryId);
+//
+//			totalPrice = categoryService.getTotalPriceOfTheCategoryByMenuIdAndCategoryId(menuId, categoryId);
 			
 			// create cart
 			cartService.createAddtoCart(cart);
@@ -104,7 +105,7 @@ public class CreateCart extends HttpServlet {
 			
 		} catch (Exception e) {
 			
-			e.printStackTrace();
+			Logger.error(e);
 			
 			String errorMessage = e.getMessage();
 			response.getWriter().print("<script>localStorage.setItem('errorMessage', '" + errorMessage + "');</script>");
@@ -121,19 +122,6 @@ public class CreateCart extends HttpServlet {
 //			response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
 //            response.getWriter().write(e.getMessage());
 			
-			
-			// printing value in the jsp
-			
-//			String errorMessage = e.getMessage();
-//			request.setAttribute("errorMessage", errorMessage);
-//
-//			request.setAttribute("dishList", dishList);
-//			request.setAttribute("menu", menu);
-//			request.setAttribute("menuList", menuList);
-//			request.setAttribute("category", category);
-//			request.setAttribute("totalPrice", totalPrice);
-//			RequestDispatcher dispatcher = request.getRequestDispatcher("/dish_list.jsp");
-//			dispatcher.forward(request, response);
 			
 		}
 

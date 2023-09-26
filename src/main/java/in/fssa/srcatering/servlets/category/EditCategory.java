@@ -18,6 +18,7 @@ import in.fssa.srcatering.model.Category;
 import in.fssa.srcatering.model.Menu;
 import in.fssa.srcatering.service.CategoryService;
 import in.fssa.srcatering.service.MenuService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class EditCategory
@@ -53,7 +54,7 @@ public class EditCategory extends HttpServlet {
 				dispatcher.forward(request, response);
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 				out.println(e.getMessage());
 			}
 
@@ -76,7 +77,7 @@ public class EditCategory extends HttpServlet {
 				dispatcher.forward(request, response);
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 				
 				out.println("<script>alert('"+ e.getMessage() +"');</script>");
 				out.println("<script>window.history.back();</script>");

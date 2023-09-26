@@ -40,6 +40,8 @@ function fillInAddress() {
   for (const component of place.address_components) {
     // @ts-ignore remove once typings fixed
     const componentType = component.types[0];
+    
+    //console.log(component);
 
     switch (componentType) {
       case "street_number": {
@@ -88,6 +90,10 @@ function fillInAddress() {
 }
 
 window.initAutocomplete = initAutocomplete;
+
+
+
+
 
 const mobileInput = document.getElementById("phone_number");
 const errorMessage = document.querySelector(".error");

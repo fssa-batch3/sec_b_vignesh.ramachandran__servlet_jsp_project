@@ -28,6 +28,7 @@ import in.fssa.srcatering.service.CategoryDishService;
 import in.fssa.srcatering.service.CategoryService;
 import in.fssa.srcatering.service.MenuService;
 import in.fssa.srcatering.service.UserService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class Mycart
@@ -54,7 +55,7 @@ public class Mycart extends HttpServlet {
 			try {
 				user = userService.findByEmail(loggedUser);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 			}
 
 			int userId = user.getId();
@@ -62,7 +63,7 @@ public class Mycart extends HttpServlet {
 			try {
 				cartList = cartService.getAllCartsByUserId(userId);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 			}
 
 			MenuService menuService = new MenuService();
@@ -81,7 +82,7 @@ public class Mycart extends HttpServlet {
 					menu = menuService.findByMenuId(cart.getMenuId());
 					category = categoryService.getCategoryByMenuIdAndCategoryId(cart.getMenuId(), cart.getCategoryId());
 				} catch (Exception e) {
-					e.printStackTrace();
+					Logger.error(e);
 					
 					String errorMessage = e.getMessage();
 					if (errorMessage != null && !errorMessage.isEmpty()) {
@@ -123,11 +124,10 @@ public class Mycart extends HttpServlet {
 			try {
 				cartService.updateCart(noOfGuest, deliveryDate1, cartId);
 
-//				out.println("<script>alert('Cart updated sucessfully');</script>");
 				out.println("<script>window.location.href='" + request.getContextPath() + "/mycart';</script>");
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 			}
 
 		} else if ("cartRemove".equals(formName)) {
@@ -141,7 +141,7 @@ public class Mycart extends HttpServlet {
 				out.println("<script>window.location.href='" + request.getContextPath() + "/mycart';</script>");
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 			}
 		}
 

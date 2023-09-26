@@ -72,10 +72,8 @@
 					<div>
 						<label for="password">Password :</label> <input type="text"
 							name="password" id="password"
-							pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-							value="<%=user1.getPassword()%>"
-							title="Must contain at least one number, one uppercase, lowercase and one symbol, and at least 8 or more characters"
-							required>
+							value="********"
+							readonly>
 					</div>
 
 					<!-- <div>

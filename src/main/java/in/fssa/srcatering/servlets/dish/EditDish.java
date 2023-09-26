@@ -21,6 +21,7 @@ import in.fssa.srcatering.model.Menu;
 import in.fssa.srcatering.service.CategoryService;
 import in.fssa.srcatering.service.DishService;
 import in.fssa.srcatering.service.MenuService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class EditDish
@@ -59,7 +60,7 @@ public class EditDish extends HttpServlet {
 //			dispatcher.forward(request, response);
 //			
 //		} catch (Exception e) {
-//			e.printStackTrace();
+//			Logger.error(e);
 //			out.println(e.getMessage());
 //		}
 		
@@ -87,7 +88,7 @@ public class EditDish extends HttpServlet {
 				dispatcher.forward(request, response);
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 			}
 
 		} else {
@@ -97,7 +98,6 @@ public class EditDish extends HttpServlet {
 			
 			DishService dishService = new DishService();
 			try {
-				System.out.println(menuId1+" "+categoryId1);
 				
 				Set<Dish> dishList = dishService.getAllDishesByMenuIdAndCategoryId(menuId1, categoryId1);
 				
@@ -111,7 +111,7 @@ public class EditDish extends HttpServlet {
 				dispatcher.forward(request, response);
 				
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 				
 				out.println("<script>alert('"+ e.getMessage() +"');</script>");
 				out.println("<script>window.history.back();</script>");

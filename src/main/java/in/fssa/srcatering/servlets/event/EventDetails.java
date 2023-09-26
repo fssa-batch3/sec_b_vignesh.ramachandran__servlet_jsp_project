@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import in.fssa.srcatering.exception.ServiceException;
 import in.fssa.srcatering.model.Menu;
 import in.fssa.srcatering.service.MenuService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class EventDetails
@@ -34,7 +35,7 @@ public class EventDetails extends HttpServlet {
 			
 			request.setAttribute("menuList", menuList);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e);
 			
 			out.println("<script>alert('"+e.getMessage()+"');</script>");
 			out.println("<script>window.history.back();</script>");
@@ -46,12 +47,6 @@ public class EventDetails extends HttpServlet {
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("/event.jsp");
 		dispatcher.forward(request, response);
-	}
-
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 
 }

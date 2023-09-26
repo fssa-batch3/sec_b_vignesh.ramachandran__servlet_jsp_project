@@ -14,6 +14,7 @@ import in.fssa.srcatering.exception.ServiceException;
 import in.fssa.srcatering.exception.ValidationException;
 import in.fssa.srcatering.model.AddressBook;
 import in.fssa.srcatering.service.AddressBookService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class AddressUpdate
@@ -41,7 +42,7 @@ public class AddressUpdate extends HttpServlet {
 				dispatcher.forward(request, response);
 				
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 			}
 		}
 	}
@@ -58,7 +59,7 @@ public class AddressUpdate extends HttpServlet {
 		try {
 			addressBook1 = addressBookService.getAddressByAddressId(addressId);
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e);
 		}
 		
 		String name = request.getParameter("name");
@@ -93,10 +94,8 @@ public class AddressUpdate extends HttpServlet {
 			
 			response.sendRedirect(request.getContextPath()+"/user/address");
 			
-			System.out.println("Address Updated sucessfully");
-			
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e);
 			
 			String errorMessage = e.getMessage();
 			out.println("<script>alert('" + errorMessage + "');</script>");

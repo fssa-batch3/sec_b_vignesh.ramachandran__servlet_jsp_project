@@ -34,7 +34,7 @@ span {
     padding: .5rem;
     border-radius: .3rem;
     color: var(--bg-color);
-    background-color:var(--second-color); 
+    background-color:rgb(31, 129, 210); 
     font-family: var(--parah-fontfamily);
     font-size: var(--p-font);
     font-weight: bold;

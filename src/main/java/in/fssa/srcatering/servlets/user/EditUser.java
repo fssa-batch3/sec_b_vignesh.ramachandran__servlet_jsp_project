@@ -14,6 +14,7 @@ import in.fssa.srcatering.exception.ServiceException;
 import in.fssa.srcatering.exception.ValidationException;
 import in.fssa.srcatering.model.User;
 import in.fssa.srcatering.service.UserService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class EditUser
@@ -28,15 +29,11 @@ public class EditUser extends HttpServlet {
 		
 		String email = (String) request.getSession().getAttribute("loggedUser");
 		
-		
-//		int id = Integer.parseInt(request.getParameter("userId"));
-		
 		UserService userService = new UserService();
 		
 		User user = null;
 		
 		try {
-//			user = userService.findByUserId(id);
 			user = userService.findByEmail(email);
 			
 			request.setAttribute("userDetails", user);
@@ -44,7 +41,7 @@ public class EditUser extends HttpServlet {
 			dispatcher.forward(request, response);
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.error(e);
 			out.println("<script>alert('"+ e.getMessage() +"');</script>");
 			out.println("<script>window.history.back();</script>");
 		} 

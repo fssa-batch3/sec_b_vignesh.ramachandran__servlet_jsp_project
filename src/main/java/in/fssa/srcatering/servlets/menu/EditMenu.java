@@ -16,6 +16,7 @@ import in.fssa.srcatering.exception.ServiceException;
 import in.fssa.srcatering.exception.ValidationException;
 import in.fssa.srcatering.model.Menu;
 import in.fssa.srcatering.service.MenuService;
+import in.fssa.srcatering.util.Logger;
 
 /**
  * Servlet implementation class EditMenu
@@ -43,7 +44,7 @@ public class EditMenu extends HttpServlet {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/update_menu.jsp");
 				dispatcher.forward(request, response);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 				out.println(e.getMessage());
 			}
 		} else {
@@ -59,7 +60,7 @@ public class EditMenu extends HttpServlet {
 				dispatcher.forward(request, response);
 
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.error(e);
 
 				out.println("<script>alert('"+ e.getMessage() +"');</script>");
 				out.println("<script>window.history.back();</script>");
