@@ -48,7 +48,7 @@
                         pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required>
                     <label>Phone Number: </label>
                     <input type="number" name="phone_number" placeholder="Enter your Mobile number" class="input_box" id="phone_number"
-                        title="Enter 10 number only" required>
+                        title="Enter 10 digit valid phoneNumber" required>
                     <div class="error">
 
                     </div>
@@ -62,7 +62,7 @@
                         <span class="upper_pass">one uppercase,</span>
                         <span class="lower_pass">one lowercase,</span>
                         <span class="symbol_pass">one symbol,</span>
-                        <span class="char_pass">and at least 8 or more characters</span>
+                        <span class="char_pass">and must 8 characters</span>
                     </div>
                     <label>Confirm Password: </label>
                     <input type="password" name="cnf_password" placeholder="Re-Enter your password" class="input_box" id="con_password"
@@ -202,9 +202,7 @@
        
         
 		const formId = document.getElementById("form_id");
-		
-		
-		
+
 	 	formId.addEventListener("submit", function(event){
 			
 	 		console.log(formId);
@@ -226,6 +224,11 @@
 			
 			if(password.trim() == ""){
 				alert("Password Cannot be empty");
+				event.preventDefault();
+			}
+			
+			if(password.length() < 8 || password.length() > 8){
+				alert("Password contains 8 characters only");
 				event.preventDefault();
 			}
 			

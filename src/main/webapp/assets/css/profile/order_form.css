@@ -59,18 +59,33 @@ span {
     text-align: center;
 }
 .details{
-    display: grid;
-    align-items: center;
+    display: flex;
+    flex-direction:column;
     gap: 2rem;
     padding: 4%;
 }
 
-
-.details div {
-    display: grid;
-    justify-items: center;
-    gap: 1.5rem;
+.details div{
+	display:flex;
+	flex-direction:column;
+	gap:1rem;
 }
+
+#address_event{
+	display:flex;
+	flex-direction: column;
+    flex-wrap: wrap;
+    gap:1rem;
+    position: sticky;
+    top:12%;
+}
+
+#address_event div{
+	display:grid;
+	gap:1rem;
+}
+
+
 .details div label {
     font-family: var(--parah-fontfamily);
     font-size: var(--p-font);
@@ -98,6 +113,11 @@ span {
     padding: 1rem;
     width: 80%;
     line-height: 1.875rem;
+}
+
+#address span{
+	font-family: var(--parah-fontfamily);
+    font-size: var(--p-font);
 }
 .order_details {
     display: grid;

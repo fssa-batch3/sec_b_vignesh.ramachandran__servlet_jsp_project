@@ -158,8 +158,8 @@
 				</label>
 
 				<div class="pincode_message">
-					<span>* Delivery is available exclusively within the state
-						of Tamil Nadu</span> <span>* Please provide a valid Tamil Nadu PIN
+					<span>Delivery is available exclusively within the state
+						of Tamil Nadu</span> <span>Please provide a valid Tamil Nadu PIN
 						code.</span>
 				</div>
 

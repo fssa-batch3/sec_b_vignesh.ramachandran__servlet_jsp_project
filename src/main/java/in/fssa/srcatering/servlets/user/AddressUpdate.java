@@ -99,7 +99,7 @@ public class AddressUpdate extends HttpServlet {
 			
 			String errorMessage = e.getMessage();
 			out.println("<script>alert('" + errorMessage + "');</script>");
-			response.sendRedirect(errorMessage);
+			out.println("<script>window.history.back();</script>");
 
 		}
 		

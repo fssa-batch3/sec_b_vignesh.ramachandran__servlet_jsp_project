@@ -83,4 +83,9 @@ section {
 	gap:1rem;
 	font-family: var(--parah-fontfamily);
 	font-size: 1rem;
+	align-items:center;
+}
+
+.pincode_message span {
+	color: grey;
 }

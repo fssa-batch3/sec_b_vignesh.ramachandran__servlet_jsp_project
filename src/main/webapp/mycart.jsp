@@ -114,18 +114,17 @@
 
 
 						<div class="btn_cart">
-
-							<a
-								href="<%=request.getContextPath()%>/order/create?cartId=<%=cart.getId()%>">
-								<button class="btn order" id="orderOne" type="submit">ORDER</button>
-							</a>
-
-
+						
 							<form action="mycart" method="post">
 								<input type="hidden" name="formName" value="cartRemove">
 								<input type="hidden" name="cartId" value="<%=cart.getId()%>">
 								<button class="btn remove" type="submit" type="button">REMOVE</button>
 							</form>
+
+							<a
+								href="<%=request.getContextPath()%>/order/create?cartId=<%=cart.getId()%>">
+								<button class="btn order" id="orderOne" type="submit">ORDER</button>
+							</a>
 
 						</div>
 						<p class="ensure">Please check the Delivery date and
@@ -300,6 +299,39 @@
 				}
 
 			});
+		});
+		
+		
+		const updateBtn = document.querySelectorAll(".update");
+		
+		updateBtn.forEach(function (update){
+			update.addEventListener("click", function(event){
+				
+				const parent_div = this.closest(".cart_content");
+				
+				const date = parent_div.querySelector("#date").value;
+				const guest = parent_div.querySelector(".number").value;
+				
+				if (guest < 50) {
+					alert("NoOfGuest cannot be less than 50");
+					event.preventDefault();
+					
+				} else if (guest > 1500) {
+					alert("NoOfGuest cannot be greater than 1500");
+					event.preventDefault();
+				}
+				
+				
+				if (date < min_date) {
+					alert("Delivery date should be atleast 7 days from now");
+					event.preventDefault();
+				} else if (date > max_date) {
+					alert("Delivery date should be within 2 months from now");
+					event.preventDefault();
+				}
+				
+			});
+			
 		});
 		
 		

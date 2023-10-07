@@ -64,6 +64,7 @@
 		
 			<form action="all" method="post" class="my-order_form" id="placeOrder">
 				<div class="details">
+					<div id="address_event">
 					<h2>CATERING ORDER</h2>
 					<h3>Personal Details</h3>
 
@@ -103,6 +104,7 @@
 					</div>
 
 					<button type="submit" class="btn submit">Order</button>
+					</div>
 
 				</div>
 

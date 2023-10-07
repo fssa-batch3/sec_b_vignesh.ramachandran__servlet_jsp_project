@@ -82,16 +82,9 @@
 							cols="27" required="true" readonly></textarea>
 					</div> -->
 
-					<div id="pattern" style="display: flex">
-						<span class="number_pass">Must contain at least one number,</span>
-						<span class="upper_pass">one uppercase,</span> <span
-							class="lower_pass">one lowercase,</span> <span
-							class="symbol_pass">one symbol,</span> <span class="char_pass">and
-							at least 8 or more characters</span>
-					</div>
 
 					<div id="div_AddBtn">
-						<button type="submit" class="edit btn">Save</button>
+						<button type="submit" class="save btn">Save</button>
 						<!-- <button class="btn addbtn">Address Book</button> -->
 					</div>
 

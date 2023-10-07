@@ -71,9 +71,6 @@
 					<button class="btn back" id="btn_back" type="button">Back</button>
 				</div>
 				
-				<input type="text" name="menuName" value="">
-				<input type="text" name="menuImage" value="">
-				<input type="text" name="description" value="">
 			</form>
 			<%
 			} else {
@@ -115,12 +112,6 @@
 	</main>
 	
 	<script>
-	
-	
-		
-	
-	
-	
 	
 		const btnBack = document.getElementById("btn_back");
 		

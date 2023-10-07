@@ -12,10 +12,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import in.fssa.srcatering.exception.ServiceException;
 import in.fssa.srcatering.exception.ValidationException;
 import in.fssa.srcatering.model.Menu;
 import in.fssa.srcatering.service.MenuService;
+import in.fssa.srcatering.servlets.entity.ResponseEntity;
 import in.fssa.srcatering.util.Logger;
 
 /**
@@ -48,6 +51,7 @@ public class EditMenu extends HttpServlet {
 				out.println(e.getMessage());
 			}
 		} else {
+			
 
 			int id = Integer.parseInt(request.getParameter("menuId"));
 
@@ -56,6 +60,7 @@ public class EditMenu extends HttpServlet {
 			try {
 				menu = menuService.findByMenuId(id);
 				request.setAttribute("menuDetails", menu);
+				
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/update_menu.jsp");
 				dispatcher.forward(request, response);
 
