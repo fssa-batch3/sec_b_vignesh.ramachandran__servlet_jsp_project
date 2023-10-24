@@ -39,7 +39,7 @@ public class OrderList extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		
+		PrintWriter out = response.getWriter();
 
 		HttpSession session = request.getSession();
 		String loggedUser = (String) session.getAttribute("loggedUser");
@@ -59,6 +59,8 @@ public class OrderList extends HttpServlet {
 				orderList = orderService.getAllOrdersByUserId(user.getId());
 			} catch (Exception e) {
 				Logger.error(e);
+				out.println("<script>alert('" + e.getMessage() + "');</script>");
+				out.println("<script>window.history.back()</script>");
 			}
 
 			for (Order order : orderList) {
@@ -69,6 +71,8 @@ public class OrderList extends HttpServlet {
 					orderProductList = new OrderProductService().getAllOrderProductsByOrderId(order.getId());
 				} catch (Exception e) {
 					Logger.error(e);
+					out.println("<script>alert('" + e.getMessage() + "');</script>");
+					out.println("<script>window.history.back()</script>");
 				}
 
 				for (OrderProduct orderProduct : orderProductList) {

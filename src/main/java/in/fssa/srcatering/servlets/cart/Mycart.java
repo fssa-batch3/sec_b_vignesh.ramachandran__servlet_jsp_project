@@ -56,6 +56,8 @@ public class Mycart extends HttpServlet {
 				user = userService.findByEmail(loggedUser);
 			} catch (Exception e) {
 				Logger.error(e);
+				out.println("<script>alert('" + e.getMessage() + "');</script>");
+				out.println("<script>window.history.back()</script>");
 			}
 
 			int userId = user.getId();
@@ -64,6 +66,8 @@ public class Mycart extends HttpServlet {
 				cartList = cartService.getAllCartsByUserId(userId);
 			} catch (Exception e) {
 				Logger.error(e);
+				out.println("<script>alert('" + e.getMessage() + "');</script>");
+				out.println("<script>window.history.back()</script>");
 			}
 
 			MenuService menuService = new MenuService();

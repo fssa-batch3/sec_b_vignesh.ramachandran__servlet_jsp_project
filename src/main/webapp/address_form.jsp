@@ -51,41 +51,44 @@
 				<h2>Address Form</h2>
 
 				<input type="hidden" name="addressId"
-					value="<%=addressBook.getId()%>"> <label class="full-field">
-					<span class="form-lable">Name</span> <input type="text" id="name"
+					value="<%=addressBook.getId()%>">
+				<label class="full-field" for="name">
+					<span class="form-lable">Name</span> 
+				<input type="text" id="name"
 					name="name" pattern="^[a-zA-Z\s]+$"
 					value="<%=addressBook.getName()%>" title="Enter alphabets only"
 					required>
-				</label> <label class="full-field"> <span class="form-label">Email</span>
+				</label> 
+				<label class="full-field" for="email"> <span class="form-label">Email</span>
 					<input type="email" id="email" name="email"
 					value="<%=addressBook.getEmail()%>"
 					pattern="^[A-Za-z0-9+_.-]+@(.+)$"
 					required>
-				</label> <label class="full-field"> <span class="form-label">Phone
+				</label> <label class="full-field" for="phone_number"> <span class="form-label">Phone
 						Number</span> <input type="tel" name="phone_number" id="phone_number"
 					value="<%=addressBook.getPhoneNumber()%>" required>
 				</label>
 
 				<div class="error"></div>
 
-				<label class="full-field"> <span class="form-label">Street
+				<label class="full-field" for="ship-address"> <span class="form-label">Street
 						Name*</span> <input id="ship-address" name="ship-address"
 					value="<%=addressBook.getStreetName()%>" required>
-				</label> <label class="full-field"> <span class="form-lable">Locality</span>
+				</label> <label class="full-field" for="sub_locality"> <span class="form-lable">Locality</span>
 					<input type="text" id="sub_locality" name="sub_locality"
 					value="<%=addressBook.getSubLocality()%>" required>
-				</label> <label class="full-field"> <span class="form-label">
+				</label> <label class="full-field" for="address2"> <span class="form-label">
 						Door.no </span> <input id="address2" type="text" name="address2"
 					value="<%=addressBook.getDoorNo()%>">
-				</label> <label class="full-field"> <span class="form-label">City</span>
+				</label> <label class="full-field" for="locality"> <span class="form-label">City</span>
 					<input id="locality" name="locality" pattern="^[a-zA-Z\s]+$"
 					value="<%=addressBook.getCity()%>" title="Enter alphabets only"
 					required>
-				</label> <label class="full-field"> <span class="form-label">District</span>
+				</label> <label class="full-field" for="district"> <span class="form-label">District</span>
 					<input id="district" name="district" pattern="^[a-zA-Z\s]+$"
 					value="<%=addressBook.getDistrict()%>" title="Enter alphabets only"
 					required>
-				</label> <label class="full-field"> <span class="form-label">State</span>
+				</label> <label class="full-field" for="state"> <span class="form-label">State</span>
 					<input id="state" name="state" pattern="TN"
 					value="<%=addressBook.getState()%>"
 					title="Sorry for the inconvenience. We are currntly available only in TamilNadu"
@@ -120,32 +123,32 @@
 					alt="logo" class="logo">
 				<h2>Address Form</h2>
 
-				<label class="full-field"> <span class="form-lable">Name</span>
+				<label class="full-field" for="name"> <span class="form-lable">Name</span>
 					<input type="text" id="name" name="name" pattern="^[a-zA-Z\s]+$"
 					title="Enter alphabets only" required>
-				</label> <label class="full-field"> <span class="form-label">Email</span>
+				</label> <label class="full-field" for="email"> <span class="form-label">Email</span>
 					<input type="email" id="email" name="email"
 					pattern="^[A-Za-z0-9+_.-]+@(.+)$" required>
-				</label> <label class="full-field"> <span class="form-label">Phone
+				</label> <label class="full-field" for="phone_number"> <span class="form-label">Phone
 						Number</span> <input type="tel" name="phone_number" id="phone_number"
 					required>
 				</label>
 
 				<div class="error"></div>
 
-				<label class="full-field"> <span class="form-label">Street
+				<label class="full-field" for="ship-address"> <span class="form-label">Street
 						Name*</span> <input id="ship-address" name="ship-address" required>
-				</label> <label class="full-field"> <span class="form-lable">Locality</span>
+				</label> <label class="full-field" for="sub_locality"> <span class="form-lable">Locality</span>
 					<input type="text" id="sub_locality" name="sub_locality" required>
-				</label> <label class="full-field"> <span class="form-label">
+				</label> <label class="full-field" for="address2"> <span class="form-label">
 						Door.no </span> <input type="text" id="address2" name="address2">
-				</label> <label class="full-field"> <span class="form-label">City</span>
+				</label> <label class="full-field" for="locality"> <span class="form-label">City</span>
 					<input id="locality" name="locality" pattern="^[a-zA-Z\s]+$"
 					title="Enter alphabets only" required>
-				</label> <label class="full-field"> <span class="form-label">District</span>
+				</label> <label class="full-field" for=district> <span class="form-label">District</span>
 					<input id="district" name="district" pattern="^[a-zA-Z\s]+$"
 					title="Enter alphabets only" required>
-				</label> <label class="full-field"> <span class="form-label">State</span>
+				</label> <label class="full-field" for="state"> <span class="form-label">State</span>
 					<input id="state" name="state" pattern="TN"
 					title="Sorry for the inconvenience. We are currntly available only in TamilNadu so Enter TN"
 					required>

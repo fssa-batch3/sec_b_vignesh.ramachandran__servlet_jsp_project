@@ -32,7 +32,8 @@ public class DeleteUser extends HttpServlet {
 			response.sendRedirect(request.getContextPath()+"/users");
 		} catch (Exception e) {
 			Logger.error(e);
-			out.println(e.getMessage());
+			out.println("<script>alert('" + e.getMessage() + "');</script>");
+			out.println("<script>window.history.back()</script>");
 		} 
 
 	}

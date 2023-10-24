@@ -54,6 +54,8 @@ public class CreateOrder extends HttpServlet {
 				user = userService.findByEmail(loggedUser);
 			} catch (Exception e) {
 				Logger.error(e);
+				out.println("<script>alert('" + e.getMessage() + "');</script>");
+				out.println("<script>window.history.back()</script>");
 			}
 		}
 
@@ -66,6 +68,8 @@ public class CreateOrder extends HttpServlet {
 				addressBook = addressBookService.getDefaultAddressByUserId(user.getId());
 			} catch (Exception e) {
 				Logger.error(e);
+				out.println("<script>alert('" + e.getMessage() + "');</script>");
+				out.println("<script>window.history.back()</script>");
 			}
 
 		}

@@ -42,6 +42,7 @@ public class UpdateDish extends HttpServlet {
 
 		if (selectedDishIds != null) {
 			boolean flag = true;
+			
 			for (String dishId : selectedDishIds) {
 
 				int id = Integer.parseInt(dishId);

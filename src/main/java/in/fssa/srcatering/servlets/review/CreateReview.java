@@ -55,6 +55,8 @@ public class CreateReview extends HttpServlet {
 			user = new UserService().findByEmail(loggedUser);
 		} catch (Exception e) {
 			Logger.error(e);
+			out.println("<script>alert('" + e.getMessage() + "');</script>");
+			out.println("<script>window.history.back()</script>");
 		}
 		
 		int userId = user.getId();

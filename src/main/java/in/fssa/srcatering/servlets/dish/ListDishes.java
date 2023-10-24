@@ -67,7 +67,8 @@ public class ListDishes extends HttpServlet {
 				
 			} catch (Exception e) {
 				Logger.error(e);
-				
+				out.println("<script>alert('" + e.getMessage() + "');</script>");
+				out.println("<script>window.history.back()</script>");
 			}
 		}
 		
@@ -88,6 +89,8 @@ public class ListDishes extends HttpServlet {
 			reviewList = reviewService.getAllReviewsByMenuIdAndCategoryId(menuId, categoryId);
 		} catch (Exception e) {
 			Logger.error(e);
+			out.println("<script>alert('" + e.getMessage() + "');</script>");
+			out.println("<script>window.history.back()</script>");
 		}
 		
 	

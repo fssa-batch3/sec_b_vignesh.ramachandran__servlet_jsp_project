@@ -36,7 +36,7 @@ public class CreateCategory extends HttpServlet {
 		
 		category.setCategoryName(categoryName);
 		category.setImage(categoryImage);
-		category.setMenu_id(menuId);
+		category.setMenuId(menuId);
 		
 		try {
 			categoryService.createCategory(category);

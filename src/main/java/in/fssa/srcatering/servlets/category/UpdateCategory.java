@@ -35,7 +35,7 @@ public class UpdateCategory extends HttpServlet {
 		String image = request.getParameter("category_image");
 		
 		Category category = new Category();
-		category.setMenu_id(menuId);
+		category.setMenuId(menuId);
 		category.setId(categoryId);
 		category.setImage(image);
 		category.setCategoryName(category_name);
@@ -51,9 +51,11 @@ public class UpdateCategory extends HttpServlet {
 
 		} catch (Exception e) {
 			Logger.error(e);
+			out.println("<script>alert('" + e.getMessage() + "');</script>");
+			out.println("<script>window.history.back()</script>");
 			
-			String redirectURL = request.getContextPath() + "/category/edit";
-			out.println("<script>alert('"+ e.getMessage() +"');window.location.href='" + redirectURL +"';</script>");
+//			String redirectURL = request.getContextPath() + "/category/edit";
+//			out.println("<script>alert('"+ e.getMessage() +"');window.location.href='" + redirectURL +"';</script>");
 		} 
 
 	}

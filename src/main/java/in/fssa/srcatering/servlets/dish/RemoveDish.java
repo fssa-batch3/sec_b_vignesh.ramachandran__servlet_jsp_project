@@ -31,6 +31,8 @@ public class RemoveDish extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		PrintWriter out = response.getWriter();
 
 		String menuId = request.getParameter("menuId");
 		String categoryId = request.getParameter("categoryId");
@@ -55,10 +57,11 @@ public class RemoveDish extends HttpServlet {
 
 			} catch (Exception e) {
 				Logger.error(e);
+				out.println("<script>alert('" + e.getMessage() + "');</script>");
+				out.println("<script>window.history.back()</script>");
 			}
 
 		} else {
-			PrintWriter out = response.getWriter();
 
 			int menuId1 = Integer.parseInt(menuId);
 			int categoryId1 = Integer.parseInt(categoryId);
@@ -77,6 +80,8 @@ public class RemoveDish extends HttpServlet {
 				dispatcher.forward(request, response);
 			} catch (Exception e) {
 				Logger.error(e);
+				out.println("<script>alert('" + e.getMessage() + "');</script>");
+				out.println("<script>window.history.back()</script>");
 			} 
 		}
 

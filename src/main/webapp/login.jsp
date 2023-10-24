@@ -45,11 +45,12 @@
 					<span>Log</span> In
 				</h2>
 
-				<label>Email ID: </label> <input type="email" name="email"
+				<label for="email">Email ID: </label> <input type="email" name="email"
 					for="email" placeholder="Enter your email" class="input_box"
 					id="email"
 					pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
-					required> <label>Password: </label> <input type="password"
+					required> 
+				<label for="password">Password: </label> <input type="password"
 					name="password" placeholder="Enter your password" class="input_box"
 					id="password" required="true">
 				

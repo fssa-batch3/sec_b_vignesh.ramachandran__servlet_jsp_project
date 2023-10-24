@@ -232,7 +232,7 @@ public class OrderAll extends HttpServlet {
 
 			try {
 
-				new CartService().deleteAllCart();
+				new CartService().deleteAllCart(user.getId());
 
 				out.println("<script type=\"text/javascript\">");
 				out.println("alert(\"Order placed Successfully\");");

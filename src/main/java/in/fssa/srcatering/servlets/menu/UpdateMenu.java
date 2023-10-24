@@ -52,8 +52,10 @@ public class UpdateMenu extends HttpServlet {
 
 		} catch (Exception e) {
 			Logger.error(e);
-			String redirectURL = request.getContextPath() + "/menu/edit";
-			out.println("<script>alert('"+ e.getMessage() +"');window.location.href='" + redirectURL +"';</script>");
+			out.println("<script>alert('" + e.getMessage() + "');</script>");
+			out.println("<script>window.history.back()</script>");
+//			String redirectURL = request.getContextPath() + "/menu/edit";
+//			out.println("<script>alert('"+ e.getMessage() +"');window.location.href='" + redirectURL +"';</script>");
 		} 
 		
 		

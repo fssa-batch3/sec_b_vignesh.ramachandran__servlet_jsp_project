@@ -25,6 +25,8 @@ public class AddressUpdate extends HttpServlet {
        
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		PrintWriter out = response.getWriter();
 
 		String addressId = (String) request.getParameter("addressId");
 		
@@ -43,6 +45,8 @@ public class AddressUpdate extends HttpServlet {
 				
 			} catch (Exception e) {
 				Logger.error(e);
+				out.println("<script>alert('" + e.getMessage() + "');</script>");
+				out.println("<script>window.history.back()</script>");
 			}
 		}
 	}
@@ -60,6 +64,8 @@ public class AddressUpdate extends HttpServlet {
 			addressBook1 = addressBookService.getAddressByAddressId(addressId);
 		} catch (Exception e) {
 			Logger.error(e);
+			out.println("<script>alert('" + e.getMessage() + "');</script>");
+			out.println("<script>window.history.back()</script>");
 		}
 		
 		String name = request.getParameter("name");

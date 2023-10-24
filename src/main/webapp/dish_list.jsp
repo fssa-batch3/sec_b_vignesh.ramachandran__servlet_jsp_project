@@ -130,7 +130,7 @@
 							Add to Cart 
 						</button>
 	
-						<button class="buy_now" onclick="showLoginAlert()">Buy Now</button>
+						<button class="buy_now" onclick="showBuyNowAlert()">Buy Now</button>
 					
 					<%
 					}
@@ -298,6 +298,10 @@
 			alert("Please login to add items to your cart.");
 		}
 		
+		function showBuyNowAlert() {
+			alert("Please login to order menu.");
+		}
+		
 		/* if(document.getElementById("error_message")){
 			let value = document.getElementById("error_message").innerText;
 			alert(value);
@@ -310,14 +314,24 @@
 			localStorage.removeItem("errorMessage");
 		}
 		
-		
-		const gotoCartBtn = document.querySelector(".go_to_cart");
-		
-		gotoCartBtn.addEventListener("click", function(event){
+		if(document.querySelector(".go_to_cart")){
+			const gotoCartBtn = document.querySelector(".go_to_cart");
 			
-			event.preventDefault();
-			window.location.href="<%=request.getContextPath()%>/mycart";
-			
+			gotoCartBtn.addEventListener("click", function(event){
+				
+				event.preventDefault();
+				window.location.href="<%=request.getContextPath()%>/mycart";
+				
+			});
+		}
+		
+		document.addEventListener("DOMContentLoaded", function () {
+		    var revUserElements = document.querySelectorAll(".rev_user");
+		    console.log(revUserElements);
+
+		    if (revUserElements.length <= 4) {
+		        document.querySelector(".rating").style.justifyContent = "center";
+		    }
 		});
 
 	</script>

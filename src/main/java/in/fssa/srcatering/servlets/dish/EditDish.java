@@ -89,6 +89,8 @@ public class EditDish extends HttpServlet {
 
 			} catch (Exception e) {
 				Logger.error(e);
+				out.println("<script>alert('" + e.getMessage() + "');</script>");
+				out.println("<script>window.history.back()</script>");
 			}
 
 		} else {

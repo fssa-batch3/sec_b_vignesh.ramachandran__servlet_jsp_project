@@ -40,19 +40,19 @@
                     <h2 class="name_register">
                         <span>Register</span> Here
                     </h2>
-                    <label>Name: </label>
+                    <label for="name">Name: </label>
                     <input type="text" name="name" placeholder="Enter your name" class="input_box" id="name" pattern="^[a-zA-Z\s]+$"
                         title="Enter alphabets only" required>
-                    <label>Email ID: </label>
+                    <label for="email">Email ID: </label>
                     <input type="email" name="email" for="email" placeholder="Enter your email" class="input_box" id="email"
                         pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required>
-                    <label>Phone Number: </label>
+                    <label for="phone_number">Phone Number: </label>
                     <input type="number" name="phone_number" placeholder="Enter your Mobile number" class="input_box" id="phone_number"
                         title="Enter 10 digit valid phoneNumber" required>
                     <div class="error">
 
                     </div>
-                    <label>Create Password: </label>
+                    <label for="password">Create Password: </label>
                     <input type="password" name="password" placeholder="Enter your password" class="input_box" id="password"
                         pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                         title="Must contain at least one number, one uppercase, lowercase and one symbol, and must 8 characters"
@@ -64,7 +64,7 @@
                         <span class="symbol_pass">one symbol,</span>
                         <span class="char_pass">and must 8 characters</span>
                     </div>
-                    <label>Confirm Password: </label>
+                    <label for="con_password">Confirm Password: </label>
                     <input type="password" name="cnf_password" placeholder="Re-Enter your password" class="input_box" id="con_password"
                         required>
                     <div class="forget">
@@ -81,33 +81,6 @@
             <!-- register form ends -->
         </main>
         <!-- main ends -->
-
-
-	
-
-<!-- 	<div class="register-form">
-		<h2 class="name_register">
-			<span>Register</span> Here
-		</h2>
-		<form action="create" method="post">
-			<label for="name">Name:</label> 
-			<input type="text" name="name" required> 
-			
-			<label for="email">Email ID:</label> 
-			<input type="email" name="email" required> 
-			
-			<label for="phone_number">Phone Number:</label> 
-			<input type="text"
-				name="phone_number" required> 
-			<label>Create
-				Password:</label> <input type="password" name="password" required>
-			<label>Confirm Password:</label> <input type="password"
-				name="cnf_password" required>
-			<button type="submit">Register</button>
-		</form>
-		
-		<a href="login">Existing User?</a>
-	</div> -->
 	
 	<script>
         const mobileInput = document.getElementById("phone_number");
