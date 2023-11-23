@@ -599,7 +599,6 @@
 			        }else if (selectedValue === "All"){
 			        	order.style.display = "block";
 			        }else {
-			        	console.log("coming catering orders");
 			          order.style.display = "none";
 			        }
 			      });

@@ -50,47 +50,6 @@ public class Index extends HttpServlet {
 			out.println(e.getMessage());
 		}
 		
-//		request.setAttribute("menuList", menuList);
-//
-//		RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-//		dispatcher.forward(request, response);
-
-//		UserService userService = new UserService();
-//
-//		HttpSession session = request.getSession();
-//		String loggedUser = (String) session.getAttribute("loggedUser");
-//
-//		if (loggedUser != null) {
-//			try {
-//				User user = (User) userService.findByEmail(loggedUser);
-//				
-//				menuList = menuService.getAllActiveMenus();
-//
-//				request.setAttribute("user", user);
-//				request.setAttribute("menuList", menuList);
-//
-//				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-//				dispatcher.forward(request, response);
-//
-//			} catch (Exception e) {
-//				Logger.error(e);
-//				out.println(e.getMessage());
-//			} 
-//		} else {
-//			try {
-//				
-//				menuList = menuService.getAllActiveMenus();
-//				
-//				request.setAttribute("menuList", menuList);
-//
-//				RequestDispatcher dispatcher = request.getRequestDispatcher("/index.jsp");
-//				dispatcher.forward(request, response);
-//
-//			} catch (Exception e) {
-//				Logger.error(e);
-//				out.println(e.getMessage());
-//			}
-//		}
 
 	}
 

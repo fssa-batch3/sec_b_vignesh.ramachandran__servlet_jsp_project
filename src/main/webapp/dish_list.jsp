@@ -196,13 +196,15 @@
 				
 				</div>
 				
-				<%if(reviewList != null){ 
-					for(Review review : reviewList){
+				<%if(reviewList != null){ %>
+					
+					<div class="rating">
+					
+				<%	for(Review review : reviewList){
 					
 					User user = new UserService().findByUserId(review.getUserId());
 				%>
-					<div class="rating">
-					
+				
 						<div class="rev_user">
 							<div class="user_pic">
 								<img src="<%=request.getContextPath() %>/assets/img/profile.png" alt="profile_image">
@@ -242,8 +244,10 @@
 							</script>						
 						</div>
 					
-					</div>
+					
 					<%} %>
+					
+					</div>
 				<%} %>
 				
 				
